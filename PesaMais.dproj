@@ -200,7 +200,16 @@
         <DCCReference Include="Model\PesaMais.Model.Estado.pas"/>
         <DCCReference Include="Model\PesaMais.Model.Cidade.pas"/>
         <DCCReference Include="Model\PesaMais.Model.Endereco.pas"/>
+<<<<<<< HEAD
         <DCCReference Include="Model\PesaMais.Model.Bairros.pas"/>
+=======
+        <DCCReference Include="Model\Connection\PesaMais.Model.Connection.DmConnection.pas">
+            <Form>Connection</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
+>>>>>>> 74d9957c6e06573b9b07a58a1b67b73d5138915c
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
