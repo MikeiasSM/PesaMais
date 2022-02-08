@@ -11,7 +11,8 @@ uses
   PesaMais.Model.Endereco in 'src\Model\PesaMais.Model.Endereco.pas',
   PesaMais.Model.Estado in 'src\Model\PesaMais.Model.Estado.pas',
   PesaMais.Model.Pessoa in 'src\Model\PesaMais.Model.Pessoa.pas',
-  PesaMais.Model.Usuario in 'src\Model\PesaMais.Model.Usuario.pas';
+  PesaMais.Model.Usuario in 'src\Model\PesaMais.Model.Usuario.pas',
+  PesaMais.Model.Dao.DaoEstado in 'src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas';
 
 uses
   System.StartUpCopy,

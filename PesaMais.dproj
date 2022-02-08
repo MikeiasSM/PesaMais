@@ -207,6 +207,7 @@
         <DCCReference Include="src\Model\PesaMais.Model.Estado.pas"/>
         <DCCReference Include="src\Model\PesaMais.Model.Pessoa.pas"/>
         <DCCReference Include="src\Model\PesaMais.Model.Usuario.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
