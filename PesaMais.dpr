@@ -8,7 +8,8 @@ uses
   PesaMais.Model.Usuario in 'Model\PesaMais.Model.Usuario.pas',
   PesaMais.Model.Estado in 'Model\PesaMais.Model.Estado.pas',
   PesaMais.Model.Cidade in 'Model\PesaMais.Model.Cidade.pas',
-  PesaMais.Model.Endereco in 'Model\PesaMais.Model.Endereco.pas';
+  PesaMais.Model.Endereco in 'Model\PesaMais.Model.Endereco.pas',
+  PesaMais.Model.Bairros in 'Model\PesaMais.Model.Bairros.pas';
 
 {$R *.res}
 
