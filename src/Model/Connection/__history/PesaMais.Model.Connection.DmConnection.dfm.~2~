@@ -1,0 +1,21 @@
+object DataModule1: TDataModule1
+  Height = 173
+  Width = 205
+  PixelsPerInch = 96
+  object FConnection: TFDConnection
+    Params.Strings = (
+      'Database=C:\PesaMais\Database\PESAMAIS.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'CharacterSet=WIN1252'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 40
+    Top = 56
+  end
+  object FQuery: TFDQuery
+    Connection = FConnection
+    Left = 120
+    Top = 56
+  end
+end

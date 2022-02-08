@@ -1,0 +1,36 @@
+unit PesaMais.Model.Endereco;
+
+interface
+type
+  TEstado = class
+
+  private
+
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New  : TEstado;
+
+  end;
+
+implementation
+
+{ TEstado }
+
+constructor TEstado.Create;
+begin
+
+end;
+
+destructor TEstado.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TEstado.New: TEstado;
+begin
+  Result := Self.Create;
+end;
+
+end.

@@ -1,0 +1,76 @@
+unit PesaMais.Model.Connection.DmConnection;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.FMXUI.Wait,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet;
+
+type
+  DataModule1 = class(TDataModule)
+    FDConnection: TFDConnection;
+    FDQuery: TFDQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure PrepareStatement(aSQL: String);
+    procedure SetValue(aIndex: Integer; aValue: Variant);
+    procedure ExecSQL;
+    procedure StartTransation;
+    procedure Commit;
+    procedure Rollback;
+  end;
+
+var
+  DataModule1: TDataModule;
+
+implementation
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+
+procedure DataModule1.Commit;
+begin
+  FDConnection.Commit;
+end;
+
+procedure DataModule1.DataModuleCreate(Sender: TObject);
+begin
+  FDConnection.Connected := true;
+end;
+
+procedure DataModule1.ExecSQL;
+begin
+  FDQuery.ExecSQL;
+end;
+
+procedure DataModule1.PrepareStatement(aSQL: String);
+begin
+  FDQuery.SQL.Clear;
+  FDQuery.SQL.Add(aSQL);
+end;
+
+procedure DataModule1.Rollback;
+begin
+  FDConnection.Rollback;
+end;
+
+procedure DataModule1.SetValue(aIndex: Integer; aValue: Variant);
+begin
+  FDQuery.Params.Add;
+  FDQuery.Params[aIndex].Value := aValue;
+end;
+
+procedure DataModule1.StartTransation;
+begin
+  FDConnection.StartTransaction;
+end;
+
+end.

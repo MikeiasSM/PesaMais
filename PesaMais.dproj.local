@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/01/07 19:10:39.000.343,=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/02/08 17:16:33.402,=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/02/08 17:16:59.839,C:\PesaMais\Project\src\View\PesaMais.View.Principal.fmx=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2022/02/08 17:16:59.839,C:\PesaMais\Project\src\View\PesaMais.View.Principal.pas=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/02/08 17:17:10.277,C:\PesaMais\Project\PesaMais.dproj=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/02/08 17:17:27.152,=C:\PesaMais\Project\Model\PesaMais.Model.Bairros.pas</Transaction>
+    <Transaction>2022/02/08 17:17:27.277,=C:\PesaMais\Project\Model\PesaMais.Model.Cidade.pas</Transaction>
+    <Transaction>2022/02/08 17:17:27.403,=C:\PesaMais\Project\Model\PesaMais.Model.Endereco.pas</Transaction>
+    <Transaction>2022/02/08 17:17:27.495,=C:\PesaMais\Project\Model\PesaMais.Model.Estado.pas</Transaction>
+    <Transaction>2022/02/08 17:17:27.589,=C:\PesaMais\Project\Model\PesaMais.Model.Pessoa.pas</Transaction>
+    <Transaction>2022/02/08 17:17:27.684,=C:\PesaMais\Project\Model\PesaMais.Model.Usuario.pas</Transaction>
+    <Transaction>2022/02/08 17:17:37.762,=C:\PesaMais\Project\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas</Transaction>
+    <Transaction>2022/02/08 17:17:50.480,=C:\PesaMais\Project\Model\Connection\PesaMais.Model.Connection.DmConnection.pas</Transaction>
+    <Transaction>2022/02/08 17:19:35.336,=C:\PesaMais\Project\src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas</Transaction>
+    <Transaction>2022/02/08 17:19:46.383,=C:\PesaMais\Project\src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.351,=C:\PesaMais\Project\src\Model\PesaMais.Model.Bairros.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.445,=C:\PesaMais\Project\src\Model\PesaMais.Model.Cidade.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.586,=C:\PesaMais\Project\src\Model\PesaMais.Model.Endereco.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.742,=C:\PesaMais\Project\src\Model\PesaMais.Model.Estado.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.882,=C:\PesaMais\Project\src\Model\PesaMais.Model.Pessoa.pas</Transaction>
+    <Transaction>2022/02/08 17:20:03.977,=C:\PesaMais\Project\src\Model\PesaMais.Model.Usuario.pas</Transaction>
+  </Transactions>
+</BorlandProject>

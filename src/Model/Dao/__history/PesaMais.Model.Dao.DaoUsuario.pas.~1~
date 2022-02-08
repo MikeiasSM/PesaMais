@@ -1,0 +1,7 @@
+unit PesaMais.Model.Dao.DaoUsuario;
+
+interface
+
+implementation
+
+end.

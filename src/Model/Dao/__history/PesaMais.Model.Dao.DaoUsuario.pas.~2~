@@ -1,0 +1,64 @@
+unit PesaMais.Model.Dao.DaoUsuario;
+
+interface
+
+uses
+  PesaMais.Model.Connection.DmConnection, PesaMais.Model.Usuario;
+type
+  TDaoUsuario = class
+
+    private
+      FConnection : TConnection;
+    public
+      constructor Create;
+      destructor Destroy; override;
+
+      procedure Insert(pUsuario : TUsuario);
+      procedure Update(pUsuario : TUsuario);
+      procedure Delete(pUsuario : TUsuario);
+
+  end;
+
+implementation
+
+{ TDaoUsuario }
+
+constructor TDaoUsuario.Create;
+begin
+  FConnection := TConnection.Create(nil);
+end;
+
+procedure TDaoUsuario.Delete(pUsuario: TUsuario);
+begin
+
+end;
+
+destructor TDaoUsuario.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TDaoUsuario.Insert(pUsuario: TUsuario);
+begin
+  FConnection.StartTransation;
+  try
+    FConnection.PrepareStatement('INSERT INTO (NOME, SENHA, ATIVO) VALUES (?, ?, ?)');
+    FConnection.SetValue(0, pUsuario.Nome);
+    FConnection.SetValue(1, pUsuario.Senha);
+    FConnection.SetValue(2, pUsuario.Ativo);
+    FConnection.ExecSQL;
+    FConnection.Commit;
+  finally
+    FConnection.Rollback;
+  end;
+
+end;
+
+procedure TDaoUsuario.Update(pUsuario: TUsuario);
+
+begin
+
+end;
+
+end.
