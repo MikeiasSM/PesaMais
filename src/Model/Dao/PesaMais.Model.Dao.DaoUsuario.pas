@@ -3,7 +3,8 @@ unit PesaMais.Model.Dao.DaoUsuario;
 interface
 
 uses
-  PesaMais.Model.Connection.DmConnection, PesaMais.Model.Usuario;
+  PesaMais.Model.Connection.DmConnection;
+
 type
   TDaoUsuario = class
 

@@ -195,21 +195,18 @@
             <Form>frmMain</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="Model\PesaMais.Model.Pessoa.pas"/>
-        <DCCReference Include="Model\PesaMais.Model.Usuario.pas"/>
-        <DCCReference Include="Model\PesaMais.Model.Estado.pas"/>
-        <DCCReference Include="Model\PesaMais.Model.Cidade.pas"/>
-        <DCCReference Include="Model\PesaMais.Model.Endereco.pas"/>
-<<<<<<< HEAD
-        <DCCReference Include="Model\PesaMais.Model.Bairros.pas"/>
-=======
-        <DCCReference Include="Model\Connection\PesaMais.Model.Connection.DmConnection.pas">
+        <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas">
             <Form>Connection</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
->>>>>>> 74d9957c6e06573b9b07a58a1b67b73d5138915c
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Bairros.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Cidade.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Endereco.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Estado.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Pessoa.pas"/>
+        <DCCReference Include="src\Model\PesaMais.Model.Usuario.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -1055,9 +1052,9 @@
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
