@@ -36,7 +36,7 @@ begin
     FConnection.SetValue(0, pEstado.Id_estado);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+  Except
     FConnection.Rollback;
   end;
 end;
@@ -56,7 +56,7 @@ begin
     FConnection.SetValue(1, pEstado.Uf);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+  Except
     FConnection.Rollback;
   end;
 end;
@@ -71,7 +71,7 @@ begin
     FConnection.SetValue(2, pEstado.Id_estado);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+  Except
     FConnection.Rollback;
   end;
 end;

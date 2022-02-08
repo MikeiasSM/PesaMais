@@ -3,7 +3,7 @@ unit PesaMais.Model.Dao.DaoUsuario;
 interface
 
 uses
-  PesaMais.Model.Connection.DmConnection;
+  PesaMais.Model.Connection.DmConnection, PesaMais.Model.Usuario;
 
 type
   TDaoUsuario = class
@@ -17,7 +17,7 @@ type
       destructor Destroy; override;
 
       {** METODOS PUBLICOS DE ACESSO A DADOS **}
-      procedure Insert(pUsuario : TUsuario);
+      function Insert(pUsuario : TUsuario) : Boolean;
       procedure Update(pUsuario : TUsuario);
       procedure Delete(pUsuario : TUsuario);
 
@@ -43,7 +43,7 @@ FConnection.StartTransation;
     FConnection.SetValue(0, pUsuario.id_usuario);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+  Except
     FConnection.Rollback;
   end;
 end;
@@ -54,7 +54,7 @@ begin
   inherited;
 end;
 
-procedure TDaoUsuario.Insert(pUsuario: TUsuario);
+function TDaoUsuario.Insert(pUsuario: TUsuario) : Boolean;
 begin
   FConnection.StartTransation;
   try
@@ -64,8 +64,10 @@ begin
     FConnection.SetValue(2, pUsuario.Ativo);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+    Result := true;
+  Except
     FConnection.Rollback;
+    Result := false;
   end;
 
 end;
@@ -81,7 +83,7 @@ FConnection.StartTransation;
     FConnection.SetValue(3,pUsuario.id_usuario);
     FConnection.ExecSQL;
     FConnection.Commit;
-  finally
+  Except
     FConnection.Rollback;
   end;
 end;
