@@ -2,8 +2,8 @@ object frmMain: TfrmMain
   Left = 0
   Top = 0
   Caption = 'Pesa + ERP'
-  ClientHeight = 212
-  ClientWidth = 470
+  ClientHeight = 392
+  ClientWidth = 336
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,34 +11,66 @@ object frmMain: TfrmMain
   object txtCod: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 2
-    Position.X = 96.000000000000000000
-    Position.Y = 72.000000000000000000
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
   end
   object txtNome: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 0
-    Position.X = 96.000000000000000000
-    Position.Y = 102.000000000000000000
+    Position.X = 16.000000000000000000
+    Position.Y = 46.000000000000000000
     Size.Width = 225.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
   end
   object btnGravar: TButton
-    Position.X = 288.000000000000000000
-    Position.Y = 132.000000000000000000
+    Anchors = [akRight, akBottom]
+    Position.X = 102.000000000000000000
+    Position.Y = 356.000000000000000000
     Size.Width = 105.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 3
     Text = 'Gravar'
+    OnClick = btnGravarClick
   end
   object txtUF: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 1
-    Position.X = 329.000000000000000000
-    Position.Y = 102.000000000000000000
+    Position.X = 249.000000000000000000
+    Position.Y = 46.000000000000000000
     Size.Width = 64.000000000000000000
     Size.Height = 22.000000000000000000
     Size.PlatformDefault = False
+  end
+  object Deletar: TButton
+    Anchors = [akRight, akBottom]
+    Position.X = 214.000000000000000000
+    Position.Y = 356.000000000000000000
+    Size.Width = 105.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'Deletar'
+    OnClick = DeletarClick
+  end
+  object Listar: TButton
+    Position.X = 16.000000000000000000
+    Position.Y = 356.000000000000000000
+    TabOrder = 5
+    Text = 'Listar'
+    OnClick = ListarClick
+  end
+  object ListEstado: TListView
+    ItemAppearanceClassName = 'TListItemAppearance'
+    ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Position.X = 8.000000000000000000
+    Position.Y = 80.000000000000000000
+    Size.Width = 321.000000000000000000
+    Size.Height = 265.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
   end
 end

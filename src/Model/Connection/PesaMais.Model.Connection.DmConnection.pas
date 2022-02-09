@@ -3,16 +3,33 @@ unit PesaMais.Model.Connection.DmConnection;
 interface
 
 uses
-  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
-  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.FMXUI.Wait,
-  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  System.SysUtils,
+  System.Classes,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.FMXUI.Wait,
+  FireDAC.Stan.Param,
+  FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+  FireDAC.Phys.FBDef,
+  FireDAC.Phys.FB,
+  FireDAC.DApt,
+  FireDAC.DatS,
+  FireDAC.Phys,
+  Data.DB;
 
 type
   TConnection = class(TDataModule)
     FDConnection: TFDConnection;
     FDQuery: TFDQuery;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -20,6 +37,7 @@ type
     procedure PrepareStatement(aSQL: String);
     procedure SetValue(aIndex: Integer; aValue: Variant);
     procedure ExecSQL;
+    procedure ExecutarSQL(aSQL: String);
     procedure StartTransation;
     procedure Commit;
     procedure Rollback;
@@ -41,9 +59,22 @@ begin
   FDConnection.Commit;
 end;
 
+procedure TConnection.DataModuleCreate(Sender: TObject);
+begin
+  FDConnection.Connected := true;
+end;
+
 procedure TConnection.ExecSQL;
 begin
   FDQuery.ExecSQL;
+end;
+
+procedure TConnection.ExecutarSQL(aSQL : String);
+begin
+  FDQuery.SQL.Clear;
+  FDQuery.SQL.Add(aSQL);
+  FDQuery.Open();
+  FDQuery.First;
 end;
 
 procedure TConnection.PrepareStatement(aSQL: String);
