@@ -28,6 +28,7 @@ type
     FDataCadastro: TDate;
     FFone2: String;
     FFone1: String;
+
     procedure SetAtivo(const Value: Boolean);
     procedure SetContato1(const Value: String);
     procedure SetContato2(const Value: String);

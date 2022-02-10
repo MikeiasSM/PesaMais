@@ -9,42 +9,41 @@ type
 private
     FLogradouro: String;
     FId_endereco: Integer;
-    FId_estado: TEstado;
-    FId_pessoa: Integer;
-    FId_bairro: TBairro;
+    FEstado: TEstado;
+    FPessoa: Integer;
+    FBairro: TBairro;
     FCep: String;
     FNumero: String;
     FIdentificacao: String;
     FComplemento: String;
-    FId_cidade: TCidade;
+    FCidade: TCidade;
+
     procedure SetCep(const Value: String);
     procedure SetComplemento(const Value: String);
-    procedure SetId_bairro(const Id_bairro: TBairro);
-    procedure SetId_cidade(const Id_cidade: TCidade);
+    procedure SetId_bairro(const Bairro: TBairro);
+    procedure SetId_cidade(const Cidade: TCidade);
     procedure SetId_endereco(const Value: Integer);
-    procedure SetId_estado(const Id_estado: TEstado);
+    procedure SetId_estado(const Estado: TEstado);
     procedure SetId_pessoa(const Value: Integer);
     procedure SetIdentificacao(const Value: String);
     procedure SetLogradouro(const Value: String);
     procedure SetNumero(const Value: String);
 
 public
-  constructor Create;
-  destructor Destroy; override;
-  class function New : TEndereco;
+    constructor Create;
+    destructor Destroy; override;
+    class function New : TEndereco;
 
-  property Id_endereco    : Integer read FId_endereco write SetId_endereco;
-  property Identificacao  : String read FIdentificacao write SetIdentificacao;
-  property Logradouro     : String read FLogradouro write SetLogradouro;
-  property Numero         : String read FNumero write SetNumero;
-  property Cep            : String read FCep write SetCep;
-  property Complemento    : String read FComplemento write SetComplemento;
-  property Id_cidade      : TCidade read FId_cidade write SetId_cidade;
-  property Id_bairro      : TBairro read FId_bairro write SetId_bairro;
-  property Id_estado      : TEstado read FId_estado write SetId_estado;
-  property Id_pessoa      : Integer read FId_pessoa write SetId_pessoa;
-
-
+    property Id_endereco    : Integer read FId_endereco write SetId_endereco;
+    property Identificacao  : String read FIdentificacao write SetIdentificacao;
+    property Logradouro     : String read FLogradouro write SetLogradouro;
+    property Numero         : String read FNumero write SetNumero;
+    property Cep            : String read FCep write SetCep;
+    property Complemento    : String read FComplemento write SetComplemento;
+    property Id_cidade      : TCidade read FCidade write SetId_cidade;
+    property Id_bairro      : TBairro read FBairro write SetId_bairro;
+    property Id_estado      : TEstado read FEstado write SetId_estado;
+    property Id_pessoa      : Integer read FPessoa write SetId_pessoa;
 
 end;
 
@@ -57,12 +56,16 @@ implementation
 
 constructor TEndereco.Create;
 begin
-
+  FCidade := TCidade.Create;
+  FEstado := TEstado.Create;
+  FBairro := TBairro.Create;
 end;
 
 destructor TEndereco.Destroy;
 begin
-
+  FCidade.Free;
+  FEstado.Free;
+  FBairro.Free;
   inherited;
 end;
 
@@ -86,14 +89,14 @@ begin
   FIdentificacao := Value;
 end;
 
-procedure TEndereco.SetId_bairro(const Id_bairro: TBairro);
+procedure TEndereco.SetId_bairro(const Bairro: TBairro);
 begin
-  FId_bairro := Id_bairro;
+  FBairro := Id_bairro;
 end;
 
-procedure TEndereco.SetId_cidade(const Id_cidade: TCidade);
+procedure TEndereco.SetId_cidade(const Cidade: TCidade);
 begin
-  FId_cidade := Id_cidade;
+  FCidade := Id_cidade;
 end;
 
 procedure TEndereco.SetId_endereco(const Value: Integer);
@@ -101,14 +104,14 @@ begin
   FId_endereco := Value;
 end;
 
-procedure TEndereco.SetId_estado(const Id_estado : TEstado);
+procedure TEndereco.SetId_estado(const Estado : TEstado);
 begin
-  FId_estado := Id_estado;
+  FEstado := Id_estado;
 end;
 
 procedure TEndereco.SetId_pessoa(const Value: Integer);
 begin
-  FId_pessoa := Value;
+  FPessoa := Value;
 end;
 
 procedure TEndereco.SetLogradouro(const Value: String);

@@ -9,10 +9,11 @@ uses
   private
     FId_bairro: Integer;
     FDescricao: String;
-    FId_cidade: TCidade;
+    FCidade: TCidade;
+
     procedure SetDescricao (const Value: String);
     procedure SetId_bairro (const Value: Integer);
-    procedure SetId_cidade(const Id_cidade: TCidade);
+    procedure SetId_cidade (const Cidade: TCidade);
 
   public
     constructor Create;
@@ -21,7 +22,7 @@ uses
 
     property Id_bairro  : Integer read FId_bairro write SetId_bairro;
     property Descricao  : String read FDescricao write SetDescricao;
-    property Id_cidade  : TCidade read FId_cidade write SetId_cidade;
+    property Id_cidade  : TCidade read FCidade write SetId_cidade;
 
   end;
 
@@ -31,12 +32,12 @@ implementation
 
 constructor TBairro.Create;
 begin
-
+   FCidade := FCidade.Create;
 end;
 
 destructor TBairro.Destroy;
 begin
-
+  FCidade.Free;
   inherited;
 end;
 
@@ -55,9 +56,9 @@ begin
   FId_bairro := Value;
 
 end;
-procedure TBairro.SetId_cidade(const Id_Cidade: TCidade);
+procedure TBairro.SetId_cidade(const Cidade: TCidade);
 begin
-  FId_cidade := id_cidade;
+  FCidade := id_cidade;
 end;
 
 end.
