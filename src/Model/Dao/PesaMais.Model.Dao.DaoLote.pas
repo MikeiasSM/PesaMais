@@ -39,7 +39,7 @@ function TDaoRaca.Delete(pLote : TLote): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.ExecutarSQL('DELETE FROM LOTE WHERE ID_LOTE = ?');
+    FConnection.PrepareStatement('DELETE FROM LOTE WHERE ID_LOTE = ?');
     FConnection.SetValue(0, pLote.Id_lote);
     FConnection.ExecSQL;
     FConnection.Commit;

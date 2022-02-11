@@ -40,7 +40,7 @@ function TDaoRacaAnimal.Delete(pRacaAnimal : TRacaAnimal) : Boolean;
 begin
    FConnection.StartTransation;
  try
-   FConnection.ExecutarSQL('DELETE FROM RACA_ANIMAL WHERE ID_RACA = ?');
+   FConnection.PrepareStatement('DELETE FROM RACA_ANIMAL WHERE ID_RACA = ?');
    FConnection.SetValue(0, pRacaAnimal.Id_raca);
    FConnection.ExecSQL;
    FConnection.Commit;

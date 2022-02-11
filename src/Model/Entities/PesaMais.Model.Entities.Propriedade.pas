@@ -4,7 +4,8 @@ interface
 
 uses
   System.Generics.Collections,
-  PesaMais.Model.Entities.Endereco;
+  PesaMais.Model.Entities.Endereco, PesaMais.Model.Entities.Bairro,
+  PesaMais.Model.Entities.Cidade, PesaMais.Model.Entities.Estado;
 
 type
   TPropriedade = class
@@ -19,8 +20,11 @@ type
     FFone1              : String;
     FFone2              : String;
     FEmail              : String;
-    FContato1           : String;
+    FLogradouro         : String;
+    FComplemento        : String;
+    FContato            : String;
     FEnderecos          : TList<TEndereco>;
+
 
     procedure SetId_propriedade(const Value: Integer);
     procedure SetRazao_Nome(const Value: String);
@@ -29,9 +33,11 @@ type
     procedure SetInsc_rg(const Value: String);
     procedure SetFone1(const Value: String);
     procedure SetFone2(const Value: String);
-    procedure SetContato1(const Value: String);
+    procedure SetContato(const Value: String);
     procedure SetEmail(const Value: String);
     procedure SetEnderecos(const Value: TList<TEndereco>);
+    procedure SetLogradouro(const Value: String);
+
 
 
 
@@ -48,7 +54,8 @@ type
     property Fone1            : String read FFone1 write SetFone1;
     property Fone2            : String read FFone2 write SetFone2;
     property Email            : String read FEmail write SetEmail;
-    property Contato1         : String read FContato1 write SetContato1;
+    property Logradouro       : String read FLogradouro write SetLogradouro;
+    property Contato          : String read FContato write SetContato;
     property Enderecos        : TList<TEndereco> read FEnderecos write SetEnderecos;
   end;
 
@@ -75,9 +82,9 @@ begin
    result := Self.Create;
 end;
 
-procedure TPropriedade.SetContato1(const Value: String);
+procedure TPropriedade.SetContato(const Value: String);
 begin
-  FContato1 := Value;
+  FContato := Value;
 end;
 
 procedure TPropriedade.SetCpf_cnpj(const Value: String);
@@ -110,15 +117,16 @@ begin
   FFone2 := Value;
 end;
 
-procedure TPropriedade.SetId_propriedade(const Value: Integer);
-begin
-  FId_propriedade := Value;
-end;
-
 procedure TPropriedade.SetInsc_rg(const Value: String);
 begin
   FInsc_rg := Value;
 end;
+
+procedure TPropriedade.SetLogradouro(const Value: String);
+begin
+  FLogradouro := Value;
+end;
+
 
 procedure TPropriedade.SetRazao_Nome(const Value: String);
 begin

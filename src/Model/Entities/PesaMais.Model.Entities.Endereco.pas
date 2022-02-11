@@ -5,31 +5,32 @@ interface
 uses
   PesaMais.Model.Entities.Estado,
   PesaMais.Model.Entities.Cidade,
-  PesaMais.Model.Entities.Bairro;
+  PesaMais.Model.Entities.Bairro,
+  PesaMais.Model.Entities.Pessoa;
 type
   TEndereco = class
 private
     FLogradouro: String;
     FId_endereco: Integer;
     FEstado: TEstado;
-    FPessoa: Integer;
     FBairro: TBairro;
     FCep: String;
     FNumero: String;
     FIdentificacao: String;
     FComplemento: String;
     FCidade: TCidade;
+    FPessoa: TPessoa;
 
     procedure SetCep(const Value: String);
     procedure SetComplemento(const Value: String);
-    procedure SetId_bairro(const Bairro: TBairro);
-    procedure SetId_cidade(const Cidade: TCidade);
-    procedure SetId_endereco(const Value: Integer);
-    procedure SetId_estado(const Estado: TEstado);
-    procedure SetId_pessoa(const Value: Integer);
+    procedure SetBairro(const Bairro: TBairro);
+    procedure SetCidade(const Cidade: TCidade);
+    procedure SetEndereco(const Value: Integer);
+    procedure SetEstado(const Estado: TEstado);
     procedure SetIdentificacao(const Value: String);
     procedure SetLogradouro(const Value: String);
     procedure SetNumero(const Value: String);
+    procedure SetPessoa(const Value: TPessoa);
 
 public
     constructor Create;
@@ -37,15 +38,15 @@ public
     class function New : TEndereco;
 
     property Id_endereco    : Integer read FId_endereco write SetId_endereco;
-    property Identificacao  : String read FIdentificacao write SetIdentificacao;
-    property Logradouro     : String read FLogradouro write SetLogradouro;
-    property Numero         : String read FNumero write SetNumero;
-    property Cep            : String read FCep write SetCep;
-    property Complemento    : String read FComplemento write SetComplemento;
-    property Id_cidade      : TCidade read FCidade write SetId_cidade;
-    property Id_bairro      : TBairro read FBairro write SetId_bairro;
-    property Id_estado      : TEstado read FEstado write SetId_estado;
-    property Id_pessoa      : Integer read FPessoa write SetId_pessoa;
+    property Identificacao  : String  read FIdentificacao write SetIdentificacao;
+    property Logradouro     : String  read FLogradouro write SetLogradouro;
+    property Numero         : String  read FNumero write SetNumero;
+    property Cep            : String  read FCep write SetCep;
+    property Complemento    : String  read FComplemento write SetComplemento;
+    property Cidade         : TCidade read FCidade write SetCidade;
+    property Bairro         : TBairro read FBairro write SetBairro;
+    property Estado         : TEstado read FEstado write SetEstado;
+    property Pessoa         : TPessoa read FPessoa write SetPessoa;
 
 end;
 
@@ -91,14 +92,14 @@ begin
   FIdentificacao := Value;
 end;
 
-procedure TEndereco.SetId_bairro(const Bairro: TBairro);
+procedure TEndereco.SetBairro(const Bairro: TBairro);
 begin
-  FBairro := Id_bairro;
+  FBairro := Bairro;
 end;
 
-procedure TEndereco.SetId_cidade(const Cidade: TCidade);
+procedure TEndereco.SetCidade(const Cidade: TCidade);
 begin
-  FCidade := Id_cidade;
+  FCidade := Cidade;
 end;
 
 procedure TEndereco.SetId_endereco(const Value: Integer);
@@ -106,14 +107,14 @@ begin
   FId_endereco := Value;
 end;
 
-procedure TEndereco.SetId_estado(const Estado : TEstado);
+procedure TEndereco.Setestado(const Estado : TEstado);
 begin
-  FEstado := Id_estado;
+  FEstado := Estado;
 end;
 
-procedure TEndereco.SetId_pessoa(const Value: Integer);
+procedure TEndereco.Setpessoa(const Pessoa: TPessoa);
 begin
-  FPessoa := Value;
+  FPessoa := Pessoa;
 end;
 
 procedure TEndereco.SetLogradouro(const Value: String);
