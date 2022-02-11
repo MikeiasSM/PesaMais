@@ -5,22 +5,24 @@ uses
   FMX.Forms,
   PesaMais.View.Principal in 'src\View\PesaMais.View.Principal.pas' {frmMain},
   PesaMais.Model.Connection.DmConnection in 'src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas' {Connection: TDataModule},
-  PesaMais.Model.Dao.DaoUsuario in 'src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas',
-  PesaMais.Model.Bairros in 'src\Model\PesaMais.Model.Bairros.pas',
-  PesaMais.Model.Cidade in 'src\Model\PesaMais.Model.Cidade.pas',
-  PesaMais.Model.Endereco in 'src\Model\PesaMais.Model.Endereco.pas',
-  PesaMais.Model.Estado in 'src\Model\PesaMais.Model.Estado.pas',
-  PesaMais.Model.Pessoa in 'src\Model\PesaMais.Model.Pessoa.pas',
-  PesaMais.Model.Usuario in 'src\Model\PesaMais.Model.Usuario.pas',
+  PesaMais.Model.Entities.Bairro in 'src\Model\Entities\PesaMais.Model.Entities.Bairro.pas',
+  PesaMais.Model.Entities.Cidade in 'src\Model\Entities\PesaMais.Model.Entities.Cidade.pas',
+  PesaMais.Model.Entities.Endereco in 'src\Model\Entities\PesaMais.Model.Entities.Endereco.pas',
+  PesaMais.Model.Entities.Estado in 'src\Model\Entities\PesaMais.Model.Entities.Estado.pas',
+  PesaMais.Model.Entities.Pessoa in 'src\Model\Entities\PesaMais.Model.Entities.Pessoa.pas',
+  PesaMais.Model.Entities.Usuario in 'src\Model\Entities\PesaMais.Model.Entities.Usuario.pas',
+  PesaMais.Model.Entities.Animal in 'src\Model\Entities\PesaMais.Model.Entities.Animal.pas',
+  PesaMais.Model.Entities.Categoria in 'src\Model\Entities\PesaMais.Model.Entities.Categoria.pas',
+  PesaMais.Model.Entities.RacaAnimal in 'src\Model\Entities\PesaMais.Model.Entities.RacaAnimal.pas',
+  PesaMais.Model.Entities.Lote in 'src\Model\Entities\PesaMais.Model.Entities.Lote.pas',
+  PesaMais.Model.Entities.Propriedade in 'src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas',
+  PesaMais.Model.Entities.PropriedadeLocal in 'src\Model\Entities\PesaMais.Model.Entities.PropriedadeLocal.pas',
+  PesaMais.Model.Dao.DaoLote in 'src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas',
+  {$R}
   PesaMais.Model.Dao.DaoEstado in 'src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas' {$R *.res},
-  PesaMais.Model.Animal in 'src\Model\PesaMais.Model.Animal.pas',
-  PesaMais.Model.Categoria in 'src\Model\PesaMais.Model.Categoria.pas',
-  PesaMais.Model.RacaAnimal in 'src\Model\PesaMais.Model.RacaAnimal.pas',
-  PesaMais.Model.Lote in 'src\Model\PesaMais.Model.Lote.pas',
-  PesaMais.Model.Propriedade in 'src\Model\PesaMais.Model.Propriedade.pas',
-  PesaMais.Model.PropriedadeLocal in 'src\Model\PesaMais.Model.PropriedadeLocal.pas',
+  PesaMais.Model.Dao.DaoUsuario in 'src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas',
   PesaMais.Model.Dao.DaoRacaAnimal in 'src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas',
-  PesaMais.Model.Dao.DaoLote in 'src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas';
+  PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {Form1};
 
 {$R *.res}
 
@@ -29,5 +31,6 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TConnection, Connection);
   Application.CreateForm(TConnection, Connection);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

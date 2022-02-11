@@ -1,11 +1,11 @@
-unit PesaMais.Model.RacaAnimal;
+unit PesaMais.Model.Entities.RacaAnimal;
 
 interface
 type
   TRacaAnimal = class
 
 private
-    FId_raca    : Integer;
+    FId_Raca    : Integer;
     FDescricao  : String;
 
     procedure SetDescricao(const Value: String);
@@ -16,7 +16,7 @@ public
     destructor          Destroy; override;
     class function New : TRacaAnimal;
 
-    property Id_raca   : Integer read FId_raca write SetId_raca;
+    property Id_Raca   : Integer read FId_raca write SetId_Raca;
     property Descricao : String read FDescricao write SetDescricao;
 end;
 
@@ -47,9 +47,9 @@ begin
   FDescricao := Value;
 end;
 
-procedure TRacaAnimal.SetId_raca(const Value: Integer);
+procedure TRacaAnimal.SetId_Raca(const Value: Integer);
 begin
-  FId_raca := Value;
+  FId_Raca := Value;
 end;
 
 end.

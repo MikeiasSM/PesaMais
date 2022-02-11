@@ -1,4 +1,4 @@
-unit PesaMais.Model.Usuario;
+unit PesaMais.Model.Entities.Usuario;
 
 interface
 

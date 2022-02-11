@@ -1,16 +1,16 @@
-unit PesaMais.Model.Lote;
+unit PesaMais.Model.Entities.Lote;
 
 interface
 
 uses
-  PesaMais.Model.Propriedade;
+  PesaMais.Model.Entities.Propriedade;
 
 
 type
   TLote = class
 
   private
-    FId_lote     : Integer;
+    FId_Lote     : Integer;
     FDescricao   : String;
     FPropriedade : TPropriedade;
 
@@ -18,8 +18,8 @@ type
 
 
     procedure SetDescricao(const Value: String);
-    procedure SetId_lote(const Value: Integer);
-    procedure SetId_propriedade(const Propriedade: TPropriedade);
+    procedure SetId_Lote(const Value: Integer);
+    procedure SetPropriedade(const Value: TPropriedade);
 
 
 
@@ -30,7 +30,7 @@ public
 
   property Id_lote     : Integer read FId_lote        write SetId_lote;
   property Descricao   : String  read FDescricao      write SetDescricao;
-  property propriedade : TPropriedade read FPropriedade write SetId_propriedade;
+  property Propriedade : TPropriedade read FPropriedade write SetPropriedade;
 
 
 end;
@@ -66,9 +66,9 @@ begin
 end;
 
 
-procedure TLote.SetId_propriedade(const Propriedade: TPropriedade);
+procedure TLote.SetPropriedade(const Value: TPropriedade);
 begin
-  FPropriedade := Propriedade;
+  FPropriedade := Value;
 end;
 
 end.

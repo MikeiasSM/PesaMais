@@ -1,11 +1,11 @@
-unit PesaMais.Model.Pessoa;
+unit PesaMais.Model.Entities.Pessoa;
 
 interface
 
 uses
   System.Classes,
   System.Generics.Collections,
-  PesaMais.Model.Endereco;
+  PesaMais.Model.Entities.Endereco;
 
 type
   TPessoa = class

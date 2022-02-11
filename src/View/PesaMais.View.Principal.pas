@@ -3,34 +3,68 @@ unit PesaMais.View.Principal;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit,
-  PesaMais.Model.Dao.DaoEstado, PesaMais.Model.Estado, FMX.ListView.Types,
-  FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
-  System.Generics.Collections, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
+  System.Types,
+  System.SysUtils,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  System.Generics.Collections,
+  FMX.Memo,
+  FMX.Edit,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.StdCtrls,
+  FMX.ListView,
+  FMX.ScrollBox,
+  FMX.Memo.Types,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.Controls.Presentation,
+  FMX.ListView.Adapters.Base,
+  PesaMais.Model.Dao.DaoEstado,
+  PesaMais.Model.Entities.Estado, FMX.Objects, FMX.Layouts, FMX.MultiView,
+  System.Math.Vectors, FMX.Controls3D, FMX.Layers3D;
 
 type
   TfrmMain = class(TForm)
-    txtCod: TEdit;
-    txtNome: TEdit;
-    btnGravar: TButton;
-    txtUF: TEdit;
-    Deletar: TButton;
-    Listar: TButton;
-    ListEstado: TListView;
-    procedure btnGravarClick(Sender: TObject);
-    procedure DeletarClick(Sender: TObject);
-    procedure ListarClick(Sender: TObject);
+    Layout1: TLayout;
+    MultiView1: TMultiView;
+    Rectangle2: TRectangle;
+    Rectangle3: TRectangle;
+    Image1: TImage;
+    Layout2: TLayout;
+    lblNomeLogo: TLabel;
+    Layout3: TLayout;
+    btnMenu: TImage;
+    Layout3D1: TLayout3D;
+    Rectangle5: TRectangle;
+    Layout4: TLayout;
+    Image2: TImage;
+    lblCadastro: TLabel;
+    Rectangle6: TRectangle;
+    Layout5: TLayout;
+    Image3: TImage;
+    Label1: TLabel;
+    Rectangle7: TRectangle;
+    Layout6: TLayout;
+    Image4: TImage;
+    Label2: TLabel;
+    Rectangle8: TRectangle;
+    Layout7: TLayout;
+    Image5: TImage;
+    Label3: TLabel;
+    Rectangle9: TRectangle;
+    Layout8: TLayout;
+    Image6: TImage;
+    Label4: TLabel;
+    Rectangle1: TRectangle;
   private
     { Private declarations }
     FDao : TDaoEstado;
     FEstado : TEstado;
-
-    procedure insert;
-    procedure update;
-    procedure delete;
-    procedure findall;
   public
     { Public declarations }
   end;
@@ -42,41 +76,12 @@ implementation
 
 {$R *.fmx}
 
-procedure TfrmMain.btnGravarClick(Sender: TObject);
-begin
-  if txtCod.Text = '' then
-    insert
-  else
-    update;
 
-  findall;
-end;
+{
 
-procedure TfrmMain.ListarClick(Sender: TObject);
-begin
-  findall;
-end;
+// CODIGO DE EXEMPLO (CRUD)
 
-procedure TfrmMain.DeletarClick(Sender: TObject);
-begin
-  delete;
-  findall;
-end;
-
-procedure TfrmMain.delete;
-begin
-  FDao := TDaoEstado.Create;
-  FEstado := TEstado.Create;
-
-  FEstado.Id_estado := StrToInt(txtCod.Text);
-
-  if FDao.Delete(FEstado) then
-    ShowMessage('Deletado com Sucesso!')
-  else
-    ShowMessage('Erro ao Deletar o Registro!');
-
-end;
-
+//INSERT
 procedure TfrmMain.insert;
 begin
   FDao := TDaoEstado.Create;
@@ -91,21 +96,7 @@ begin
     ShowMessage('Erro ao Inserir o Registro!');
 end;
 
-procedure TfrmMain.findall;
-var
-  Estado : TEstado;
-  Item : TListViewItem;
-begin
-  FDao := TDaoEstado.Create;
-  ListEstado.Items.Clear;
-  for Estado in FDao.FindAll do
-  begin
-    Item := ListEstado.Items.Add;
-    item.Text := '('+IntToStr(Estado.Id_estado)+') '+Estado.Nome+' - '+Estado.Uf;
-  end;
-  ListEstado.EndUpdate;
-end;
-
+//UPDATE
 procedure TfrmMain.update;
 begin
   FDao := TDaoEstado.Create;
@@ -121,4 +112,34 @@ begin
     ShowMessage('Erro ao Alterar o Registro!');
 end;
 
+//DELETE
+procedure TfrmMain.delete;
+begin
+  FDao := TDaoEstado.Create;
+  FEstado := TEstado.Create;
+
+  FEstado.Id_estado := StrToInt(txtCod.Text);
+
+  if FDao.Delete(FEstado) then
+    ShowMessage('Deletado com Sucesso!')
+  else
+    ShowMessage('Erro ao Deletar o Registro!');
+end;
+
+//FIND ALL
+procedure TfrmMain.findall;
+var
+  Estado : TEstado;
+  Item : TListViewItem;
+begin
+  FDao := TDaoEstado.Create;
+  ListEstado.Items.Clear;
+  for Estado in FDao.FindAll do
+  begin
+    Item := ListEstado.Items.Add;
+    item.Text := '('+IntToStr(Estado.Id_estado)+') '+Estado.Nome+' - '+Estado.Uf;
+  end;
+  ListEstado.EndUpdate;
+end;
+}
 end.

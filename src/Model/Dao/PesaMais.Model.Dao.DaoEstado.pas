@@ -3,26 +3,27 @@ unit PesaMais.Model.Dao.DaoEstado;
 interface
 
 uses
+  System.Generics.Collections,
   PesaMais.Model.Connection.DmConnection,
-  PesaMais.Model.Estado, System.Generics.Collections;
+  PesaMais.Model.Entities.Estado;
+
 type
   TDaoEstado = class
 
   private
-    FConnection : TConnection;
+    FConnection: TConnection;
   public
     constructor Create;
     destructor Destroy; override;
 
-    function Insert(pEstado : TEstado) : Boolean;
-    function Update(pEstado : TEstado) : Boolean;
-    function Delete(pEstado : TEstado) : Boolean;
-    function FindAll : TObjectList<TEstado>;
+    function Insert(pEstado: TEstado): Boolean;
+    function Update(pEstado: TEstado): Boolean;
+    function Delete(pEstado: TEstado): Boolean;
+    function FindAll: TObjectList<TEstado>;
 
   end;
 
 implementation
-
 
 { TDaoEstado }
 
@@ -31,7 +32,7 @@ begin
   FConnection := TConnection.Create(nil);
 end;
 
-function TDaoEstado.Delete(pEstado : TEstado) : Boolean;
+function TDaoEstado.Delete(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
@@ -54,26 +55,30 @@ end;
 
 function TDaoEstado.FindAll: TObjectList<TEstado>;
 var
-  Estado : TEstado;
-  List : TObjectList<TEstado>;
+  Estado: TEstado;
+  List: TObjectList<TEstado>;
 begin
   List := TObjectList<TEstado>.Create;
-
-  FConnection.ExecutarSQL('SELECT * FROM ESTADO');
-
-  while not FConnection.FDQuery.Eof do
-  begin
-    Estado := TEstado.Create;
-    Estado.Id_estado := FConnection.FDQuery.FieldByName('ID_ESTADO').AsInteger;
-    Estado.Nome := FConnection.FDQuery.FieldByName('NOME').AsString;
-    Estado.Uf := FConnection.FDQuery.FieldByName('UF').AsString;
-    List.Add(Estado);
-    FConnection.FDQuery.Next;
+  try
+    FConnection.StartTransation;
+    FConnection.ExecutarSQL('SELECT * FROM ESTADO');
+    while not FConnection.FDQuery.Eof do
+    begin
+      Estado := TEstado.Create;
+      Estado.Id_estado := FConnection.FDQuery.FieldByName('ID_ESTADO').AsInteger;
+      Estado.Nome := FConnection.FDQuery.FieldByName('NOME').AsString;
+      Estado.Uf := FConnection.FDQuery.FieldByName('UF').AsString;
+      List.Add(Estado);
+      FConnection.FDQuery.Next;
+    end;
+    Result := List;
+  except
+    FConnection.Rollback;
   end;
-  Result := List;
+  List.Destroy;
 end;
 
-function TDaoEstado.Insert(pEstado : TEstado) : Boolean;
+function TDaoEstado.Insert(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
@@ -89,11 +94,12 @@ begin
   end;
 end;
 
-function TDaoEstado.Update(pEstado : TEstado) : Boolean;
+function TDaoEstado.Update(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('UPDATE ESTADO SET NOME = ?, UF = ? WHERE ID_ESTADO = ?');
+    FConnection.PrepareStatement
+      ('UPDATE ESTADO SET NOME = ?, UF = ? WHERE ID_ESTADO = ?');
     FConnection.SetValue(0, pEstado.Nome);
     FConnection.SetValue(1, pEstado.Uf);
     FConnection.SetValue(2, pEstado.Id_estado);

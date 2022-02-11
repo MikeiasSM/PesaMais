@@ -1,9 +1,11 @@
-unit PesaMais.Model.Endereco;
+unit PesaMais.Model.Entities.Endereco;
 
 interface
 
 uses
-  PesaMais.Model.Estado, PesaMais.Model.Cidade, PesaMais.Model.Bairros;
+  PesaMais.Model.Entities.Estado,
+  PesaMais.Model.Entities.Cidade,
+  PesaMais.Model.Entities.Bairro;
 type
   TEndereco = class
 private

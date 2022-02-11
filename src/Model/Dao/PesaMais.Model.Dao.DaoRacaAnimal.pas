@@ -3,8 +3,9 @@ unit PesaMais.Model.Dao.DaoRacaAnimal;
 interface
 
 uses
-  PesaMais.Model.Connection.DmConnection, PesaMais.Model.RacaAnimal,
-  System.Generics.Collections;
+  System.Generics.Collections,
+  PesaMais.Model.Connection.DmConnection,
+  PesaMais.Model.Entities.RacaAnimal;
 
 
 type
@@ -19,10 +20,10 @@ type
     destructor Destroy; override;
 
      //Metodos publicos de acesso a dados.
-    function  insert(pRacaAnimal : TRacaAnimal): Boolean;
-    function  update(pRacaAnimal : TRacaAnimal): Boolean;
-    function  delete(pRacaAnimal : TRacaAnimal): Boolean;
-    function FindAll : TList<TRacaAnimal>;
+    function Insert(pRacaAnimal : TRacaAnimal): Boolean;
+    function Update(pRacaAnimal : TRacaAnimal): Boolean;
+    function Delete(pRacaAnimal : TRacaAnimal): Boolean;
+    function FindAll : TObjectList<TRacaAnimal>;
 
   end;
 
@@ -35,7 +36,7 @@ begin
   FConnection := TConnection.Create(nil);
 end;
 
-function TDaoRacaAnimal.delete(pRacaAnimal : TRacaAnimal) : Boolean;
+function TDaoRacaAnimal.Delete(pRacaAnimal : TRacaAnimal) : Boolean;
 begin
    FConnection.StartTransation;
  try
@@ -56,12 +57,12 @@ begin
    inherited;
 end;
 
-function TDaoRacaAnimal.FindAll: TList<TRacaAnimal>;
+function TDaoRacaAnimal.FindAll: TObjectList<TRacaAnimal>;
 var
   Raca : TRacaAnimal;
-  List : TList<TRacaAnimal>;
+  List : TObjectList<TRacaAnimal>;
 begin
-  List := TList<TRacaAnimal>.Create;
+  List := TObjectList<TRacaAnimal>.Create;
   try
     FConnection.StartTransation;
     FConnection.ExecutarSQL('SELECT * FROM RACA_ANIMAL ORDER BY DESCRICAO');
@@ -79,9 +80,10 @@ begin
   except
     FConnection.Rollback;
   end;
+  List.Destroy;
 end;
 
-function TDaoRacaAnimal.insert(pRacaAnimal: TRacaAnimal): Boolean;
+function TDaoRacaAnimal.Insert(pRacaAnimal: TRacaAnimal): Boolean;
 begin
   FConnection.StartTransation;
   try
@@ -96,7 +98,7 @@ begin
   end;
 end;
 
-function TDaoRacaAnimal.update(pRacaAnimal: TRacaAnimal) : Boolean;
+function TDaoRacaAnimal.Update(pRacaAnimal: TRacaAnimal) : Boolean;
 begin
   FConnection.StartTransation;
   try

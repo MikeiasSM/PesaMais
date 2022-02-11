@@ -3,7 +3,9 @@ unit PesaMais.Model.Dao.DaoUsuario;
 interface
 
 uses
-  PesaMais.Model.Connection.DmConnection, PesaMais.Model.Usuario;
+  System.Generics.Collections,
+  PesaMais.Model.Connection.DmConnection,
+  PesaMais.Model.Entities.Usuario;
 
 type
   TDaoUsuario = class
@@ -18,8 +20,9 @@ type
 
       {** METODOS PUBLICOS DE ACESSO A DADOS **}
       function Insert(pUsuario : TUsuario) : Boolean;
-      procedure Update(pUsuario : TUsuario);
-      procedure Delete(pUsuario : TUsuario);
+      function Update(pUsuario : TUsuario) : Boolean;
+      function Delete(pUsuario : TUsuario) : Boolean;
+      function FindAll : TObjectList<TUsuario>;
 
   end;
 
@@ -32,10 +35,7 @@ begin
   FConnection := TConnection.Create(nil);
 end;
 
-procedure TDaoUsuario.Delete(pUsuario: TUsuario);
-{**
-
-**}
+function TDaoUsuario.Delete(pUsuario: TUsuario) : Boolean;
 begin
 FConnection.StartTransation;
   try
@@ -43,8 +43,10 @@ FConnection.StartTransation;
     FConnection.SetValue(0, pUsuario.id_usuario);
     FConnection.ExecSQL;
     FConnection.Commit;
+    Result := True;
   Except
     FConnection.Rollback;
+    Result := False;
   end;
 end;
 
@@ -52,6 +54,33 @@ destructor TDaoUsuario.Destroy;
 begin
 
   inherited;
+end;
+
+function TDaoUsuario.FindAll: TObjectList<TUsuario>;
+var
+  Usuario : TUsuario;
+  List : TObjectList<TUsuario>;
+begin
+  List := TObjectList<TUsuario>.Create;
+  try
+    FConnection.StartTransation;
+    FConnection.ExecutarSQL('SELECT * FROM USUARIO ORDER BY NOME');
+    while not FConnection.FDQuery.Eof do
+    begin
+      Usuario := TUsuario.Create;
+      Usuario.id_usuario := FConnection.FDQuery.FieldByName('ID_USUARIO').AsInteger;
+      Usuario.Nome := FConnection.FDQuery.FieldByName('NOME').AsString;
+      Usuario.Senha := FConnection.FDQuery.FieldByName('SENHA').AsString;
+
+      List.Add(Usuario);
+      FConnection.FDQuery.Next;
+
+      Result := List;
+    end;
+  except
+    FConnection.Rollback;
+  end;
+  List.Destroy;
 end;
 
 function TDaoUsuario.Insert(pUsuario: TUsuario) : Boolean;
@@ -72,7 +101,7 @@ begin
 
 end;
 
-procedure TDaoUsuario.Update(pUsuario: TUsuario);
+function TDaoUsuario.Update(pUsuario: TUsuario) : Boolean;
 begin
 FConnection.StartTransation;
   try
@@ -83,8 +112,10 @@ FConnection.StartTransation;
     FConnection.SetValue(3,pUsuario.id_usuario);
     FConnection.ExecSQL;
     FConnection.Commit;
+    Result := True;
   Except
     FConnection.Rollback;
+    Result := False;
   end;
 end;
 

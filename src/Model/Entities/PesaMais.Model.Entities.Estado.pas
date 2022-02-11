@@ -1,4 +1,4 @@
-unit PesaMais.Model.Estado;
+unit PesaMais.Model.Entities.Estado;
 
 interface
 type
