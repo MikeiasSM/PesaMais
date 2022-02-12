@@ -223,6 +223,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

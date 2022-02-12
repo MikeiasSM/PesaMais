@@ -22,7 +22,8 @@ uses
   PesaMais.Model.Dao.DaoUsuario in 'src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas',
   PesaMais.Model.Dao.DaoRacaAnimal in 'src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas',
   PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {Form1},
-  PesaMais.Model.Dao.DaoPropriedade in 'src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas';
+  PesaMais.Model.Dao.DaoPropriedade in 'src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas',
+  PesaMais.Model.Dao.DaoBairro in 'src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas';
 
 {$R *.res}
 
