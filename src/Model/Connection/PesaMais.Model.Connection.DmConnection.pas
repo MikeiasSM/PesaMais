@@ -30,6 +30,8 @@ type
     FDConnection: TFDConnection;
     FDQuery: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
+    procedure FDQueryReconcileError(DataSet: TFDDataSet; E: EFDException;
+      UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
   private
     { Private declarations }
   public
@@ -75,6 +77,11 @@ begin
   FDQuery.SQL.Add(aSQL);
   FDQuery.Open();
   FDQuery.First;
+end;
+
+procedure TConnection.FDQueryReconcileError(DataSet: TFDDataSet; E: EFDException; UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
+begin
+  raise Exception.Create(e.Message);
 end;
 
 procedure TConnection.PrepareStatement(aSQL: String);

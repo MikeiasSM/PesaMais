@@ -1,8 +1,8 @@
 object Connection: TConnection
-  OldCreateOrder = True
   OnCreate = DataModuleCreate
   Height = 415
   Width = 446
+  PixelsPerInch = 96
   object FDConnection: TFDConnection
     Params.Strings = (
       'Database=C:\PesaMais\Database\PESAMAIS.FDB'
@@ -15,6 +15,7 @@ object Connection: TConnection
     Top = 56
   end
   object FDQuery: TFDQuery
+    OnReconcileError = FDQueryReconcileError
     Connection = FDConnection
     Left = 128
     Top = 56

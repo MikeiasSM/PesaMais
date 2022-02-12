@@ -5,8 +5,7 @@ interface
 uses
   PesaMais.Model.Entities.Estado,
   PesaMais.Model.Entities.Cidade,
-  PesaMais.Model.Entities.Bairro,
-  PesaMais.Model.Entities.Pessoa;
+  PesaMais.Model.Entities.Bairro;
 type
   TEndereco = class
 private
@@ -19,7 +18,6 @@ private
     FIdentificacao: String;
     FComplemento: String;
     FCidade: TCidade;
-    FPessoa: TPessoa;
 
     procedure SetCep(const Value: String);
     procedure SetComplemento(const Value: String);
@@ -30,7 +28,8 @@ private
     procedure SetIdentificacao(const Value: String);
     procedure SetLogradouro(const Value: String);
     procedure SetNumero(const Value: String);
-    procedure SetPessoa(const Value: TPessoa);
+    procedure SetId_endereco(const Value: Integer);
+
 
 public
     constructor Create;
@@ -46,7 +45,6 @@ public
     property Cidade         : TCidade read FCidade write SetCidade;
     property Bairro         : TBairro read FBairro write SetBairro;
     property Estado         : TEstado read FEstado write SetEstado;
-    property Pessoa         : TPessoa read FPessoa write SetPessoa;
 
 end;
 
@@ -92,6 +90,11 @@ begin
   FIdentificacao := Value;
 end;
 
+procedure TEndereco.SetId_endereco(const Value: Integer);
+begin
+  FId_endereco := Value;
+end;
+
 procedure TEndereco.SetBairro(const Bairro: TBairro);
 begin
   FBairro := Bairro;
@@ -102,9 +105,10 @@ begin
   FCidade := Cidade;
 end;
 
-procedure TEndereco.SetId_endereco(const Value: Integer);
+
+procedure TEndereco.SetEndereco(const Value: Integer);
 begin
-  FId_endereco := Value;
+
 end;
 
 procedure TEndereco.Setestado(const Estado : TEstado);
@@ -112,10 +116,6 @@ begin
   FEstado := Estado;
 end;
 
-procedure TEndereco.Setpessoa(const Pessoa: TPessoa);
-begin
-  FPessoa := Pessoa;
-end;
 
 procedure TEndereco.SetLogradouro(const Value: String);
 begin

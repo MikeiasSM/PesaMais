@@ -130,14 +130,16 @@ begin
     SQL := '';
     for I := 0 to Pred(Propriedade.Enderecos.Count) do
     begin
-      SQL := 'INSERT INTO ENDERECO (IDENTIFICACAO, ID_CIDADE, ID_BAIRRO, ID_ESTADO, ID_PESSOA, ID_PROPRIEDADE) VALUE (?,?,?,?,?,?)';
+      SQL := 'INSERT INTO ENDERECO (IDENTIFICACAO, ID_CIDADE, ID_BAIRRO, ID_ESTADO, ID_PESSOA, ID_PROPRIEDADE) VALUE (:IDENTIFICACAO, :ID_CIDADE, :ID_BAIRRO, :ID_ESTADO, :ID_PESSOA, :ID_PROPRIEDADE)';
       FConnection.PrepareStatement(SQL);
-      FConnection.SetValue(0, pPropriedade.Enderecos[I].Identificacao);
+
+      FConnection.FDQuery.Params.ParamByName('IDENTIFICACAO').AsString := pPropriedade.Enderecos[I].Identificacao;
+      FConnection.FDQuery.Params.ParamByName('ID_CIDADE').AsInteger := pPropriedade.Enderecos[I].Cidade;
+
       FConnection.SetValue(1, pPropriedade.Enderecos[I].Cidade.Id_Cidade);
       FConnection.SetValue(2, pPropriedade.Enderecos[I].Bairro.Id_Bairro);
       FConnection.SetValue(3, pPropriedade.Enderecos[I].Estado.Id_estado);
-      FConnection.SetValue(4, pPropriedade.Enderecos[I].Pessoa);
-      FConnection.SetValue(5, pPropriedade.Id_propriedade);
+      FConnection.SetValue(4, pPropriedade.Id_propriedade);
 
       FConnection.ExecSQL;
     end;
@@ -156,7 +158,7 @@ begin
     FConnection.PrepareStatement('UPDATE PRORPIEDADE SET RAZAO_NOME = ?, FANTASIA_APELIDO, CPF_CNPJ = ?, INSC_RG = ?, FONE1 = ?, FONE2 = ?,EMAIL = ?, CONTATO = ? WHERE ID_PROPRIEDADE = ?');
     FConnection.SetValue(0, pPropriedade.Razao_nome);
     FConnection.SetValue(1, pPropriedade.Razao_Nome)
-    FConnection.SetValue(2, pPropriedade.Cpf_cnpj);
+   FConnection.SetValue(2, pPropriedade.Cpf_cnpj);
     FConnection.SetValue(3, pPropriedade.Insc_rg);
     FConnection.SetValue(4, pPropriedade.Fone1);
     FConnection.SetValue(5, pPropriedade.Fone2);

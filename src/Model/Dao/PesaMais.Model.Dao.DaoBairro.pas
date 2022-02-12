@@ -1,9 +1,10 @@
 unit PesaMais.Model.Dao.DaoBairro;
 
 interface
-uses PesaMais.Model.Connection.DmConnection,
-     PesaMais.Model.Entities.Bairro,
+uses
      System.Generics.Collections,
+     PesaMais.Model.Connection.DmConnection,
+     PesaMais.Model.Entities.Bairro,
      PesaMais.Model.Entities.Cidade;
 
 
@@ -26,6 +27,7 @@ type
   end;
 
 implementation
+
 
 
 
@@ -59,20 +61,22 @@ begin
 end;
 
 function FDaoBairro.FindAll: TObjectList<TBairro>;
+Var
   Bairro: TBairro;
   List: TObjectList<TBairro>;
 begin
   List := TObjectList<TBairro>.Create;
+
   try
     FConnection.StartTransation;
     FConnection.ExecutarSQL('SELECT * FROM Bairro');
     while not FConnection.FDQuery.Eof do
     begin
       Bairro := TBairro.Create;
-      Estado.Id_estado := FConnection.FDQuery.FieldByName('ID_ESTADO').AsInteger;
-      Estado.Nome := FConnection.FDQuery.FieldByName('NOME').AsString;
-      Estado.Uf := FConnection.FDQuery.FieldByName('UF').AsString;
-      List.Add(Estado);
+      Bairro.Id_Bairro := FConnection.FDQuery.FieldByName('ID_BAIRRO').AsInteger;
+      Bairro.Descricao := FConnection.FDQuery.FieldByName('DESCRICAO').AsString;
+      Bairro.Cidade := FConnection.FDQuery.FieldByName('ID_CIDADE').AsInteger;
+      List.Add(Bairro);
       FConnection.FDQuery.Next;
     end;
     Result := List;

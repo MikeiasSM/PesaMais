@@ -117,6 +117,11 @@ begin
   FFone2 := Value;
 end;
 
+procedure TPropriedade.SetId_propriedade(const Value: Integer);
+begin
+  FId_Propriedade := Value;
+end;
+
 procedure TPropriedade.SetInsc_rg(const Value: String);
 begin
   FInsc_rg := Value;
