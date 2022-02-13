@@ -3,7 +3,8 @@ program PesaMais;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  PesaMais.View.Principal in 'src\View\PesaMais.View.Principal.pas' {frmMain},
+  PesaMais.View.Principal in 'src\View\PesaMais.View.Principal.pas' {FormPrincipal},
+  PesaMais.View.Pages.Template in 'src\View\Pages\PesaMais.View.Pages.Template.pas' {FormTemplate},
   PesaMais.Model.Connection.DmConnection in 'src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas' {Connection: TDataModule},
   PesaMais.Model.Entities.Bairro in 'src\Model\Entities\PesaMais.Model.Entities.Bairro.pas',
   PesaMais.Model.Entities.Cidade in 'src\Model\Entities\PesaMais.Model.Entities.Cidade.pas',
@@ -21,17 +22,19 @@ uses
   PesaMais.Model.Dao.DaoEstado in 'src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas' {$R *.res},
   PesaMais.Model.Dao.DaoUsuario in 'src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas',
   PesaMais.Model.Dao.DaoRacaAnimal in 'src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas',
-  PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {Form1},
   PesaMais.Model.Dao.DaoPropriedade in 'src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas',
-  PesaMais.Model.Dao.DaoBairro in 'src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas';
+  PesaMais.Model.Dao.DaoBairro in 'src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas',
+  PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {FormMain},
+  PesaMais.View.Pages.CadUsuario in 'src\View\Pages\PesaMais.View.Pages.CadUsuario.pas' {FormUsuario};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TFormTemplate, FormTemplate);
   Application.CreateForm(TConnection, Connection);
-  Application.CreateForm(TConnection, Connection);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormUsuario, FormUsuario);
   Application.Run;
 end.

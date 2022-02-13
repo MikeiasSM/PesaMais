@@ -75,7 +75,7 @@ begin
       Bairro := TBairro.Create;
       Bairro.Id_Bairro := FConnection.FDQuery.FieldByName('ID_BAIRRO').AsInteger;
       Bairro.Descricao := FConnection.FDQuery.FieldByName('DESCRICAO').AsString;
-      Bairro.Cidade := FConnection.FDQuery.FieldByName('ID_CIDADE').AsInteger;
+      Bairro.Cidade.Id_Cidade := FConnection.FDQuery.FieldByName('ID_CIDADE').AsInteger;
       List.Add(Bairro);
       FConnection.FDQuery.Next;
     end;
@@ -92,7 +92,7 @@ begin
   try
     FConnection.ExecutarSQL('INSERT INTO BAIRRO (DESCRICAO, ID_CIDADE) VALUE (?,?)');
     FConnection.SetValue(0, pBairro.Descricao);
-    FConnection.SetValue(1, pBairro.Cidade);
+    FConnection.SetValue(1, pBairro.Cidade.Id_Cidade);
     FConnection.ExecSQL;
     FConnection.Commit;
 
@@ -111,7 +111,7 @@ begin
   try
     FConnection.ExecutarSQL('UPDATE BAIRRO SET ID_BAIRRO = ? , DESCRICAO = ?, ID_CIDADE = ? WHERE ID_BAIRRO = ?');
     FConnection.SetValue(0, pBairro.Descricao);
-    FConnection.SetValue(1, pBairro.Cidade);
+    FConnection.SetValue(1, pBairro.Cidade.Id_Cidade);
   finally
 
   end;

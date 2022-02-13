@@ -25,11 +25,16 @@ uses
   FMX.Controls.Presentation,
   FMX.ListView.Adapters.Base,
   PesaMais.Model.Dao.DaoEstado,
-  PesaMais.Model.Entities.Estado, FMX.Objects, FMX.Layouts, FMX.MultiView,
-  System.Math.Vectors, FMX.Controls3D, FMX.Layers3D;
+  PesaMais.Model.Entities.Estado,
+  FMX.Objects,
+  FMX.Layouts,
+  FMX.MultiView,
+  System.Math.Vectors,
+  FMX.Controls3D,
+  FMX.Layers3D, PesaMais.View.Pages.Main, PesaMais.View.Pages.Template;
 
 type
-  TfrmMain = class(TForm)
+  TFormPrincipal = class(TForm)
     Layout1: TLayout;
     MultiView1: TMultiView;
     Rectangle2: TRectangle;
@@ -61,6 +66,10 @@ type
     Image6: TImage;
     Label4: TLabel;
     Rectangle1: TRectangle;
+    Rectangle4: TRectangle;
+    procedure FormCreate(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
+
   private
     { Private declarations }
     FDao : TDaoEstado;
@@ -70,9 +79,14 @@ type
   end;
 
 var
-  frmMain: TfrmMain;
+  FormPrincipal: TFormPrincipal;
+  PageMain : TFormMain;
+  PageTemplate : TFormTemplate;
 
 implementation
+
+uses
+  Router4D;
 
 {$R *.fmx}
 
@@ -142,4 +156,31 @@ begin
   ListEstado.EndUpdate;
 end;
 }
+{ TfrmMain }
+
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+begin
+  Layout1.AddObject(nil);
+  PageMain := TFormMain.Create(nil);
+  PageTemplate := TFormTemplate.Create(nil);
+  try
+
+    Layout1.AddObject(PageMain.Layout1);
+  except
+
+  end;
+
+end;
+
+procedure TFormPrincipal.Image2Click(Sender: TObject);
+begin
+  Layout1.AddObject(nil);
+  try
+    Layout1.AddObject(PageTemplate.Layout1);
+  finally
+
+  end;
+end;
+
 end.

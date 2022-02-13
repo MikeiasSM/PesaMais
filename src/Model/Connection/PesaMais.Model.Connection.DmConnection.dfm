@@ -1,11 +1,11 @@
 object Connection: TConnection
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
-  Height = 415
-  Width = 446
-  PixelsPerInch = 96
+  Height = 158
+  Width = 202
   object FDConnection: TFDConnection
     Params.Strings = (
-      'Database=C:\PesaMais\Database\PESAMAIS.FDB'
+      'Database=C:\Delphi\Exemplo\Database\DADOS.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'CharacterSet=WIN1252'

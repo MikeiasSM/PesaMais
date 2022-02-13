@@ -3,57 +3,53 @@ unit PesaMais.View.Pages.Main;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListView.Types,
-  FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
-  PesaMais.Model.Dao.DaoEstado,
-  PesaMais.Model.Entities.Estado;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  FMX.Objects,
+  FMX.Layouts,
+  Router4D.Interfaces;
 
 type
-  TForm1 = class(TForm)
+  TFormMain = class(TForm, iRouter4DComponent)
     Layout1: TLayout;
     Rectangle1: TRectangle;
-    Rectangle2: TRectangle;
-    Rectangle3: TRectangle;
     Label1: TLabel;
-    ListView1: TListView;
-    Rectangle4: TRectangle;
-    procedure FormCreate(Sender: TObject);
+
   private
     { Private declarations }
-    FDao : TDaoEstado;
-    procedure findall;
   public
     { Public declarations }
+    function Render : TFMXObject;
+    procedure UnRender;
   end;
 
 var
-  Form1: TForm1;
+  FormMain: TFormMain;
 
 implementation
 
-
 {$R *.fmx}
 
-procedure TForm1.findall;
-var
-  Estado : TEstado;
-  Item : TListViewItem;
+{ TFormMain }
+
+function TFormMain.Render: TFMXObject;
 begin
-  FDao := TDaoEstado.Create;
-  ListView1.Items.Clear;
-  for Estado in FDao.FindAll do
-  begin
-    Item := ListView1.Items.Add;
-    item.Text := '('+IntToStr(Estado.Id_estado)+') '+Estado.Nome+' - '+Estado.Uf;
-  end;
-  ListView1.EndUpdate;
+  Result := Layout1;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFormMain.UnRender;
 begin
-  findall;
+
 end;
 
 end.

@@ -1,0 +1,22 @@
+{
+	"hash": "bac8d089e7ef0ba557ecb02eac356830",
+	"updated": "2022-02-13T18:04:08.416543-04:00",
+	"installedModules": {
+		"https://github.com/academiadocodigo/bind4d": {
+			"name": "bind4d",
+			"version": "1.0.3",
+			"hash": "7a5f691d186b9f232b64b6047afb86ea",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/academiadocodigo/router4delphi": {
+			"name": "router4delphi",
+			"version": "1.0.3",
+			"hash": "3364da831314fe1b4a38cb875dde3374",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
