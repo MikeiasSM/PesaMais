@@ -25,16 +25,17 @@ uses
   PesaMais.Model.Dao.DaoPropriedade in 'src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas',
   PesaMais.Model.Dao.DaoBairro in 'src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas',
   PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {FormMain},
-  PesaMais.View.Pages.CadUsuario in 'src\View\Pages\PesaMais.View.Pages.CadUsuario.pas' {FormUsuario};
+  PesaMais.View.Pages.CadUsuario in 'src\View\Pages\PesaMais.View.Pages.CadUsuario.pas' {FormUsuario},
+  PesaMais.Model.Connection.DmORM in 'src\Model\Connection\PesaMais.Model.Connection.DmORM.pas' {dmConexao: TDataModule},
+  PesaMais.Model.Connection.Interfaces in 'src\Model\Connection\PesaMais.Model.Connection.Interfaces.pas',
+  PesaMais.Model.Entidade.Usuario in 'src\Model\PesaMais.Model.Entidade.Usuario.pas',
+  PesaMais.Model.Interfaces in 'src\Model\PesaMais.Model.Interfaces.pas',
+  PesaMais.Model.Usuario in 'src\Model\PesaMais.Model.Usuario.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TFormPrincipal, FormPrincipal);
-  Application.CreateForm(TFormTemplate, FormTemplate);
-  Application.CreateForm(TConnection, Connection);
-  Application.CreateForm(TFormMain, FormMain);
-  Application.CreateForm(TFormUsuario, FormUsuario);
   Application.Run;
 end.

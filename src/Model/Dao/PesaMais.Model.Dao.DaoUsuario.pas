@@ -39,8 +39,8 @@ function TDaoUsuario.Delete(pUsuario: TUsuario) : Boolean;
 begin
 FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('DELETE FROM USUARIO WHERE ID_USUARIO = ? ');
-    FConnection.SetValue(0, pUsuario.id_usuario);
+    FConnection.PrepareStatement('DELETE FROM USUARIO WHERE ID_USUARIO = :ID_USUARIO');
+    FConnection.FDQuery.Params.ParamByName(':ID_USUARIO').AsInteger := pUsuario.id_usuario;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := True;
@@ -87,10 +87,10 @@ function TDaoUsuario.Insert(pUsuario: TUsuario) : Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('INSERT INTO (NOME, SENHA, ATIVO) VALUES (?, ?, ?)');
-    FConnection.SetValue(0, pUsuario.Nome);
-    FConnection.SetValue(1, pUsuario.Senha);
-    FConnection.SetValue(2, pUsuario.Ativo);
+    FConnection.PrepareStatement('INSERT INTO (NOME, SENHA, ATIVO) VALUES (:NOME, :SENHA, :ATIVO)');
+    FConnection.FDQuery.Params.ParamByName(':NOME').AsString := pUsuario.Nome;
+    FConnection.FDQuery.Params.ParamByName(':SENHA').AsString := pUsuario.Senha;
+    FConnection.FDQuery.Params.ParamByName(':ATIVO').AsBoolean := pUsuario.Ativo;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;
@@ -105,11 +105,11 @@ function TDaoUsuario.Update(pUsuario: TUsuario) : Boolean;
 begin
 FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('UPDATE USUARIO SET NOME = ?, SENHA = ?, ATIVO = ? WHERE ID_USUARIO = ? ');
-    FConnection.SetValue(0,pUsuario.Nome);
-    FConnection.SetValue(1,pUsuario.Senha);
-    FConnection.SetValue(2,pUsuario.Ativo);
-    FConnection.SetValue(3,pUsuario.id_usuario);
+    FConnection.PrepareStatement('UPDATE USUARIO SET NOME = :NOME, SENHA = :SENHA, ATIVO = :ATIVO WHERE ID_USUARIO = :ID_USUARIO ');
+    FConnection.FDQuery.Params.ParamByName(':NOME').AsString := pUsuario.Nome;
+    FConnection.FDQuery.Params.ParamByName(':SENHA').AsString := pUsuario.Senha;
+    FConnection.FDQuery.Params.ParamByName(':ATIVO').AsBoolean := pUsuario.Ativo;
+    FConnection.FDQuery.Params.ParamByName(':ID_USUARIO').AsInteger := pUsuario.id_usuario;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := True;

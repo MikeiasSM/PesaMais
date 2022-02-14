@@ -43,8 +43,8 @@ function FDaoBairro.Delete(pBairro: TBairro): Boolean;
 BEGIN
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('DELETE FROM BAIRRO WHERE ID_BAIRRO = ?');
-    FConnection.SetValue(0, pBairro.Id_Bairro);
+    FConnection.PrepareStatement('DELETE FROM BAIRRO WHERE ID_BAIRRO = :ID_BAIRRO');
+    FConnection.FDQuery.Params.ParamByName(':ID_BAIRRO').AsInteger := pBairro.Id_Bairro;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;
@@ -90,9 +90,9 @@ function FDaoBairro.Insert(pBairro: TBairro): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.ExecutarSQL('INSERT INTO BAIRRO (DESCRICAO, ID_CIDADE) VALUE (?,?)');
-    FConnection.SetValue(0, pBairro.Descricao);
-    FConnection.SetValue(1, pBairro.Cidade.Id_Cidade);
+    FConnection.ExecutarSQL('INSERT INTO BAIRRO (DESCRICAO, ID_CIDADE) VALUE (:DESCRICAO, :ID_CIDADE)');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pBairro.Descricao;
+    FConnection.FDQuery.Params.ParamByName(':ID_CIDADE').AsInteger := pBairro.Cidade.Id_Cidade;
     FConnection.ExecSQL;
     FConnection.Commit;
 
@@ -109,9 +109,12 @@ function FDaoBairro.Update(pBairro: TBairro): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.ExecutarSQL('UPDATE BAIRRO SET ID_BAIRRO = ? , DESCRICAO = ?, ID_CIDADE = ? WHERE ID_BAIRRO = ?');
-    FConnection.SetValue(0, pBairro.Descricao);
-    FConnection.SetValue(1, pBairro.Cidade.Id_Cidade);
+    FConnection.ExecutarSQL('UPDATE BAIRRO SET DESCRICAO = :DESCRICAO, ID_CIDADE = :ID_CIDADE WHERE ID_BAIRRO = :ID_BAIRRO');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pBairro.Descricao;
+    FConnection.FDQuery.Params.ParamByName(':ID_CIDADE').AsInteger := pBairro.Cidade.Id_Cidade;
+    FConnection.FDQuery.Params.ParamByName(':ID_BAIRRO').AsInteger := pBairro.Id_Bairro;
+    FConnection.ExecSQL;
+    FConnection.Commit;
   finally
 
   end;

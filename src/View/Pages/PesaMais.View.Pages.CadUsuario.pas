@@ -13,18 +13,19 @@ type
     Layout1: TLayout;
     Rectangle2: TRectangle;
     Rectangle3: TRectangle;
-    Edit1: TEdit;
-    Edit2: TEdit;
-    Edit3: TEdit;
+    txtCodigo: TEdit;
+    txtNome: TEdit;
+    txtSenha1: TEdit;
     Código: TLabel;
-    txtNome: TLabel;
-    CheckBox1: TCheckBox;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    Label7: TLabel;
+    cbAtivo: TCheckBox;
+    btnSalvar: TSpeedButton;
+    btnSair: TSpeedButton;
+    btnCancelar: TSpeedButton;
     Label1: TLabel;
-    Edit4: TEdit;
+    txtSenha2: TEdit;
     Label2: TLabel;
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,5 +38,10 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TFormUsuario.btnSairClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.

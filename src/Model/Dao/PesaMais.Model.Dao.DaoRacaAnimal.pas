@@ -40,8 +40,8 @@ function TDaoRacaAnimal.Delete(pRacaAnimal : TRacaAnimal) : Boolean;
 begin
    FConnection.StartTransation;
  try
-   FConnection.PrepareStatement('DELETE FROM RACA_ANIMAL WHERE ID_RACA = ?');
-   FConnection.SetValue(0, pRacaAnimal.Id_raca);
+   FConnection.PrepareStatement('DELETE FROM RACA_ANIMAL WHERE ID_RACA = :ID_RACA');
+   FConnection.FDQuery.Params.ParamByName(':ID_RACA').AsInteger := pRacaAnimal.Id_Raca;
    FConnection.ExecSQL;
    FConnection.Commit;
    Result := true;
@@ -87,8 +87,8 @@ function TDaoRacaAnimal.Insert(pRacaAnimal: TRacaAnimal): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('INSERT INTO RACA_ANIMAL(DESCRICAO) VALUES (?)');
-    FConnection.SetValue(0, pRacaAnimal.Descricao);
+    FConnection.PrepareStatement('INSERT INTO RACA_ANIMAL(DESCRICAO) VALUES (:DESCRICAO)');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pRacaAnimal.Descricao;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;
@@ -102,9 +102,9 @@ function TDaoRacaAnimal.Update(pRacaAnimal: TRacaAnimal) : Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('UPDATE RACA_ANIMAL SET DESCRICAO = ? WHERE ID_RACA = ?');
-    FConnection.SetValue(0, pRacaAnimal.Descricao);
-    FConnection.SetValue(1, pRacaAnimal.Id_raca);
+    FConnection.PrepareStatement('UPDATE RACA_ANIMAL SET DESCRICAO = :DESCRICAO WHERE ID_RACA = :ID_RACA');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pRacaAnimal.Descricao;
+    FConnection.FDQuery.Params.ParamByName(':ID_RACA').AsInteger := pRacaAnimal.Id_Raca;
     FConnection.ExecSQL;
     FConnection.Commit;
 

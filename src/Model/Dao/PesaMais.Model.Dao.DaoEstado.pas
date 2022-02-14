@@ -36,8 +36,8 @@ function TDaoEstado.Delete(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('DELETE FROM ESTADO WHERE ID_ESTADO = ?');
-    FConnection.SetValue(0, pEstado.Id_estado);
+    FConnection.PrepareStatement('DELETE FROM ESTADO WHERE ID_ESTADO = :ID_ESTADO');
+    FConnection.FDQuery.Params.ParamByName(':ID_ESTADO').AsInteger := pEstado.Id_estado;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;
@@ -82,9 +82,9 @@ function TDaoEstado.Insert(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('INSERT INTO ESTADO (NOME, UF) VALUES (?, ?)');
-    FConnection.SetValue(0, pEstado.Nome);
-    FConnection.SetValue(1, pEstado.Uf);
+    FConnection.PrepareStatement('INSERT INTO ESTADO (NOME, UF) VALUES (:NOME, :UF)');
+    FConnection.FDQuery.Params.ParamByName(':NOME').AsString  := pEstado.Nome;
+    FConnection.FDQuery.Params.ParamByName(':UF').AsString  := pEstado.Uf;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;
@@ -98,11 +98,10 @@ function TDaoEstado.Update(pEstado: TEstado): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement
-      ('UPDATE ESTADO SET NOME = ?, UF = ? WHERE ID_ESTADO = ?');
-    FConnection.SetValue(0, pEstado.Nome);
-    FConnection.SetValue(1, pEstado.Uf);
-    FConnection.SetValue(2, pEstado.Id_estado);
+    FConnection.PrepareStatement('UPDATE ESTADO SET NOME = :NOME, UF = :UF WHERE ID_ESTADO = :ID_ESTADO');
+    FConnection.FDQuery.Params.ParamByName(':NOME').AsString  := pEstado.Nome;
+    FConnection.FDQuery.Params.ParamByName(':UF').AsString  := pEstado.Uf;
+    FConnection.FDQuery.Params.ParamByName(':ID_ESTADO').AsInteger  := pEstado.Id_estado;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := true;

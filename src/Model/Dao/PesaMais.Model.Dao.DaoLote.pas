@@ -39,8 +39,8 @@ function TDaoRaca.Delete(pLote : TLote): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('DELETE FROM LOTE WHERE ID_LOTE = ?');
-    FConnection.SetValue(0, pLote.Id_lote);
+    FConnection.PrepareStatement('DELETE FROM LOTE WHERE ID_LOTE = :ID_LOTE');
+    FConnection.FDQuery.Params.ParamByName(':ID_LOTE').AsInteger := pLote.Id_lote;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := True;
@@ -86,9 +86,9 @@ function TDaoRaca.Insert(pLote: TLote): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('INSERT INTO LOTE (DESCRICAO, ID_PROPRIEDADE) VALUE (? , ?)');
-    FConnection.SetValue(0, pLote.Descricao);
-    FConnection.SetValue(1, pLote.Id_lote);
+    FConnection.PrepareStatement('INSERT INTO LOTE (DESCRICAO, ID_PROPRIEDADE) VALUE (:DESCRICAO, :ID_PROPRIEDADE)');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pLote.Descricao;
+    FConnection.FDQuery.Params.ParamByName(':ID_PROPRIEDADE').AsInteger := pLote.Propriedade.Id_propriedade;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := True;
@@ -102,10 +102,10 @@ function TDaoRaca.Update(pLote: TLote): Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('UPDATE LOTE SET DESCRICAO = ?, ID_PROPRIEDADE = ? WHERE ID_LOTE = ?');
-    FConnection.SetValue(0, pLote.Descricao);
-    FConnection.SetValue(1, pLote.Propriedade.Id_propriedade);
-    FConnection.SetValue(2, pLote.Id_lote);
+    FConnection.PrepareStatement('UPDATE LOTE SET DESCRICAO = :DESCRICAO, ID_PROPRIEDADE = :ID_PROPRIEDADE WHERE ID_LOTE = :ID_LOTE');
+    FConnection.FDQuery.Params.ParamByName(':DESCRICAO').AsString := pLote.Descricao;
+    FConnection.FDQuery.Params.ParamByName(':ID_PROPRIEDADE').AsInteger := pLote.Propriedade.Id_propriedade;
+    FConnection.FDQuery.Params.ParamByName(':D_LOTE').AsInteger := pLote.Id_lote;
     FConnection.ExecSQL;
     FConnection.Commit;
     Result := True;

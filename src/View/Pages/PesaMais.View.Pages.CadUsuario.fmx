@@ -1,9 +1,10 @@
 ﻿object FormUsuario: TFormUsuario
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Cadastro de Usu'#225'rio'
   ClientHeight = 288
   ClientWidth = 560
+  Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -16,16 +17,16 @@
     TabOrder = 0
     object Rectangle1: TRectangle
       Align = Client
-      Fill.Color = claWhite
+      Fill.Color = xFFECEFF1
       Size.Width = 560.000000000000000000
       Size.Height = 288.000000000000000000
       Size.PlatformDefault = False
       Stroke.Thickness = 0.000000000000000000
       object Rectangle2: TRectangle
         Align = Bottom
-        Fill.Color = xFFEBF1FF
+        Fill.Color = claWhite
         Margins.Left = 20.000000000000000000
-        Margins.Top = 20.000000000000000000
+        Margins.Top = 10.000000000000000000
         Margins.Right = 20.000000000000000000
         Margins.Bottom = 20.000000000000000000
         Position.X = 20.000000000000000000
@@ -34,7 +35,9 @@
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Stroke.Thickness = 0.000000000000000000
-        object SpeedButton1: TSpeedButton
+        XRadius = 10.000000000000000000
+        YRadius = 10.000000000000000000
+        object btnSalvar: TSpeedButton
           Align = Left
           StyledSettings = [Size, FontColor]
           Size.Width = 80.000000000000000000
@@ -44,7 +47,7 @@
           TextSettings.Font.Family = 'Montserrat'
           TextSettings.Font.StyleExt = {00070000000000000004000000}
         end
-        object SpeedButton2: TSpeedButton
+        object btnSair: TSpeedButton
           Align = Right
           StyledSettings = [Size, FontColor]
           Position.X = 440.000000000000000000
@@ -54,8 +57,9 @@
           Text = 'Sair'
           TextSettings.Font.Family = 'Montserrat'
           TextSettings.Font.StyleExt = {00070000000000000004000000}
+          OnClick = btnSairClick
         end
-        object SpeedButton3: TSpeedButton
+        object btnCancelar: TSpeedButton
           Align = Left
           StyledSettings = [Size, FontColor]
           Position.X = 80.000000000000000000
@@ -69,15 +73,17 @@
       end
       object Rectangle3: TRectangle
         Align = Client
-        Fill.Color = xFFEBF1FF
+        Fill.Color = claWhite
         Margins.Left = 20.000000000000000000
         Margins.Top = 20.000000000000000000
         Margins.Right = 20.000000000000000000
         Size.Width = 520.000000000000000000
-        Size.Height = 178.000000000000000000
+        Size.Height = 188.000000000000000000
         Size.PlatformDefault = False
         Stroke.Thickness = 0.000000000000000000
-        object CheckBox1: TCheckBox
+        XRadius = 10.000000000000000000
+        YRadius = 10.000000000000000000
+        object cbAtivo: TCheckBox
           StyledSettings = [Size, Style, FontColor]
           Position.X = 446.000000000000000000
           Position.Y = 34.000000000000000000
@@ -96,37 +102,38 @@
           Text = 'C'#243'digo'
           TabOrder = 9
         end
-        object Edit1: TEdit
+        object txtCodigo: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 11
           Position.X = 16.000000000000000000
           Position.Y = 32.000000000000000000
+          Enabled = False
           Size.Width = 120.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
-        object Edit2: TEdit
+        object txtNome: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 3
           Position.X = 16.000000000000000000
-          Position.Y = 80.000000000000000000
+          Position.Y = 96.000000000000000000
           Size.Width = 489.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
-        object Edit3: TEdit
+        object txtSenha1: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 2
           Position.X = 16.000000000000000000
-          Position.Y = 133.000000000000000000
+          Position.Y = 144.000000000000000000
           Size.Width = 233.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
-        object txtNome: TLabel
+        object Label7: TLabel
           StyledSettings = [Size, Style, FontColor]
           Position.X = 16.000000000000000000
-          Position.Y = 64.000000000000000000
+          Position.Y = 80.000000000000000000
           TextSettings.Font.Family = 'Montserrat'
           Text = 'Nome'
           TabOrder = 5
@@ -134,16 +141,16 @@
         object Label1: TLabel
           StyledSettings = [Size, Style, FontColor]
           Position.X = 16.000000000000000000
-          Position.Y = 112.000000000000000000
+          Position.Y = 128.000000000000000000
           TextSettings.Font.Family = 'Montserrat'
           Text = 'Senha'
           TabOrder = 12
         end
-        object Edit4: TEdit
+        object txtSenha2: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 1
           Position.X = 272.000000000000000000
-          Position.Y = 133.000000000000000000
+          Position.Y = 144.000000000000000000
           Size.Width = 233.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
@@ -151,7 +158,7 @@
         object Label2: TLabel
           StyledSettings = [Size, Style, FontColor]
           Position.X = 272.000000000000000000
-          Position.Y = 112.000000000000000000
+          Position.Y = 128.000000000000000000
           TextSettings.Font.Family = 'Montserrat'
           Text = 'Confirme a Senha'
           TabOrder = 10

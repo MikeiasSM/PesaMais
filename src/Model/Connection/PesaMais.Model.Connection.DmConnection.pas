@@ -94,7 +94,6 @@ procedure TConnection.Rollback;
 begin
   FDConnection.Rollback;
 end;
-
 procedure TConnection.SetValue(aIndex: Integer; aValue: Variant);
 begin
   FDQuery.Params.Add;
