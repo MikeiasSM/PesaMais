@@ -28,6 +28,7 @@ uses
   PesaMais.Model.Entities.Estado,
   FMX.Objects,
   FMX.Layouts,
+  Router4D,
   FMX.MultiView,
   System.Math.Vectors,
   FMX.Controls3D,
@@ -35,7 +36,7 @@ uses
 
 type
   TFormPrincipal = class(TForm)
-    Layout1: TLayout;
+    LayoutPrincipal: TLayout;
     MultiView1: TMultiView;
     Rectangle2: TRectangle;
     Rectangle3: TRectangle;
@@ -67,7 +68,6 @@ type
     Label4: TLabel;
     Rectangle1: TRectangle;
     Rectangle4: TRectangle;
-    procedure FormCreate(Sender: TObject);
     procedure Image2Click(Sender: TObject);
 
   private
@@ -81,39 +81,28 @@ type
 var
   FormPrincipal: TFormPrincipal;
   PageMain : TFormMain;
-  PageTemplate : TFormTemplate;
+
 
 implementation
-
-uses
-  Router4D;
 
 {$R *.fmx}
 
 { TfrmMain }
 
-
-procedure TFormPrincipal.FormCreate(Sender: TObject);
-begin
-  Layout1.AddObject(nil);
-  PageMain := TFormMain.Create(nil);
-  PageTemplate := TFormTemplate.Create(nil);
-  try
-
-    Layout1.AddObject(PageMain.Layout1);
-  except
-
-  end;
-
-end;
-
 procedure TFormPrincipal.Image2Click(Sender: TObject);
+var
+  template : TFormTemplate;
 begin
-  Layout1.AddObject(nil);
-  try
-    Layout1.AddObject(PageTemplate.Layout1);
-  finally
-
+  if Assigned(template) then
+  begin
+    template := TFormTemplate.Create(Self);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(template.Layout1);
+  end
+  else
+  begin
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(template.Layout1);
   end;
 end;
 

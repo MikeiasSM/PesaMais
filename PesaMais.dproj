@@ -201,9 +201,19 @@
         <DCCReference Include="src\View\Pages\PesaMais.View.Pages.Template.pas">
             <Form>FormTemplate</Form>
         </DCCReference>
+        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.Main.pas">
+            <Form>FormMain</Form>
+        </DCCReference>
+        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.CadUsuario.pas">
+            <Form>FormUsuario</Form>
+        </DCCReference>
         <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas">
             <Form>Connection</Form>
             <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmORM.pas">
+            <Form>ConnectionFactory</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Bairro.pas"/>
@@ -219,27 +229,13 @@
         <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas"/>
         <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.PropriedadeLocal.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas">
-            <Form>$R *.res</Form>
-        </DCCReference>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas"/>
-        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.Main.pas">
-            <Form>FormMain</Form>
-        </DCCReference>
-        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.CadUsuario.pas">
-            <Form>FormUsuario</Form>
-        </DCCReference>
-        <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmORM.pas">
-            <Form>dmConexao</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.Interfaces.pas"/>
-        <DCCReference Include="src\Model\PesaMais.Model.Entidade.Usuario.pas"/>
-        <DCCReference Include="src\Model\PesaMais.Model.Interfaces.pas"/>
-        <DCCReference Include="src\Model\PesaMais.Model.Usuario.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBase.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.ORM.Usuario.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

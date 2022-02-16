@@ -46,6 +46,7 @@
           Text = 'Salvar'
           TextSettings.Font.Family = 'Montserrat'
           TextSettings.Font.StyleExt = {00070000000000000004000000}
+          OnClick = btnSalvarClick
         end
         object btnSair: TSpeedButton
           Align = Right

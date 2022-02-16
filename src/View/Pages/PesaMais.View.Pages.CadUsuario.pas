@@ -3,9 +3,21 @@ unit PesaMais.View.Pages.CadUsuario;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.Edit, FMX.Layouts, FMX.Objects;
+  System.SysUtils,
+  System.Types,
+  System.UITypes,
+  System.Classes,
+  System.Variants,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Forms,
+  FMX.Graphics,
+  FMX.Dialogs,
+  FMX.StdCtrls,
+  FMX.Controls.Presentation,
+  FMX.Edit,
+  FMX.Layouts,
+  FMX.Objects;
 
 type
   TFormUsuario = class(TForm)
@@ -26,6 +38,7 @@ type
     txtSenha2: TEdit;
     Label2: TLabel;
     procedure btnSairClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,5 +56,11 @@ procedure TFormUsuario.btnSairClick(Sender: TObject);
 begin
   Close;
 end;
+
+procedure TFormUsuario.btnSalvarClick(Sender: TObject);
+begin
+  //
+end;
+
 
 end.

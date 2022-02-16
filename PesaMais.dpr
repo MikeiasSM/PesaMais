@@ -5,7 +5,10 @@ uses
   FMX.Forms,
   PesaMais.View.Principal in 'src\View\PesaMais.View.Principal.pas' {FormPrincipal},
   PesaMais.View.Pages.Template in 'src\View\Pages\PesaMais.View.Pages.Template.pas' {FormTemplate},
+  PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {FormMain},
+  PesaMais.View.Pages.CadUsuario in 'src\View\Pages\PesaMais.View.Pages.CadUsuario.pas' {FormUsuario},
   PesaMais.Model.Connection.DmConnection in 'src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas' {Connection: TDataModule},
+  PesaMais.Model.Connection.DmORM in 'src\Model\Connection\PesaMais.Model.Connection.DmORM.pas' {ConnectionFactory: TDataModule},
   PesaMais.Model.Entities.Bairro in 'src\Model\Entities\PesaMais.Model.Entities.Bairro.pas',
   PesaMais.Model.Entities.Cidade in 'src\Model\Entities\PesaMais.Model.Entities.Cidade.pas',
   PesaMais.Model.Entities.Endereco in 'src\Model\Entities\PesaMais.Model.Entities.Endereco.pas',
@@ -19,23 +22,20 @@ uses
   PesaMais.Model.Entities.Propriedade in 'src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas',
   PesaMais.Model.Entities.PropriedadeLocal in 'src\Model\Entities\PesaMais.Model.Entities.PropriedadeLocal.pas',
   PesaMais.Model.Dao.DaoLote in 'src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas',
-  PesaMais.Model.Dao.DaoEstado in 'src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas' {$R *.res},
   PesaMais.Model.Dao.DaoUsuario in 'src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas',
   PesaMais.Model.Dao.DaoRacaAnimal in 'src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas',
   PesaMais.Model.Dao.DaoPropriedade in 'src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas',
   PesaMais.Model.Dao.DaoBairro in 'src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas',
-  PesaMais.View.Pages.Main in 'src\View\Pages\PesaMais.View.Pages.Main.pas' {FormMain},
-  PesaMais.View.Pages.CadUsuario in 'src\View\Pages\PesaMais.View.Pages.CadUsuario.pas' {FormUsuario},
-  PesaMais.Model.Connection.DmORM in 'src\Model\Connection\PesaMais.Model.Connection.DmORM.pas' {dmConexao: TDataModule},
-  PesaMais.Model.Connection.Interfaces in 'src\Model\Connection\PesaMais.Model.Connection.Interfaces.pas',
-  PesaMais.Model.Entidade.Usuario in 'src\Model\PesaMais.Model.Entidade.Usuario.pas',
-  PesaMais.Model.Interfaces in 'src\Model\PesaMais.Model.Interfaces.pas',
-  PesaMais.Model.Usuario in 'src\Model\PesaMais.Model.Usuario.pas';
+  PesaMais.Model.Dao.DaoEstado in 'src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas',
+  PesaMais.Model.Dao.DaoBase in 'src\Model\Dao\PesaMais.Model.Dao.DaoBase.pas',
+  PesaMais.Model.Entities.ORM.Usuario in 'src\Model\Entities\PesaMais.Model.Entities.ORM.Usuario.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TConnection, Connection);
+  Application.CreateForm(TConnectionFactory, ConnectionFactory);
   Application.Run;
 end.

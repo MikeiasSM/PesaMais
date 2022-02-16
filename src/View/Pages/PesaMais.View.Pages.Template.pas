@@ -8,6 +8,8 @@ uses
   System.UITypes,
   System.Classes,
   System.Variants,
+  System.ImageList,
+  System.Generics.Collections,
   FMX.Types,
   FMX.Controls,
   FMX.Forms,
@@ -18,12 +20,16 @@ uses
   FMX.Edit,
   FMX.StdCtrls,
   FMX.Controls.Presentation,
-  System.ImageList,
+  FMX.ListBox,
+  FMX.ListView.Types,
+  FMX.ListView.Adapters.Base,
+  FMX.ListView,
+  FMX.ListView.Appearances,
   FMX.ImgList,
-  Bind4D, Router4D.Interfaces, PesaMais.View.Pages.CadUsuario,
-  PesaMais.Model.Interfaces,PesaMais.Model.Usuario, PesaMais.Model.Entidade.Usuario,
-  System.Generics.Collections, FMX.ListBox, FMX.ListView.Types, FMX.ListView.Adapters.Base, FMX.ListView,
-  FMX.ListView.Appearances;
+  Bind4D,
+  Router4D.Interfaces,
+  PesaMais.View.Pages.CadUsuario,
+  PesaMais.Model.Entities.ORM.Usuario;
 
 type
   TFormTemplate = class(TForm, iRouter4DComponent)
@@ -36,13 +42,15 @@ type
     lblNomeTela: TLabel;
     ImageList1: TImageList;
     StyleBook1: TStyleBook;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
+    btnNovo: TSpeedButton;
+    btnSair: TSpeedButton;
     Rectangle7: TRectangle;
     Rectangle5: TRectangle;
     ListView1: TListView;
-    procedure SpeedButton1Click(Sender: TObject);
+    Button1: TButton;
+    procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     FEndPoint : String;
@@ -51,9 +59,6 @@ type
     FSort : String;
     FOrder : String;
     FormUsuario : TFormUsuario;
-
-    FDao : iModelUsuario;
-    procedure findAll;
   public
     { Public declarations }
     function Render : TFMXObject;
@@ -67,17 +72,12 @@ implementation
 
 {$R *.fmx}
 
-procedure TFormTemplate.FormCreate(Sender: TObject);
-begin
-  //findAll;
-end;
-
 function TFormTemplate.Render: TFMXObject;
 begin
   Result := Layout1;
 end;
 
-procedure TFormTemplate.SpeedButton1Click(Sender: TObject);
+procedure TFormTemplate.btnNovoClick(Sender: TObject);
 begin
   FormUsuario := TFormUsuario.Create(nil);
 
@@ -85,29 +85,38 @@ begin
 
 end;
 
+procedure TFormTemplate.Button1Click(Sender: TObject);
+  var
+  usuario : TUSUARIO;
+  usuario2 : TUSUARIO;
+
+  Item : TListViewItem;
+begin
+
+  usuario := TUSUARIO.Create;
+  usuario2 := TUSUARIO.Create;
+
+  ListView1.Items.Clear;
+
+  for usuario2 in usuario.FindAll do
+  begin
+    Item := ListView1.Items.Add;
+    item.Text := '('+IntToStr(usuario2.ID_USUARIO)+') '+usuario2.USUARIO;
+  end;
+  ListView1.EndUpdate;
+end;
+
 procedure TFormTemplate.UnRender;
 begin
 
 end;
 
-procedure TFormTemplate.findall;
-var
-  Usuario : TUSUARIO;
-  List : TObjectList<TUSUARIO>;
-  Item : TListViewItem;
-  i : Integer;
+
+procedure TFormTemplate.FormCreate(Sender: TObject);
 begin
-
-  List := TModelUsuario.New.DAO.Find;
-
-  ListView1.Items.Clear;
-  for Usuario in List do
-  begin
-    Item := ListView1.Items.Add;
-    item.Text := '('+IntToStr(Usuario.ID_USUARIO)+') '+Usuario.USUARIO;
-  end;
-  ListView1.EndUpdate;
+  //
 end;
+
 {
 // CODIGO DE EXEMPLO (CRUD)
 

@@ -1,4 +1,4 @@
-object dmConexao: TdmConexao
+object ConnectionFactory: TConnectionFactory
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 235

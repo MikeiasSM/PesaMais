@@ -25,26 +25,24 @@ uses
   dbebr.factory.firedac,
   ormbr.container.objectset,
   ormbr.container.objectset.interfaces,
-  ormbr.dml.generator.firebird,
-  PesaMais.Model.Connection.Interfaces;
+  ormbr.dml.generator.firebird;
 
 type
-  TdmConexao = class(TDataModule, iModelConnection)
+  TConnectionFactory = class(TDataModule)
     FDConnection: TFDConnection;
     FDGUIxWaitCursor: TFDGUIxWaitCursor;
     FDPhysFBDriverLink: TFDPhysFBDriverLink;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
-    FCon : IDBConnection;
-    function Con : IDBConnection;
+
   public
     { Public declarations }
-    class function New : iModelConnection;
+    class function GetConnection : IDBConnection;
   end;
 
 var
-  dmConexao: TdmConexao;
+  ConnectionFactory: TConnectionFactory;
 
 implementation
 
@@ -52,19 +50,14 @@ implementation
 
 {$R *.dfm}
 
-function TdmConexao.Con: IDBConnection;
+procedure TConnectionFactory.DataModuleCreate(Sender: TObject);
 begin
-  Result := FCon;
+  FDConnection.Connected := True;
 end;
 
-procedure TdmConexao.DataModuleCreate(Sender: TObject);
+class function TConnectionFactory.GetConnection: IDBConnection;
 begin
-  FCon := TFactoryFireDac.Create(FDConnection, dnFirebird);
-end;
-
-class function TdmConexao.New: iModelConnection;
-begin
-  Result := Self.Create(nil);
+  Result := TFactoryFireDac.Create(ConnectionFactory.FDConnection, dnFirebird);
 end;
 
 end.

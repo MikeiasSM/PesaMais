@@ -10,6 +10,7 @@ object Connection: TConnection
       'Password=masterkey'
       'CharacterSet=WIN1252'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 56
