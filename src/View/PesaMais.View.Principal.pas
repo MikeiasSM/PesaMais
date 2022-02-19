@@ -32,43 +32,56 @@ uses
   FMX.MultiView,
   System.Math.Vectors,
   FMX.Controls3D,
-  FMX.Layers3D, PesaMais.View.Pages.Main, PesaMais.View.Pages.Template;
+  FMX.Layers3D,
+  PesaMais.View.Pages.Main,
+  PesaMais.View.Pages.Template,
+  FMX.ListBox,
+  FMX.Ani,
+  Skia,
+  Skia.FMX, System.ImageList, FMX.ImgList;
 
 type
   TFormPrincipal = class(TForm)
-    LayoutPrincipal: TLayout;
-    MultiView1: TMultiView;
-    Rectangle2: TRectangle;
-    Rectangle3: TRectangle;
-    Image1: TImage;
-    Layout2: TLayout;
-    lblNomeLogo: TLabel;
-    Layout3: TLayout;
-    btnMenu: TImage;
-    Layout3D1: TLayout3D;
-    Rectangle5: TRectangle;
-    Layout4: TLayout;
-    Image2: TImage;
-    lblCadastro: TLabel;
-    Rectangle6: TRectangle;
-    Layout5: TLayout;
-    Image3: TImage;
-    Label1: TLabel;
-    Rectangle7: TRectangle;
-    Layout6: TLayout;
-    Image4: TImage;
-    Label2: TLabel;
-    Rectangle8: TRectangle;
-    Layout7: TLayout;
-    Image5: TImage;
-    Label3: TLabel;
-    Rectangle9: TRectangle;
-    Layout8: TLayout;
-    Image6: TImage;
-    Label4: TLabel;
+    MultiViewMenu: TMultiView;
     Rectangle1: TRectangle;
     Rectangle4: TRectangle;
-    procedure Image2Click(Sender: TObject);
+    Layout1: TLayout;
+    Rectangle2: TRectangle;
+    Layout3: TLayout;
+    Label1: TLabel;
+    ToolBar1: TToolBar;
+    LayoutPrincipal: TLayout;
+    expCadastro: TExpander;
+    StyleBook1: TStyleBook;
+    btnAnimais: TSpeedButton;
+    btnLote: TSpeedButton;
+    btnUsuario: TSpeedButton;
+    btnPessoa: TSpeedButton;
+    expLancamento: TExpander;
+    btnCheckin: TSpeedButton;
+    btnCheckout: TSpeedButton;
+    btnProcedimento: TSpeedButton;
+    expConsulta: TExpander;
+    btnConsulta: TSpeedButton;
+    expRelatorio: TExpander;
+    btnRelatorio: TSpeedButton;
+    btnConfiguracoes: TSpeedButton;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    btnProprietario: TSpeedButton;
+    Image2: TImage;
+    Layout2: TLayout;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    Image10: TImage;
+    Image11: TImage;
+    Image12: TImage;
+    Image1: TImage;
+    procedure btnUsuarioClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -89,7 +102,7 @@ implementation
 
 { TfrmMain }
 
-procedure TFormPrincipal.Image2Click(Sender: TObject);
+procedure TFormPrincipal.btnUsuarioClick(Sender: TObject);
 var
   template : TFormTemplate;
 begin
@@ -104,6 +117,19 @@ begin
     Self.LayoutPrincipal.RemoveObject(0);
     Self.LayoutPrincipal.AddObject(template.Layout1);
   end;
+end;
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+var
+  LAnimatedImage: TSkAnimatedImage;
+begin
+
+  LAnimatedimage := TSkAnimatedImage.Create(Self);
+
+  LAnimatedimage.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\rocket.json');
+  LAnimatedimage.Parent := Self.LayoutPrincipal;
+  LAnimatedImage.Size.Width := LayoutPrincipal.Size.Width;
+  LAnimatedImage.Size.Height := LayoutPrincipal.Size.Height;
 end;
 
 end.

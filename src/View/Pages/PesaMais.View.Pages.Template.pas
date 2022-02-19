@@ -29,7 +29,8 @@ uses
   Bind4D,
   Router4D.Interfaces,
   PesaMais.View.Pages.CadUsuario,
-  PesaMais.Model.Entities.ORM.Usuario;
+  PesaMais.Model.Entities.ORM.Usuario, System.Rtti, FMX.Grid.Style,
+  FMX.ScrollBox, FMX.Grid;
 
 type
   TFormTemplate = class(TForm, iRouter4DComponent)
@@ -46,11 +47,9 @@ type
     btnSair: TSpeedButton;
     Rectangle7: TRectangle;
     Rectangle5: TRectangle;
-    ListView1: TListView;
-    Button1: TButton;
+    StringGrid1: TStringGrid;
     procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     FEndPoint : String;
@@ -84,8 +83,18 @@ begin
   FormUsuario.ShowModal();
 
 end;
+procedure TFormTemplate.UnRender;
+begin
 
-procedure TFormTemplate.Button1Click(Sender: TObject);
+end;
+
+procedure TFormTemplate.FormCreate(Sender: TObject);
+begin
+  //
+end;
+
+{
+
   var
   usuario : TUSUARIO;
   usuario2 : TUSUARIO;
@@ -104,20 +113,7 @@ begin
     item.Text := '('+IntToStr(usuario2.ID_USUARIO)+') '+usuario2.USUARIO;
   end;
   ListView1.EndUpdate;
-end;
 
-procedure TFormTemplate.UnRender;
-begin
-
-end;
-
-
-procedure TFormTemplate.FormCreate(Sender: TObject);
-begin
-  //
-end;
-
-{
 // CODIGO DE EXEMPLO (CRUD)
 
 //INSERT

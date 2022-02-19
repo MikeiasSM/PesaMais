@@ -3,14 +3,14 @@ unit PesaMais.Model.Entities.ORM.Usuario;
 interface
 
 uses
-  DB, 
-  Classes, 
-  SysUtils, 
-  Generics.Collections, 
+  DB,
+  Classes,
+  SysUtils,
+  Generics.Collections,
 
   /// ORM
-  ormbr.types.blob, 
-  ormbr.types.lazy, 
+  ormbr.types.blob,
+  ormbr.types.lazy,
   dbcbr.types.mapping,
   ormbr.types.nullable,
   dbcbr.mapping.classes,
@@ -22,23 +22,23 @@ type
   [Entity]
   [Table('USUARIO', '')]
   [PrimaryKey('ID_USUARIO', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_USUARIO_ID')]
+  [Sequence('GEN_ID_USUARIO')]
   TUSUARIO = class
   private
-    { Private declarations } 
+    { Private declarations }
     FID_USUARIO: Integer;
     FUSUARIO: String;
     FSENHA: String;
     FATIVO: Nullable<Boolean>;
-  public 
-    { Public declarations } 
+  public
+    { Public declarations }
     [Restrictions([NotNull])]
     [Column('ID_USUARIO', ftInteger)]
     [Dictionary('ID_USUARIO', 'Mensagem de validação', '', '', '', taCenter)]
     property ID_USUARIO: Integer read FID_USUARIO write FID_USUARIO;
 
     [Restrictions([NotNull])]
-    [Column('USUARIO', ftString, 40)]
+    [Column('NOME', ftString, 40)]
     [Dictionary('USUARIO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property USUARIO: String read FUSUARIO write FUSUARIO;
 
@@ -53,6 +53,7 @@ type
 
     class function FindAll : TObjectList<TUSUARIO>;
     class function GetById(AID : Integer; var AUsuario : TUSUARIO; ARetorno : String) : Boolean;
+    class function Save (AValue : TUSUARIO) : Boolean;
   end;
 
 implementation
@@ -89,6 +90,23 @@ begin
   end;
 end;
 
+class function TUSUARIO.Save(AValue: TUSUARIO): Boolean;
+begin
+  Result := True;
+  var DAO := TDAOBase<TUSUARIO>.Create;
+
+  try
+    try
+      Dao.Insert(AValue);
+    finally
+      Dao.Free;
+    end;
+  except
+    Exit(False);
+  end;
+end;
+
 initialization
-  TRegisterClass.RegisterEntity(TUSUARIO)
+
+TRegisterClass.RegisterEntity(TUSUARIO)
 end.

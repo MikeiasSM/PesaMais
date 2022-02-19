@@ -5,11 +5,12 @@ object ConnectionFactory: TConnectionFactory
   Width = 149
   object FDConnection: TFDConnection
     Params.Strings = (
-      'Database=C:\Delphi\Exemplo\Database\DADOS.FDB'
+      'Database=C:\PesaMais\Database\PESAMAIS.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'CharacterSet=WIN1252'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Left = 56
     Top = 40

@@ -1,4 +1,16 @@
 ﻿[]
-Coordinates=127,10,53,51
+Coordinates=49,56,139,212
 Visible=True
+
+[Rectangle1]
+Coordinates=0,0,80,36
+
+[Rectangle4]
+Coordinates=99,1,80,36
+
+[LayoutPrincipal]
+Coordinates=198,1,103,36
+
+[MultiViewMenu]
+Coordinates=198,56,102,36
 

@@ -17,7 +17,7 @@ uses
   FMX.Controls.Presentation,
   FMX.Edit,
   FMX.Layouts,
-  FMX.Objects;
+  FMX.Objects, FMX.Effects, PesaMais.Model.Entities.ORM.Usuario;
 
 type
   TFormUsuario = class(TForm)
@@ -37,6 +37,8 @@ type
     Label1: TLabel;
     txtSenha2: TEdit;
     Label2: TLabel;
+    StyleBook1: TStyleBook;
+    ShadowEffect1: TShadowEffect;
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
   private
@@ -59,7 +61,17 @@ end;
 
 procedure TFormUsuario.btnSalvarClick(Sender: TObject);
 begin
-  //
+  var usuario := TUSUARIO.Create;
+
+
+  usuario.USUARIO := txtNome.Text;
+  usuario.SENHA := txtSenha1.Text;
+  usuario.ATIVO := cbAtivo.IsChecked;
+
+  if usuario.Save(usuario) then
+    ShowMessage('Salvo com sucesso!')
+  else
+    ShowMessage('Erro ao salvar!');
 end;
 
 
