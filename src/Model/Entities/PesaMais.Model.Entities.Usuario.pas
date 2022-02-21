@@ -2,71 +2,159 @@ unit PesaMais.Model.Entities.Usuario;
 
 interface
 
+uses
+  { System }
+  DB,
+  Classes,
+  SysUtils,
+  Generics.Collections,
+  System.Generics.Collections,
+
+  { ORMBr }
+  ormbr.types.blob,
+  ormbr.types.lazy,
+  dbcbr.types.mapping,
+  ormbr.types.nullable,
+  dbcbr.mapping.classes,
+  dbcbr.mapping.register,
+  dbcbr.mapping.attributes,
+
+  { PesaMais }
+  PesaMais.Model.Dao.DaoBase;
+
 type
-  TUsuario = class
-
+  [Entity]
+  [Table('USUARIO', '')]
+  [PrimaryKey('ID_USUARIO', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_USUARIO')]
+  TUSUARIO = class
   private
-    FAtivo: Boolean;
-    FSenha: String;
-    FNome: String;
-    Fid_usuario: Integer;
-    procedure SetAtivo(const Value: Boolean);
-    procedure Setid_usuario(const Value: Integer);
-    procedure SetNome(const Value: String);
-    procedure SetSenha(const Value: String);
-
+    { Private declarations }
+    FID_USUARIO: Integer;
+    FUSUARIO: String;
+    FSENHA: String;
+    FATIVO: Nullable<Boolean>;
   public
-    { ** DEFAULT ** }
-    constructor Create;
-    destructor Destroy; override;
-    class function New: TUsuario;
+    { Public declarations }
+    [Restrictions([NotNull])]
+    [Column('ID_USUARIO', ftInteger)]
+    [Dictionary('ID_USUARIO', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_USUARIO: Integer read FID_USUARIO write FID_USUARIO;
 
-    { ** PROPERTYS ** }
-    property id_usuario: Integer read Fid_usuario write Setid_usuario;
-    property Nome: String read FNome write SetNome;
-    property Senha: String read FSenha write SetSenha;
-    property Ativo: Boolean read FAtivo write SetAtivo;
+    [Restrictions([NotNull])]
+    [Column('NOME', ftString, 40)]
+    [Dictionary('NOME', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property USUARIO: String read FUSUARIO write FUSUARIO;
 
+    [Restrictions([NotNull])]
+    [Column('SENHA', ftString, 40)]
+    [Dictionary('SENHA', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property SENHA: String read FSENHA write FSENHA;
+
+    [Column('ATIVO', ftBoolean)]
+    [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property ATIVO: Nullable<Boolean> read FATIVO write FATIVO;
+
+    class function FindAll : TObjectList<TUSUARIO>;
+    class function GetById (AID : Integer; var AUsuario : TUSUARIO; ARetorno : String) : Boolean;
+    class function Save (AValue : TUSUARIO) : String;
+    class function Update (AValue : TUSUARIO; AID : Integer) : String;
+    class function Delete (AID : Integer) : String;
   end;
 
 implementation
 
-{ TUsuario }
+{ TUSUARIO }
 
-constructor TUsuario.Create;
+class function TUSUARIO.Delete(AID: Integer): String;
 begin
-
+  var
+  Dao := TDAOBase<TUSUARIO>.Create;
+  try
+    try
+      Dao.Delete(AID);
+      Result := 'Registro Excluido com Sucesso!';
+    except
+      On E: Exception do
+      begin
+        Result := E.Message;
+        Exit;
+      end;
+    end;
+  finally
+    Dao.Free;
+  end;
 end;
 
-destructor TUsuario.Destroy;
+class function TUSUARIO.FindAll: TObjectList<TUSUARIO>;
 begin
-
-  inherited;
+  var DAO := TDAOBase<TUSUARIO>.Create;
+  try
+    Result := DAO.FindAll;
+  finally
+    DAO.Free;
+  end;
 end;
 
-class function TUsuario.New: TUsuario;
+class function TUSUARIO.GetById(AID: Integer; var AUsuario: TUSUARIO;
+  ARetorno: String): Boolean;
 begin
-  Result := Self.Create;
+  Result := True;
+  var DAO := TDAOBase<TUSUARIO>.Create;
+
+  try
+    AUsuario := DAO.FindById(AID);
+    if AUsuario = nil then
+    begin
+      ARetorno := 'Registro não encontrado!';
+      Exit(False)
+    end;
+
+  finally
+    DAO.Free
+  end;
 end;
 
-procedure TUsuario.SetAtivo(const Value: Boolean);
+class function TUSUARIO.Save(AValue : TUSUARIO): String;
 begin
-  FAtivo := Value;
+  var DAO := TDAOBase<TUSUARIO>.Create;
+  try
+    try
+      Dao.Insert(AValue);
+      Result := 'Registro Salvo com Sucesso!';
+    except
+      On E: Exception do
+      begin
+        Result := E.Message;
+        Exit;
+      end;
+    end;
+  finally
+    Dao.Free;
+  end;
 end;
 
-procedure TUsuario.Setid_usuario(const Value: Integer);
+class function TUSUARIO.Update(AValue: TUSUARIO; AID : Integer) : String;
 begin
-  Fid_usuario := Value;
+  var DAO := TDAOBase<TUSUARIO>.Create;
+  try
+    try
+      Dao.Update(AValue, AID);
+      Result := 'Registro Alterado com Sucesso!';
+    except
+      On E: Exception do
+      begin
+        Result := E.Message;
+        Exit;
+      end;
+    end;
+  finally
+    Dao.Free;
+  end;
 end;
 
-procedure TUsuario.SetNome(const Value: String);
-begin
-  FNome := Value;
-end;
+initialization
 
-procedure TUsuario.SetSenha(const Value: String);
-begin
-  FSenha := Value;
-end;
+TRegisterClass.RegisterEntity(TUSUARIO)
 
 end.

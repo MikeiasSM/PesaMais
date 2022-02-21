@@ -64,12 +64,12 @@ begin
   List := TObjectList<TUsuario>.Create;
   try
     FConnection.StartTransation;
-    FConnection.ExecutarSQL('SELECT * FROM USUARIO ORDER BY NOME');
+    FConnection.ExecutarSQL('SELECT * FROM USUARIO ORDER BY USUARIO');
     while not FConnection.FDQuery.Eof do
     begin
       Usuario := TUsuario.Create;
       Usuario.id_usuario := FConnection.FDQuery.FieldByName('ID_USUARIO').AsInteger;
-      Usuario.Nome := FConnection.FDQuery.FieldByName('NOME').AsString;
+      Usuario.Usuario := FConnection.FDQuery.FieldByName('USUARIO').AsString;
       Usuario.Senha := FConnection.FDQuery.FieldByName('SENHA').AsString;
 
       List.Add(Usuario);
@@ -87,8 +87,8 @@ function TDaoUsuario.Insert(pUsuario: TUsuario) : Boolean;
 begin
   FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('INSERT INTO (NOME, SENHA, ATIVO) VALUES (:NOME, :SENHA, :ATIVO)');
-    FConnection.FDQuery.Params.ParamByName(':NOME').AsString := pUsuario.Nome;
+    FConnection.PrepareStatement('INSERT INTO (USUARIO, SENHA, ATIVO) VALUES (:USUARIO, :SENHA, :ATIVO)');
+    FConnection.FDQuery.Params.ParamByName(':USUARIO').AsString := pUsuario.Usuario;
     FConnection.FDQuery.Params.ParamByName(':SENHA').AsString := pUsuario.Senha;
     FConnection.FDQuery.Params.ParamByName(':ATIVO').AsBoolean := pUsuario.Ativo;
     FConnection.ExecSQL;
@@ -105,8 +105,8 @@ function TDaoUsuario.Update(pUsuario: TUsuario) : Boolean;
 begin
 FConnection.StartTransation;
   try
-    FConnection.PrepareStatement('UPDATE USUARIO SET NOME = :NOME, SENHA = :SENHA, ATIVO = :ATIVO WHERE ID_USUARIO = :ID_USUARIO ');
-    FConnection.FDQuery.Params.ParamByName(':NOME').AsString := pUsuario.Nome;
+    FConnection.PrepareStatement('UPDATE USUARIO SET USUARIO = :USUARIO, SENHA = :SENHA, ATIVO = :ATIVO WHERE ID_USUARIO = :ID_USUARIO ');
+    FConnection.FDQuery.Params.ParamByName(':USUARIO').AsString := pUsuario.Usuario;
     FConnection.FDQuery.Params.ParamByName(':SENHA').AsString := pUsuario.Senha;
     FConnection.FDQuery.Params.ParamByName(':ATIVO').AsBoolean := pUsuario.Ativo;
     FConnection.FDQuery.Params.ParamByName(':ID_USUARIO').AsInteger := pUsuario.id_usuario;

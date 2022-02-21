@@ -1,13 +1,13 @@
-unit PesaMais.Model.Entities.Lote;
+unit PesaMais.Model.Entities.Tipo_Lancamento;
 
 interface
 
 uses
   { System }
   DB,
-  Classes, 
-  SysUtils, 
-  Generics.Collections, 
+  Classes,
+  SysUtils,
+  Generics.Collections,
 
   { ORMBr }
   ormbr.types.blob,
@@ -20,23 +20,23 @@ uses
 
 type
   [Entity]
-  [Table('LOTE', '')]
-  [PrimaryKey('ID_LOTE', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_ID_LOTE')]
-  TLOTE = class
+  [Table('TIPO_LANCAMENTO', '')]
+  [PrimaryKey('ID_TIPO', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_TIPO_LANCAMENTO')]
+  TTIPO_LANCAMENTO = class
   private
     { Private declarations } 
-    FID_LOTE: Integer;
+    FID_TIPO: Integer;
     FDESCRICAO: String;
   public 
     { Public declarations } 
     [Restrictions([NotNull])]
-    [Column('ID_LOTE', ftInteger)]
-    [Dictionary('ID_LOTE', 'Mensagem de validação', '', '', '', taCenter)]
-    property ID_LOTE: Integer read FID_LOTE write FID_LOTE;
+    [Column('ID_TIPO', ftInteger)]
+    [Dictionary('ID_TIPO', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_TIPO: Integer read FID_TIPO write FID_TIPO;
 
     [Restrictions([NotNull])]
-    [Column('DESCRICAO', ftString, 60)]
+    [Column('DESCRICAO', ftString, 30)]
     [Dictionary('DESCRICAO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property DESCRICAO: String read FDESCRICAO write FDESCRICAO;
   end;
@@ -44,6 +44,6 @@ type
 implementation
 
 initialization
-  TRegisterClass.RegisterEntity(TLOTE)
+  TRegisterClass.RegisterEntity(TTIPO_LANCAMENTO)
 
 end.

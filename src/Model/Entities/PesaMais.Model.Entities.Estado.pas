@@ -1,62 +1,55 @@
 unit PesaMais.Model.Entities.Estado;
 
 interface
+
+uses
+  { System }
+  DB, 
+  Classes, 
+  SysUtils, 
+  Generics.Collections, 
+
+  { ORMBr }
+  ormbr.types.blob,
+  ormbr.types.lazy,
+  dbcbr.types.mapping,
+  ormbr.types.nullable,
+  dbcbr.mapping.classes,
+  dbcbr.mapping.register,
+  dbcbr.mapping.attributes;
+
 type
-  TEstado = class
-
+  [Entity]
+  [Table('ESTADO', '')]
+  [PrimaryKey('ID_ESTADO', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_ESTADO')]
+  TESTADO = class
   private
-    FId_estado  : Integer;
-    FUf         : String;
-    FNome       : String;
-    procedure SetId_estado (const Value: Integer);
-    procedure SetNome      (const Value: String);
-    procedure SetUf        (const Value: String);
+    { Private declarations } 
+    FID_ESTADO: Integer;
+    FNOME: String;
+    FUF: String;
+  public 
+    { Public declarations } 
+    [Restrictions([NotNull])]
+    [Column('ID_ESTADO', ftInteger)]
+    [Dictionary('ID_ESTADO', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_ESTADO: Integer read FID_ESTADO write FID_ESTADO;
 
+    [Restrictions([NotNull])]
+    [Column('NOME', ftString, 60)]
+    [Dictionary('NOME', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property NOME: String read FNOME write FNOME;
 
-  public
-    constructor Create;
-    destructor Destroy; override;
-    class function New : TEstado;
-
-    property Id_estado : integer read Fid_estado write Setid_estado;
-    property Nome      : string read Fnome write Setnome;
-    property Uf        : string read Fuf write Setuf;
-
+    [Restrictions([NotNull])]
+    [Column('UF', ftString, 2)]
+    [Dictionary('UF', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property UF: String read FUF write FUF;
   end;
 
 implementation
 
-{ TEstado }
-
-constructor TEstado.Create;
-begin
-
-end;
-
-destructor TEstado.Destroy;
-begin
-
-  inherited;
-end;
-
-class function TEstado.New: TEstado;
-begin
-   Result := Self.Create;
-end;
-
-procedure TEstado.SetId_estado(const Value: integer);
-begin
-  FId_estado := Value;
-end;
-
-procedure TEstado.SetNome(const Value: string);
-begin
-  FNome    := Value;
-end;
-
-procedure TEstado.SetUf(const Value: string);
-begin
-  FUf := Value;
-end;
+initialization
+  TRegisterClass.RegisterEntity(TESTADO)
 
 end.

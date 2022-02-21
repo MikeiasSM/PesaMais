@@ -1,13 +1,13 @@
-unit PesaMais.Model.Entities.Lote;
+unit PesaMais.Model.Entities.Raca_Animal;
 
 interface
 
 uses
   { System }
   DB,
-  Classes, 
-  SysUtils, 
-  Generics.Collections, 
+  Classes,
+  SysUtils,
+  Generics.Collections,
 
   { ORMBr }
   ormbr.types.blob,
@@ -20,20 +20,20 @@ uses
 
 type
   [Entity]
-  [Table('LOTE', '')]
-  [PrimaryKey('ID_LOTE', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_ID_LOTE')]
-  TLOTE = class
+  [Table('RACA_ANIMAL', '')]
+  [PrimaryKey('ID_RACA', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_RACA_ANIMAL')]
+  TRACA_ANIMAL = class
   private
     { Private declarations } 
-    FID_LOTE: Integer;
+    FID_RACA: Integer;
     FDESCRICAO: String;
   public 
     { Public declarations } 
     [Restrictions([NotNull])]
-    [Column('ID_LOTE', ftInteger)]
-    [Dictionary('ID_LOTE', 'Mensagem de validação', '', '', '', taCenter)]
-    property ID_LOTE: Integer read FID_LOTE write FID_LOTE;
+    [Column('ID_RACA', ftInteger)]
+    [Dictionary('ID_RACA', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_RACA: Integer read FID_RACA write FID_RACA;
 
     [Restrictions([NotNull])]
     [Column('DESCRICAO', ftString, 60)]
@@ -44,6 +44,6 @@ type
 implementation
 
 initialization
-  TRegisterClass.RegisterEntity(TLOTE)
+  TRegisterClass.RegisterEntity(TRACA_ANIMAL)
 
 end.

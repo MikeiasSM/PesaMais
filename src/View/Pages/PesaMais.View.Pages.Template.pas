@@ -28,12 +28,12 @@ uses
   FMX.ImgList,
   Bind4D,
   Router4D.Interfaces,
-  PesaMais.View.Pages.CadUsuario,
-  PesaMais.Model.Entities.ORM.Usuario, System.Rtti, FMX.Grid.Style,
-  FMX.ScrollBox, FMX.Grid;
+  PesaMais.Model.Entities.Usuario, System.Rtti, FMX.Grid.Style,
+  FMX.ScrollBox, FMX.Grid, FMX.TabControl, FMX.Effects, System.Actions,
+  FMX.ActnList;
 
 type
-  TFormTemplate = class(TForm, iRouter4DComponent)
+  TFormTemplate = class(TForm)
     Layout1: TLayout;
     Rectangle1: TRectangle;
     Rectangle2: TRectangle;
@@ -47,9 +47,33 @@ type
     btnSair: TSpeedButton;
     Rectangle7: TRectangle;
     Rectangle5: TRectangle;
-    StringGrid1: TStringGrid;
+    TabControl1: TTabControl;
+    tabListagem: TTabItem;
+    tabCadastro: TTabItem;
+    Rectangle6: TRectangle;
+    ShadowEffect1: TShadowEffect;
+    ActionList1: TActionList;
+    changeTabListagem: TChangeTabAction;
+    changeTabCadastro: TChangeTabAction;
+    btnBusca: TSpeedButton;
+    ShadowEffect2: TShadowEffect;
+    StrGrid: TStringGrid;
+    StringColumn1: TStringColumn;
+    StringColumn2: TStringColumn;
+    ShadowEffect3: TShadowEffect;
+    RecCorpo: TRectangle;
+    lblStatus: TLabel;
+    RecButton: TRectangle;
+    btnSalvar: TSpeedButton;
+    Image1: TImage;
+    btnVoltar: TSpeedButton;
+    Image3: TImage;
+    btnCancelar: TSpeedButton;
+    Image2: TImage;
     procedure btnNovoClick(Sender: TObject);
+    procedure btnBuscaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
     FEndPoint : String;
@@ -57,11 +81,8 @@ type
     FTitle : String;
     FSort : String;
     FOrder : String;
-    FormUsuario : TFormUsuario;
   public
     { Public declarations }
-    function Render : TFMXObject;
-    procedure UnRender;
   end;
 
 var
@@ -69,113 +90,33 @@ var
 
 implementation
 
-{$R *.fmx}
+uses
+  PesaMais.View.Principal;
 
-function TFormTemplate.Render: TFMXObject;
-begin
-  Result := Layout1;
-end;
+{$R *.fmx}
 
 procedure TFormTemplate.btnNovoClick(Sender: TObject);
 begin
-  FormUsuario := TFormUsuario.Create(nil);
-
-  FormUsuario.ShowModal();
-
+  changeTabCadastro.ExecuteTarget(Self);
 end;
-procedure TFormTemplate.UnRender;
-begin
 
+procedure TFormTemplate.btnSairClick(Sender: TObject);
+var
+  Main : TFormPrincipal;
+begin
+  Main := TFormPrincipal(Self.Owner);
+  Main.LayoutPrincipal.RemoveObject(Self.Layout1);
 end;
 
 procedure TFormTemplate.FormCreate(Sender: TObject);
 begin
-  //
+  TabControl1.TabIndex := 0;
+  TabControl1.TabPosition := TabControl1.TabPosition.tpNone;
 end;
 
-{
-
-  var
-  usuario : TUSUARIO;
-  usuario2 : TUSUARIO;
-
-  Item : TListViewItem;
+procedure TFormTemplate.btnBuscaClick(Sender: TObject);
 begin
-
-  usuario := TUSUARIO.Create;
-  usuario2 := TUSUARIO.Create;
-
-  ListView1.Items.Clear;
-
-  for usuario2 in usuario.FindAll do
-  begin
-    Item := ListView1.Items.Add;
-    item.Text := '('+IntToStr(usuario2.ID_USUARIO)+') '+usuario2.USUARIO;
-  end;
-  ListView1.EndUpdate;
-
-// CODIGO DE EXEMPLO (CRUD)
-
-//INSERT
-procedure TfrmMain.insert;
-begin
-  FDao := TDaoEstado.Create;
-  FEstado := TEstado.Create;
-
-  FEstado.Nome := txtNome.Text;
-  FEstado.Uf := txtUf.Text;
-
-  if FDao.Insert(FEstado) then
-    ShowMessage('Inserido com Sucesso!')
-  else
-    ShowMessage('Erro ao Inserir o Registro!');
+  changeTabListagem.ExecuteTarget(Self);
 end;
-
-//UPDATE
-procedure TfrmMain.update;
-begin
-  FDao := TDaoEstado.Create;
-  FEstado := TEstado.Create;
-
-  FEstado.Id_estado := StrToInt(txtCod.Text);
-  FEstado.Nome := txtNome.Text;
-  FEstado.Uf := txtUf.Text;
-
-  if FDao.Update(FEstado) then
-    ShowMessage('Alterado com Sucesso!')
-  else
-    ShowMessage('Erro ao Alterar o Registro!');
-end;
-
-//DELETE
-procedure TfrmMain.delete;
-begin
-  FDao := TDaoEstado.Create;
-  FEstado := TEstado.Create;
-
-  FEstado.Id_estado := StrToInt(txtCod.Text);
-
-  if FDao.Delete(FEstado) then
-    ShowMessage('Deletado com Sucesso!')
-  else
-    ShowMessage('Erro ao Deletar o Registro!');
-end;
-
-//FIND ALL
-procedure TfrmMain.findall;
-var
-  Estado : TEstado;
-  Item : TListViewItem;
-begin
-  FDao := TDaoEstado.Create;
-  ListEstado.Items.Clear;
-  for Estado in FDao.FindAll do
-  begin
-    Item := ListEstado.Items.Add;
-    item.Text := '('+IntToStr(Estado.Id_estado)+') '+Estado.Nome+' - '+Estado.Uf;
-  end;
-  ListEstado.EndUpdate;
-end;
-}
 
 end.

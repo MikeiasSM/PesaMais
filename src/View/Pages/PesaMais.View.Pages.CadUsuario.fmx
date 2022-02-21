@@ -1,4 +1,4 @@
-﻿object FormUsuario: TFormUsuario
+﻿object FormCadUsuario: TFormCadUsuario
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
@@ -52,7 +52,6 @@
           TextSettings.Font.Family = 'Montserrat'
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = xFFA3D55D
-          OnClick = btnSalvarClick
         end
         object btnSair: TSpeedButton
           Align = Right
@@ -66,7 +65,6 @@
           TextSettings.Font.Family = 'Montserrat'
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = xFFA3D55D
-          OnClick = btnSairClick
         end
         object btnCancelar: TSpeedButton
           Align = Left

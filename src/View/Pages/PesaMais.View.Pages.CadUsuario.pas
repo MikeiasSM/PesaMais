@@ -17,10 +17,12 @@ uses
   FMX.Controls.Presentation,
   FMX.Edit,
   FMX.Layouts,
-  FMX.Objects, FMX.Effects, PesaMais.Model.Entities.ORM.Usuario;
+  FMX.Objects,
+  FMX.Effects,
+  PesaMais.Model.Entities.Usuario;
 
 type
-  TFormUsuario = class(TForm)
+  TFormCadUsuario = class(TForm)
     Rectangle1: TRectangle;
     Layout1: TLayout;
     Rectangle2: TRectangle;
@@ -39,8 +41,6 @@ type
     Label2: TLabel;
     StyleBook1: TStyleBook;
     ShadowEffect1: TShadowEffect;
-    procedure btnSairClick(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,31 +48,10 @@ type
   end;
 
 var
-  FormUsuario: TFormUsuario;
+  FormCadUsuario: TFormCadUsuario;
 
 implementation
 
 {$R *.fmx}
-
-procedure TFormUsuario.btnSairClick(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TFormUsuario.btnSalvarClick(Sender: TObject);
-begin
-  var usuario := TUSUARIO.Create;
-
-
-  usuario.USUARIO := txtNome.Text;
-  usuario.SENHA := txtSenha1.Text;
-  usuario.ATIVO := cbAtivo.IsChecked;
-
-  if usuario.Save(usuario) then
-    ShowMessage('Salvo com sucesso!')
-  else
-    ShowMessage('Erro ao salvar!');
-end;
-
 
 end.

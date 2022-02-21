@@ -1,10 +1,10 @@
-unit PesaMais.Model.Entities.Lote;
+unit PesaMais.Model.Entities.Categoria_Animal;
 
 interface
 
 uses
   { System }
-  DB,
+  DB, 
   Classes, 
   SysUtils, 
   Generics.Collections, 
@@ -20,20 +20,20 @@ uses
 
 type
   [Entity]
-  [Table('LOTE', '')]
-  [PrimaryKey('ID_LOTE', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_ID_LOTE')]
-  TLOTE = class
+  [Table('CATEGORIA_ANIMAL', '')]
+  [PrimaryKey('ID_CATEGORIA', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_CATEGORIA_ANIMAL_ID')]
+  TCATEGORIA_ANIMAL = class
   private
     { Private declarations } 
-    FID_LOTE: Integer;
+    FID_CATEGORIA: Integer;
     FDESCRICAO: String;
   public 
     { Public declarations } 
     [Restrictions([NotNull])]
-    [Column('ID_LOTE', ftInteger)]
-    [Dictionary('ID_LOTE', 'Mensagem de validação', '', '', '', taCenter)]
-    property ID_LOTE: Integer read FID_LOTE write FID_LOTE;
+    [Column('ID_CATEGORIA', ftInteger)]
+    [Dictionary('ID_CATEGORIA', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_CATEGORIA: Integer read FID_CATEGORIA write FID_CATEGORIA;
 
     [Restrictions([NotNull])]
     [Column('DESCRICAO', ftString, 60)]
@@ -44,6 +44,6 @@ type
 implementation
 
 initialization
-  TRegisterClass.RegisterEntity(TLOTE)
+  TRegisterClass.RegisterEntity(TCATEGORIA_ANIMAL)
 
 end.

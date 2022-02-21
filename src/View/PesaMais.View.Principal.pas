@@ -34,7 +34,7 @@ uses
   FMX.Controls3D,
   FMX.Layers3D,
   PesaMais.View.Pages.Main,
-  PesaMais.View.Pages.Template,
+  PesaMais.View.Pages.Usuario,
   FMX.ListBox,
   FMX.Ani,
   Skia,
@@ -65,7 +65,7 @@ type
     btnConsulta: TSpeedButton;
     expRelatorio: TExpander;
     btnRelatorio: TSpeedButton;
-    btnConfiguracoes: TSpeedButton;
+    btnDashboard: TSpeedButton;
     Image3: TImage;
     Image4: TImage;
     Image5: TImage;
@@ -80,8 +80,15 @@ type
     Image11: TImage;
     Image12: TImage;
     Image1: TImage;
+    btnConfiguracoes: TSpeedButton;
+    Image13: TImage;
     procedure btnUsuarioClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnDashboardClick(Sender: TObject);
+    procedure expCadastroClick(Sender: TObject);
+    procedure expLancamentoClick(Sender: TObject);
+    procedure expConsultaClick(Sender: TObject);
+    procedure expRelatorioClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -102,21 +109,70 @@ implementation
 
 { TfrmMain }
 
-procedure TFormPrincipal.btnUsuarioClick(Sender: TObject);
+procedure TFormPrincipal.btnDashboardClick(Sender: TObject);
 var
-  template : TFormTemplate;
+  main : TFormMain;
 begin
-  if Assigned(template) then
+  if Assigned(main) then
   begin
-    template := TFormTemplate.Create(Self);
+    main := TFormMain.Create(Self);
     Self.LayoutPrincipal.RemoveObject(0);
-    Self.LayoutPrincipal.AddObject(template.Layout1);
+    Self.LayoutPrincipal.AddObject(main.Layout1);
   end
   else
   begin
     Self.LayoutPrincipal.RemoveObject(0);
-    Self.LayoutPrincipal.AddObject(template.Layout1);
+    Self.LayoutPrincipal.AddObject(main.Layout1);
   end;
+end;
+
+procedure TFormPrincipal.btnUsuarioClick(Sender: TObject);
+var
+  user : TFormUsuario;
+begin
+  if Assigned(user) then
+  begin
+    user := TFormUsuario.Create(Self);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(user.Layout1);
+  end
+  else
+  begin
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(user.Layout1);
+  end;
+end;
+
+procedure TFormPrincipal.expCadastroClick(Sender: TObject);
+begin
+  if expCadastro.IsExpanded then
+    expCadastro.IsExpanded := False
+  else
+    expCadastro.IsExpanded := True;
+end;
+
+procedure TFormPrincipal.expConsultaClick(Sender: TObject);
+begin
+  if expConsulta.IsExpanded then
+    expConsulta.IsExpanded := False
+  else
+    expConsulta.IsExpanded := True;
+end;
+
+procedure TFormPrincipal.expLancamentoClick(Sender: TObject);
+begin
+  if expLancamento.IsExpanded then
+    expLancamento.IsExpanded := False
+  else
+    expLancamento.IsExpanded := True;
+end;
+
+procedure TFormPrincipal.expRelatorioClick(Sender: TObject);
+begin
+  if expRelatorio.IsExpanded then
+    expRelatorio.IsExpanded := False
+  else
+    expRelatorio.IsExpanded := True;
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);

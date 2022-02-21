@@ -3,106 +3,129 @@ unit PesaMais.Model.Entities.Animal;
 interface
 
 uses
-  PesaMais.Model.Entities.Usuario,
-  PesaMais.Model.Entities.RacaAnimal,
+  { System }
+  DB,
+  Classes,
+  SysUtils,
+  Generics.Collections,
+
+  { ORMBr }
+  ormbr.types.blob,
+  ormbr.types.lazy,
+  dbcbr.types.mapping,
+  ormbr.types.nullable,
+  dbcbr.mapping.classes,
+  dbcbr.mapping.register,
+  dbcbr.mapping.attributes,
+
+  { PesaMais }
+  PesaMais.Model.Entities.Categoria_Animal,
   PesaMais.Model.Entities.Lote,
-  PesaMais.Model.Entities.Categoria;
+  PesaMais.Model.Entities.Raca_Animal,
+  PesaMais.Model.Entities.Usuario;
+
 type
-  TAnimal = class
-
+  [Entity]
+  [Table('ANIMAL', '')]
+  [PrimaryKey('ID_ANIMAL', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_ANIMAL')]
+  TANIMAL = class
   private
-    FId_animal      : Integer;
-    FIdentificacao  : String;
-    FSexo           : String;
-    FCategoria      : TCategoriaAnimal;
-    FRacaanimal     : TRacaAnimal;
-    FLote           : Tlote;
-    FUsuario        : TUsuario;
+    { Private declarations } 
+    FID_ANIMAL: Integer;
+    FIDENTIDADE: Nullable<String>;
+    FSEXO: Nullable<String>;
+    FID_CATEGORIA: Integer;
+    FID_RACA_ANIMAL: Integer;
+    FID_LOTE: Nullable<Integer>;
+    FID_USUARIO: Integer;
 
-    procedure SetId_animal(const Value: Integer);
-    procedure SetId_categoria(const Categoria: TCategoriaAnimal);
-    procedure SetId_lote(const Lote: Tlote);
-    procedure SetId_raca_animal(const Racaanimal: TRacaAnimal);
-    procedure SetId_usuario(const Usuario: TUsuario);
-    procedure SetIdentificacao(const Value: String);
-    procedure SetSexo(const Value: String);
+    FCATEGORIA_ANIMAL_0:  TCATEGORIA_ANIMAL  ;
+    FLOTE_1:  TLOTE  ;
+    FRACA_ANIMAL_2:  TRACA_ANIMAL  ;
+    FUSUARIO_3:  TUSUARIO  ;
+  public 
+    { Public declarations } 
+    constructor Create;
+    destructor Destroy; override;
+    [Restrictions([NotNull])]
+    [Column('ID_ANIMAL', ftInteger)]
+    [Dictionary('ID_ANIMAL', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_ANIMAL: Integer read FID_ANIMAL write FID_ANIMAL;
 
-  public
-    constructor   Create;
-    destructor    Destroy; override;
-    class function New : TAnimal;
+    [Column('IDENTIDADE', ftString, 30)]
+    [Dictionary('IDENTIDADE', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property IDENTIDADE: Nullable<String> read FIDENTIDADE write FIDENTIDADE;
 
-    property Id_animal      : Integer read FId_animal write SetId_animal;
-    property Identificacao  : String read FIdentificacao write SetIdentificacao;
-    property Sexo           : String read FSexo write SetSexo;
-    property Id_categoria   : TCategoriaAnimal read FCategoria write SetId_categoria;
-    property Id_raca_animal : TRacaAnimal read FRacaanimal write SetId_raca_animal;
-    property Id_lote        : Tlote read FLote write SetId_lote;
-    property Id_usuario     : TUsuario read FUsuario write SetId_usuario;
+    [Column('SEXO', ftString, 30)]
+    [Dictionary('SEXO', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property SEXO: Nullable<String> read FSEXO write FSEXO;
 
-end;
+    [Restrictions([NotNull])]
+    [Column('ID_CATEGORIA', ftInteger)]
+    [ForeignKey('FK_ANIMAL_4', 'ID_CATEGORIA', 'CATEGORIA_ANIMAL', 'ID_CATEGORIA', SetNull, SetNull)]
+    [Dictionary('ID_CATEGORIA', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_CATEGORIA: Integer read FID_CATEGORIA write FID_CATEGORIA;
 
+    [Restrictions([NotNull])]
+    [Column('ID_RACA_ANIMAL', ftInteger)]
+    [ForeignKey('FK_ANIMAL_2', 'ID_RACA_ANIMAL', 'RACA_ANIMAL', 'ID_RACA', SetNull, SetNull)]
+    [Dictionary('ID_RACA_ANIMAL', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_RACA_ANIMAL: Integer read FID_RACA_ANIMAL write FID_RACA_ANIMAL;
 
+    [Column('ID_LOTE', ftInteger)]
+    [ForeignKey('FK_ANIMAL_1', 'ID_LOTE', 'LOTE', 'ID_LOTE', SetNull, SetNull)]
+    [Dictionary('ID_LOTE', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_LOTE: Nullable<Integer> read FID_LOTE write FID_LOTE;
+
+    [Restrictions([NotNull])]
+    [Column('ID_USUARIO', ftInteger)]
+    [ForeignKey('FK_ANIMAL_3', 'ID_USUARIO', 'USUARIO', 'ID_USUARIO', SetNull, SetNull)]
+    [Dictionary('ID_USUARIO', 'Mensagem de validação', '', '', '', taCenter)]
+    property ID_USUARIO: Integer read FID_USUARIO write FID_USUARIO;
+
+    [Association(OneToOne,'ID_CATEGORIA','CATEGORIA_ANIMAL','ID_CATEGORIA')]
+    property CATEGORIA_ANIMAL: TCATEGORIA_ANIMAL read FCATEGORIA_ANIMAL_0 write FCATEGORIA_ANIMAL_0;
+
+    [Association(OneToOne,'ID_LOTE','LOTE','ID_LOTE')]
+    property LOTE: TLOTE read FLOTE_1 write FLOTE_1;
+
+    [Association(OneToOne,'ID_RACA_ANIMAL','RACA_ANIMAL','ID_RACA')]
+    property RACA_ANIMAL: TRACA_ANIMAL read FRACA_ANIMAL_2 write FRACA_ANIMAL_2;
+
+    [Association(OneToOne,'ID_USUARIO','USUARIO','ID_USUARIO')]
+    property USUARIO: TUSUARIO read FUSUARIO_3 write FUSUARIO_3;
+
+  end;
 
 implementation
 
-{ TAminal }
-
-constructor TAnimal.Create;
+constructor TANIMAL.Create;
 begin
-  FCategoria   := TCategoriaAnimal.Create;
-  FRacaanimal  := TRacaAnimal.Create;
-  FLote        := TLote.Create;
-  FUsuario     := TUsuario.Create;
+  FCATEGORIA_ANIMAL_0 := TCATEGORIA_ANIMAL.Create;
+  FLOTE_1 := TLOTE.Create;
+  FRACA_ANIMAL_2 := TRACA_ANIMAL.Create;
+  FUSUARIO_3 := TUSUARIO.Create;
 end;
 
-destructor TAnimal.Destroy;
+destructor TANIMAL.Destroy;
 begin
-  FCategoria.Free;
-  FRacaanimal.Free;
-  FLote.Free;
-  FUsuario.Free;
+  if Assigned(FCATEGORIA_ANIMAL_0) then
+    FCATEGORIA_ANIMAL_0.Free;
+
+  if Assigned(FLOTE_1) then
+    FLOTE_1.Free;
+
+  if Assigned(FRACA_ANIMAL_2) then
+    FRACA_ANIMAL_2.Free;
+
+  if Assigned(FUSUARIO_3) then
+    FUSUARIO_3.Free;
+
   inherited;
 end;
 
-class function TAnimal.New: TAnimal;
-begin
-   Result := Self.Create;
-end;
-
-procedure TAnimal.SetIdentificacao(const Value: String);
-begin
-  FIdentificacao := Value;
-end;
-
-procedure TAnimal.SetId_animal(const Value: Integer);
-begin
-  FId_animal := Value;
-end;
-
-procedure TAnimal.SetId_categoria(const Categoria: TCategoriaAnimal);
-begin
-  FCategoria := Id_categoria;
-end;
-
-procedure TAnimal.SetId_lote(const Lote: Tlote);
-begin
-  Flote := Id_lote;
-end;
-
-procedure TAnimal.SetId_raca_animal(const Racaanimal: TRacaAnimal);
-begin
-  FRacaanimal := Id_raca_animal;
-end;
-
-procedure TAnimal.SetId_usuario(const Usuario: TUsuario);
-begin
-  FUsuario := Id_usuario;
-end;
-
-procedure TAnimal.SetSexo(const Value: String);
-begin
-  FSexo := Value;
-end;
+initialization
+  TRegisterClass.RegisterEntity(TANIMAL)
 
 end.

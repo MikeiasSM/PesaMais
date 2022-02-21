@@ -205,38 +205,33 @@
         <DCCReference Include="src\View\Pages\PesaMais.View.Pages.Main.pas">
             <Form>FormMain</Form>
         </DCCReference>
-        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.CadUsuario.pas">
+        <DCCReference Include="src\View\Pages\PesaMais.View.Pages.Usuario.pas">
             <Form>FormUsuario</Form>
         </DCCReference>
         <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmConnection.pas">
             <Form>Connection</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Model\Connection\PesaMais.Model.Connection.DmORM.pas">
             <Form>ConnectionFactory</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Bairro.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Cidade.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Endereco.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Estado.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Pessoa.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Usuario.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Animal.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Categoria.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.RacaAnimal.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Lote.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.PropriedadeLocal.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoPropriedade.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBairro.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBase.pas"/>
-        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.ORM.Usuario.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Usuario.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Animal.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Categoria_Animal.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Cidade.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Endereco.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Estado.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Lote.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Pasto.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Proprietario.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Raca_Animal.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Tipo_Lancamento.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

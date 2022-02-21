@@ -8,8 +8,7 @@ uses
   PesaMais.Model.Entities.Propriedade,
   PesaMais.Model.Entities.Estado,
   PesaMais.Model.Entities.Endereco,
-  PesaMais.Model.Entities.Cidade,
-  PesaMais.Model.Entities.Bairro;
+  PesaMais.Model.Entities.Cidade;
 
 type
   TDaoPropriedade = class
@@ -191,5 +190,5 @@ begin
     Result := False;
   end;
 end;
-
+}
 end.

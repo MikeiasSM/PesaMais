@@ -5,7 +5,7 @@ interface
 uses
   System.Generics.Collections,
   PesaMais.Model.Connection.DmConnection,
-  PesaMais.Model.Entities.RacaAnimal;
+  PesaMais.Model.Entities.Raca_Animal;
 
 
 type
@@ -20,10 +20,10 @@ type
     destructor Destroy; override;
 
      //Metodos publicos de acesso a dados.
-    function Insert(pRacaAnimal : TRacaAnimal): Boolean;
-    function Update(pRacaAnimal : TRacaAnimal): Boolean;
-    function Delete(pRacaAnimal : TRacaAnimal): Boolean;
-    function FindAll : TObjectList<TRacaAnimal>;
+    function Insert(pRacaAnimal : TRaca_Animal): Boolean;
+    function Update(pRacaAnimal : TRaca_Animal): Boolean;
+    function Delete(pRacaAnimal : TRaca_Animal): Boolean;
+    function FindAll : TObjectList<TRaca_Animal>;
 
   end;
 
@@ -36,7 +36,7 @@ begin
   FConnection := TConnection.Create(nil);
 end;
 
-function TDaoRacaAnimal.Delete(pRacaAnimal : TRacaAnimal) : Boolean;
+function TDaoRacaAnimal.Delete(pRacaAnimal : TRaca_Animal) : Boolean;
 begin
    FConnection.StartTransation;
  try
@@ -57,18 +57,18 @@ begin
    inherited;
 end;
 
-function TDaoRacaAnimal.FindAll: TObjectList<TRacaAnimal>;
+function TDaoRacaAnimal.FindAll: TObjectList<TRaca_Animal>;
 var
-  Raca : TRacaAnimal;
-  List : TObjectList<TRacaAnimal>;
+  Raca : TRaca_Animal;
+  List : TObjectList<TRaca_Animal>;
 begin
-  List := TObjectList<TRacaAnimal>.Create;
+  List := TObjectList<TRaca_Animal>.Create;
   try
     FConnection.StartTransation;
     FConnection.ExecutarSQL('SELECT * FROM RACA_ANIMAL ORDER BY DESCRICAO');
     while not FConnection.FDQuery.Eof do
     begin
-      Raca := TRacaAnimal.Create;
+      Raca := TRaca_Animal.Create;
       Raca.Id_raca := FConnection.FDQuery.FieldByName('ID_RACA').AsInteger;
       Raca.Descricao := FConnection.FDQuery.FieldByName('DESCRICAO').AsString;
 
@@ -83,7 +83,7 @@ begin
   List.Destroy;
 end;
 
-function TDaoRacaAnimal.Insert(pRacaAnimal: TRacaAnimal): Boolean;
+function TDaoRacaAnimal.Insert(pRacaAnimal: TRaca_Animal): Boolean;
 begin
   FConnection.StartTransation;
   try
@@ -98,7 +98,7 @@ begin
   end;
 end;
 
-function TDaoRacaAnimal.Update(pRacaAnimal: TRacaAnimal) : Boolean;
+function TDaoRacaAnimal.Update(pRacaAnimal: TRaca_Animal) : Boolean;
 begin
   FConnection.StartTransation;
   try
