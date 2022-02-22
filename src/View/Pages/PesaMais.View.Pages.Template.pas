@@ -64,7 +64,6 @@ type
     ActionList1: TActionList;
     changeTabListagem: TChangeTabAction;
     changeTabCadastro: TChangeTabAction;
-    btnBusca: TSpeedButton;
     ShadowEffect2: TShadowEffect;
     StrGrid: TStringGrid;
     StringColumn1: TStringColumn;
@@ -81,6 +80,11 @@ type
     Image4: TImage;
     Rectangle8: TRectangle;
     ShadowEffect4: TShadowEffect;
+    Image3: TImage;
+    Rectangle9: TRectangle;
+    Rectangle10: TRectangle;
+    Edit1: TEdit;
+    Rectangle11: TRectangle;
     procedure btnNovoClick(Sender: TObject);
     procedure btnBuscaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
