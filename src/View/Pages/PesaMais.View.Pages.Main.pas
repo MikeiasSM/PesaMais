@@ -3,11 +3,14 @@ unit PesaMais.View.Pages.Main;
 interface
 
 uses
+  { System }
   System.SysUtils,
   System.Types,
   System.UITypes,
   System.Classes,
   System.Variants,
+
+  { FMX }
   FMX.Types,
   FMX.Controls,
   FMX.Forms,
@@ -16,11 +19,10 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls,
   FMX.Objects,
-  FMX.Layouts,
-  Router4D.Interfaces;
+  FMX.Layouts;
 
 type
-  TFormMain = class(TForm, iRouter4DComponent)
+  TFormMain = class(TForm)
     Layout1: TLayout;
     Rectangle1: TRectangle;
     Label1: TLabel;
@@ -29,8 +31,6 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function Render : TFMXObject;
-    procedure UnRender;
   end;
 
 var
@@ -41,15 +41,5 @@ implementation
 {$R *.fmx}
 
 { TFormMain }
-
-function TFormMain.Render: TFMXObject;
-begin
-  Result := Layout1;
-end;
-
-procedure TFormMain.UnRender;
-begin
-
-end;
 
 end.

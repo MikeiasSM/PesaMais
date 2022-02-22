@@ -3,6 +3,7 @@ unit PesaMais.View.Pages.Template;
 interface
 
 uses
+  { System }
   System.SysUtils,
   System.Types,
   System.UITypes,
@@ -10,6 +11,10 @@ uses
   System.Variants,
   System.ImageList,
   System.Generics.Collections,
+  System.Rtti,
+  System.Actions,
+
+  { FMX }
   FMX.Types,
   FMX.Controls,
   FMX.Forms,
@@ -26,11 +31,15 @@ uses
   FMX.ListView,
   FMX.ListView.Appearances,
   FMX.ImgList,
-  Bind4D,
-  Router4D.Interfaces,
-  PesaMais.Model.Entities.Usuario, System.Rtti, FMX.Grid.Style,
-  FMX.ScrollBox, FMX.Grid, FMX.TabControl, FMX.Effects, System.Actions,
-  FMX.ActnList;
+  FMX.Grid.Style,
+  FMX.ScrollBox,
+  FMX.Grid,
+  FMX.TabControl,
+  FMX.Effects,
+  FMX.ActnList,
+
+  { PesaMais }
+  PesaMais.Model.Entities.Usuario;
 
 type
   TFormTemplate = class(TForm)
@@ -66,21 +75,18 @@ type
     RecButton: TRectangle;
     btnSalvar: TSpeedButton;
     Image1: TImage;
-    btnVoltar: TSpeedButton;
-    Image3: TImage;
     btnCancelar: TSpeedButton;
     Image2: TImage;
+    btnExcluir: TSpeedButton;
+    Image4: TImage;
+    Rectangle8: TRectangle;
+    ShadowEffect4: TShadowEffect;
     procedure btnNovoClick(Sender: TObject);
     procedure btnBuscaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
-    FEndPoint : String;
-    FPK : String;
-    FTitle : String;
-    FSort : String;
-    FOrder : String;
   public
     { Public declarations }
   end;
@@ -111,7 +117,7 @@ end;
 procedure TFormTemplate.FormCreate(Sender: TObject);
 begin
   TabControl1.TabIndex := 0;
-  TabControl1.TabPosition := TabControl1.TabPosition.tpNone;
+  TabControl1.TabPosition := TTabPosition.None;
 end;
 
 procedure TFormTemplate.btnBuscaClick(Sender: TObject);

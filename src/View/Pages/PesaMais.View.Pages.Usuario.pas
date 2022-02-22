@@ -52,19 +52,25 @@ type
     txtNome: TEdit;
     Label1: TLabel;
     txtSenha1: TEdit;
+    StringColumn3: TStringColumn;
+    StringColumn4: TStringColumn;
     procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnBuscaClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
-    procedure btnVoltarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure StrGridCellDblClick(const Column: TColumn; const Row: Integer);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
+    Linha : Integer;
+
     procedure PopGrid;
     procedure ClearGrid;
     procedure TestTab;
     procedure ClearComponests;
     function Validation : Boolean;
+    procedure GetGrid;
   public
     { Public declarations }
   end;
@@ -86,6 +92,25 @@ procedure TFormUsuario.btnCancelarClick(Sender: TObject);
 begin
   inherited;
   ClearComponests;
+  changeTabListagem.ExecuteTarget(Self);
+  PopGrid;
+  TestTab;
+end;
+
+procedure TFormUsuario.btnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  var usuario := TUSUARIO.Create;
+  if txtCodigo.Text <> '' then
+  begin
+    MessageDlg(usuario.Delete(StrToInt(txtCodigo.Text)), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+    ClearComponests;
+    changeTabListagem.ExecuteTarget(Self);
+  end
+  else
+  begin
+    ShowMessage('Erro ao executar esta ação!');
+  end;
 end;
 
 procedure TFormUsuario.btnNovoClick(Sender: TObject);
@@ -99,6 +124,7 @@ procedure TFormUsuario.btnSalvarClick(Sender: TObject);
 begin
   inherited;
   var usuario := TUSUARIO.Create;
+
   if Validation then
   begin
     if txtCodigo.Text = '' then
@@ -107,6 +133,9 @@ begin
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
       MessageDlg(usuario.Save(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      ClearComponests;
+      changeTabListagem.ExecuteTarget(Self);
+
     end
     else
     begin
@@ -114,13 +143,14 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      MessageDlg(usuario.Update(usuario, usuario.ID_USUARIO), TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], 0);
+      MessageDlg(usuario.Update(usuario, usuario.ID_USUARIO), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      ClearComponests;
+      changeTabListagem.ExecuteTarget(Self);
     end;
   end;
-
 end;
 
-procedure TFormUsuario.popGrid;
+procedure TFormUsuario.PopGrid;
 var
   i : Integer;
 begin
@@ -128,6 +158,8 @@ begin
   try
     StrGrid.Columns[0].Header := 'Codigo';
     StrGrid.Columns[1].Header := 'Usuário';
+    StrGrid.Columns[2].Header := 'Senha';
+    StrGrid.Columns[3].Header := 'Ativo';
 
     StrGrid.RowCount := DAO.FindAll.Count;
 
@@ -136,6 +168,8 @@ begin
     begin
       StrGrid.Cells[0,i] := IntToStr(DAO.FindAll[i].ID_USUARIO);
       StrGrid.Cells[1,i] := DAO.FindAll[i].USUARIO;
+      StrGrid.Cells[2,i] := DAO.FindAll[i].SENHA;
+      StrGrid.Cells[3,i] := DAO.FindAll[i].ATIVO;
     end;
     StrGrid.EndUpdate;
   finally
@@ -143,12 +177,23 @@ begin
   end;
 end;
 
-procedure TFormUsuario.btnVoltarClick(Sender: TObject);
+procedure TFormUsuario.StrGridCellDblClick(const Column: TColumn; const Row: Integer);
 begin
   inherited;
-  changeTabListagem.ExecuteTarget(Self);
-  PopGrid;
-  TestTab;
+  var usuario := TUSUARIO.Create;
+  if StrGrid.Row >= 0 then
+    usuario.ID_USUARIO := strToInt(StrGrid.Cells[0,Row]);
+    usuario.USUARIO    := StrGrid.Cells[1,Row];
+    usuario.SENHA      := StrGrid.Cells[2,Row];
+    usuario.ATIVO      := StrToBool(StrGrid.Cells[3,Row]);
+
+    changeTabCadastro.ExecuteTarget(Self);
+
+    txtCodigo.Text := IntToStr(usuario.ID_USUARIO);
+    txtNome.Text := usuario.USUARIO;
+    txtSenha1.Text := usuario.SENHA;
+    txtSenha2.Text := usuario.SENHA;
+    cbAtivo.IsChecked := usuario.ATIVO;
 end;
 
 procedure TFormUsuario.ClearComponests;
@@ -163,9 +208,10 @@ begin
   cbAtivo.IsChecked := True;
   lblStatus.Text := '';
   txtNome.SetFocus;
+  PopGrid;
 end;
 
-procedure TFormUsuario.clearGrid;
+procedure TFormUsuario.ClearGrid;
 var lin, col: integer;
 begin
      for lin := 1 to StrGrid.RowCount - 1 do
@@ -181,7 +227,14 @@ begin
 end;
 
 
-procedure TFormUsuario.testTab;
+procedure TFormUsuario.GetGrid;
+var
+  cod, nome, ativo : String;
+begin
+
+end;
+
+procedure TFormUsuario.TestTab;
 begin
   if TabControl1.ActiveTab = tabCadastro then
     lblNomeTela.Text := 'Cadastro de Usuários'
@@ -216,6 +269,7 @@ begin
   begin
     lblStatus.Text := '';
     lblStatus.Text := 'As senhas não coincidem!';
+    ShowMessage('erro');
     status := status + 1;
   end;
 
@@ -223,6 +277,8 @@ begin
     Result := True
   else
     Result := False;
+
+  status := 0;
 end;
 
 end.

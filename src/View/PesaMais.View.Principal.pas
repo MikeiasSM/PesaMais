@@ -3,12 +3,17 @@ unit PesaMais.View.Principal;
 interface
 
 uses
+  { System }
   System.Types,
   System.SysUtils,
   System.UITypes,
   System.Classes,
   System.Variants,
   System.Generics.Collections,
+  System.Math.Vectors,
+  System.ImageList,
+
+  { FMX }
   FMX.Memo,
   FMX.Edit,
   FMX.Types,
@@ -24,21 +29,24 @@ uses
   FMX.ListView.Appearances,
   FMX.Controls.Presentation,
   FMX.ListView.Adapters.Base,
-  PesaMais.Model.Dao.DaoEstado,
-  PesaMais.Model.Entities.Estado,
-  FMX.Objects,
-  FMX.Layouts,
-  Router4D,
-  FMX.MultiView,
-  System.Math.Vectors,
-  FMX.Controls3D,
-  FMX.Layers3D,
-  PesaMais.View.Pages.Main,
-  PesaMais.View.Pages.Usuario,
   FMX.ListBox,
   FMX.Ani,
+  FMX.ImgList,
+  FMX.Objects,
+  FMX.Layouts,
+  FMX.MultiView,
+  FMX.Controls3D,
+  FMX.Layers3D,
+
+  { Skia }
   Skia,
-  Skia.FMX, System.ImageList, FMX.ImgList;
+  Skia.FMX,
+
+  { PesaMais }
+  PesaMais.Model.Dao.DaoEstado,
+  PesaMais.Model.Entities.Estado,
+  PesaMais.View.Pages.Main,
+  PesaMais.View.Pages.Usuario;
 
 type
   TFormPrincipal = class(TForm)
@@ -92,8 +100,6 @@ type
 
   private
     { Private declarations }
-    FDao : TDaoEstado;
-    FEstado : TEstado;
   public
     { Public declarations }
   end;
@@ -179,13 +185,13 @@ procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
   LAnimatedImage: TSkAnimatedImage;
 begin
-
+  {
   LAnimatedimage := TSkAnimatedImage.Create(Self);
-
-  LAnimatedimage.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\rocket.json');
+  LAnimatedimage.LoadFromFile('C:\PesaMais\Source\assets\rocket.json');
   LAnimatedimage.Parent := Self.LayoutPrincipal;
   LAnimatedImage.Size.Width := LayoutPrincipal.Size.Width;
   LAnimatedImage.Size.Height := LayoutPrincipal.Size.Height;
+  }
 end;
 
 end.
