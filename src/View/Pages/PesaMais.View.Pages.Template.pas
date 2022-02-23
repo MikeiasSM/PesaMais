@@ -70,7 +70,6 @@ type
     StringColumn2: TStringColumn;
     ShadowEffect3: TShadowEffect;
     RecCorpo: TRectangle;
-    lblStatus: TLabel;
     RecButton: TRectangle;
     btnSalvar: TSpeedButton;
     Image1: TImage;

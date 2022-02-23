@@ -97,6 +97,7 @@ type
     procedure expLancamentoClick(Sender: TObject);
     procedure expConsultaClick(Sender: TObject);
     procedure expRelatorioClick(Sender: TObject);
+    procedure btnPessoaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -110,6 +111,9 @@ var
 
 
 implementation
+
+uses
+  PesaMais.View.Pages.Pessoa;
 
 {$R *.fmx}
 
@@ -129,6 +133,23 @@ begin
   begin
     Self.LayoutPrincipal.RemoveObject(0);
     Self.LayoutPrincipal.AddObject(main.Layout1);
+  end;
+end;
+
+procedure TFormPrincipal.btnPessoaClick(Sender: TObject);
+var
+  pessoa : TFormPessoa;
+begin
+  if Assigned(pessoa) then
+  begin
+    pessoa := TFormPessoa.Create(Self);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(pessoa.Layout1);
+  end
+  else
+  begin
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(pessoa.Layout1);
   end;
 end;
 

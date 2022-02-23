@@ -54,6 +54,7 @@ type
     txtSenha1: TEdit;
     StringColumn3: TStringColumn;
     StringColumn4: TStringColumn;
+    lblStatus: TLabel;
     procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnBuscaClick(Sender: TObject);

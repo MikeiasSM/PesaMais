@@ -24,7 +24,8 @@ uses
   PesaMais.Model.Entities.Pasto in 'src\Model\Entities\PesaMais.Model.Entities.Pasto.pas',
   PesaMais.Model.Entities.Proprietario in 'src\Model\Entities\PesaMais.Model.Entities.Proprietario.pas',
   PesaMais.Model.Entities.Raca_Animal in 'src\Model\Entities\PesaMais.Model.Entities.Raca_Animal.pas',
-  PesaMais.Model.Entities.Tipo_Lancamento in 'src\Model\Entities\PesaMais.Model.Entities.Tipo_Lancamento.pas';
+  PesaMais.Model.Entities.Tipo_Lancamento in 'src\Model\Entities\PesaMais.Model.Entities.Tipo_Lancamento.pas',
+  PesaMais.View.Pages.Pessoa in 'src\View\Pages\PesaMais.View.Pages.Pessoa.pas' {FormPessoa};
 
 {$R *.res}
 
@@ -33,5 +34,6 @@ begin
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TConnection, Connection);
   Application.CreateForm(TConnectionFactory, ConnectionFactory);
+  Application.CreateForm(TFormPessoa, FormPessoa);
   Application.Run;
 end.
