@@ -56,28 +56,28 @@ type
     property ATIVO: Nullable<Boolean> read FATIVO write FATIVO;
 
     class function FindAll : TObjectList<TUSUARIO>;
-    class function GetById (AID : Integer; var AUsuario : TUSUARIO; ARetorno : String) : Boolean;
-    class function Save (AValue : TUSUARIO) : String;
-    class function Update (AValue : TUSUARIO; AID : Integer) : String;
-    class function Delete (AID : Integer) : String;
+    class function GetById (AID : Integer; var AUsuario : TUSUARIO; ARetorno : String) : TUsuario;
+    class function Insert (AValue : TUSUARIO) : Boolean;
+    class function Update (AValue : TUSUARIO; AID : Integer) : Boolean;
+    class function Delete (AID : Integer) : Boolean;
   end;
 
 implementation
 
 { TUSUARIO }
 
-class function TUSUARIO.Delete(AID: Integer): String;
+class function TUSUARIO.Delete(AID: Integer): Boolean;
 begin
   var
   Dao := TDAOBase<TUSUARIO>.Create;
   try
     try
       Dao.Delete(AID);
-      Result := 'Registro Excluido com Sucesso!';
+      Result := True;
     except
       On E: Exception do
       begin
-        Result := E.Message;
+        Result := False;
         Exit;
       end;
     end;
@@ -96,18 +96,17 @@ begin
   end;
 end;
 
-class function TUSUARIO.GetById(AID: Integer; var AUsuario: TUSUARIO;
-  ARetorno: String): Boolean;
+class function TUSUARIO.GetById(AID: Integer; var AUsuario: TUSUARIO;  ARetorno: String): TUsuario;
 begin
-  Result := True;
   var DAO := TDAOBase<TUSUARIO>.Create;
 
   try
     AUsuario := DAO.FindById(AID);
+    Result := AUsuario;
     if AUsuario = nil then
     begin
       ARetorno := 'Registro não encontrado!';
-      Exit(False)
+      Exit()
     end;
 
   finally
@@ -115,17 +114,17 @@ begin
   end;
 end;
 
-class function TUSUARIO.Save(AValue : TUSUARIO): String;
+class function TUSUARIO.Insert(AValue : TUSUARIO): Boolean;
 begin
   var DAO := TDAOBase<TUSUARIO>.Create;
   try
     try
       Dao.Insert(AValue);
-      Result := 'Registro Salvo com Sucesso!';
+      Result := True;
     except
       On E: Exception do
       begin
-        Result := E.Message;
+        Result := False;
         Exit;
       end;
     end;
@@ -134,17 +133,17 @@ begin
   end;
 end;
 
-class function TUSUARIO.Update(AValue: TUSUARIO; AID : Integer) : String;
+class function TUSUARIO.Update(AValue: TUSUARIO; AID : Integer) : Boolean;
 begin
   var DAO := TDAOBase<TUSUARIO>.Create;
   try
     try
       Dao.Update(AValue, AID);
-      Result := 'Registro Alterado com Sucesso!';
+      Result := True;
     except
       On E: Exception do
       begin
-        Result := E.Message;
+        Result := False;
         Exit;
       end;
     end;

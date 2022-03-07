@@ -25,7 +25,9 @@ uses
   PesaMais.Model.Entities.Proprietario in 'src\Model\Entities\PesaMais.Model.Entities.Proprietario.pas',
   PesaMais.Model.Entities.Raca_Animal in 'src\Model\Entities\PesaMais.Model.Entities.Raca_Animal.pas',
   PesaMais.Model.Entities.Tipo_Lancamento in 'src\Model\Entities\PesaMais.Model.Entities.Tipo_Lancamento.pas',
-  PesaMais.View.Pages.Pessoa in 'src\View\Pages\PesaMais.View.Pages.Pessoa.pas' {FormPessoa};
+  PesaMais.View.Pages.Pessoa in 'src\View\Pages\PesaMais.View.Pages.Pessoa.pas' {FormPessoa},
+  PesaMais.Controller.UsuarioController in 'src\Controller\PesaMais.Controller.UsuarioController.pas',
+  PesaMais.Controller.Factory.ControllerFactory in 'src\Controller\Factory\PesaMais.Controller.Factory.ControllerFactory.pas';
 
 {$R *.res}
 

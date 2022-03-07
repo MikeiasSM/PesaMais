@@ -38,6 +38,8 @@ uses
 
   { PesaMais }
   PesaMais.View.Pages.Template,
+  PesaMais.Controller.UsuarioController,
+  PesaMais.Controller.Factory.ControllerFactory,
   PesaMais.Model.Entities.Usuario;
 
 
@@ -65,6 +67,7 @@ type
   private
     { Private declarations }
     Linha : Integer;
+    Controller : TUsuarioController;
 
     procedure PopGrid;
     procedure ClearGrid;
@@ -74,6 +77,7 @@ type
     procedure GetGrid;
   public
     { Public declarations }
+    procedure setUsuarioController;
   end;
 
 var
@@ -101,10 +105,9 @@ end;
 procedure TFormUsuario.btnExcluirClick(Sender: TObject);
 begin
   inherited;
-  var usuario := TUSUARIO.Create;
   if txtCodigo.Text <> '' then
   begin
-    MessageDlg(usuario.Delete(StrToInt(txtCodigo.Text)), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+    MessageDlg(Controller.Delete(StrToInt(txtCodigo.Text)), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
     ClearComponests;
     changeTabListagem.ExecuteTarget(Self);
   end
@@ -133,7 +136,7 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      MessageDlg(usuario.Save(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      MessageDlg(Controller.Insert(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
       ClearComponests;
       changeTabListagem.ExecuteTarget(Self);
 
@@ -144,7 +147,7 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      MessageDlg(usuario.Update(usuario, usuario.ID_USUARIO), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      MessageDlg(Controller.Update(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
       ClearComponests;
       changeTabListagem.ExecuteTarget(Self);
     end;
@@ -154,28 +157,35 @@ end;
 procedure TFormUsuario.PopGrid;
 var
   i : Integer;
+  list : TObjectList<TUSUARIO>;
 begin
-  var DAO := TUSUARIO.Create;
+  list := Controller.FindAll;
+
   try
     StrGrid.Columns[0].Header := 'Codigo';
     StrGrid.Columns[1].Header := 'Usuário';
     StrGrid.Columns[2].Header := 'Senha';
     StrGrid.Columns[3].Header := 'Ativo';
 
-    StrGrid.RowCount := DAO.FindAll.Count;
+    StrGrid.RowCount := list.Count;
 
     StrGrid.BeginUpdate;
-    for i := 0 to Pred(DAO.FindAll.Count) do
+    for i := 0 to Pred(list.Count) do
     begin
-      StrGrid.Cells[0,i] := IntToStr(DAO.FindAll[i].ID_USUARIO);
-      StrGrid.Cells[1,i] := DAO.FindAll[i].USUARIO;
-      StrGrid.Cells[2,i] := DAO.FindAll[i].SENHA;
-      StrGrid.Cells[3,i] := DAO.FindAll[i].ATIVO;
+      StrGrid.Cells[0,i] := IntToStr(list[i].ID_USUARIO);
+      StrGrid.Cells[1,i] := list[i].USUARIO;
+      StrGrid.Cells[2,i] := list[i].SENHA;
+      StrGrid.Cells[3,i] := list[i].ATIVO;
     end;
     StrGrid.EndUpdate;
   finally
-    DAO.Free;
+    Controller.Free;
   end;
+end;
+
+procedure TFormUsuario.setUsuarioController;
+begin
+  Controller := TControllerFactory.New.getUsuarioController;
 end;
 
 procedure TFormUsuario.StrGridCellDblClick(const Column: TColumn; const Row: Integer);
@@ -223,6 +233,7 @@ end;
 procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
   inherited;
+  setUsuarioController;
   PopGrid;
   TestTab;
 end;

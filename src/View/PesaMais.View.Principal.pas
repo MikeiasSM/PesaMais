@@ -46,7 +46,8 @@ uses
   PesaMais.Model.Dao.DaoEstado,
   PesaMais.Model.Entities.Estado,
   PesaMais.View.Pages.Main,
-  PesaMais.View.Pages.Usuario;
+  PesaMais.View.Pages.Usuario,
+  PesaMais.View.Pages.Pessoa;
 
 type
   TFormPrincipal = class(TForm)
@@ -111,9 +112,6 @@ var
 
 
 implementation
-
-uses
-  PesaMais.View.Pages.Pessoa;
 
 {$R *.fmx}
 
@@ -206,6 +204,7 @@ procedure TFormPrincipal.FormCreate(Sender: TObject);
 var
   LAnimatedImage: TSkAnimatedImage;
 begin
+
   {
   LAnimatedimage := TSkAnimatedImage.Create(Self);
   LAnimatedimage.LoadFromFile('C:\PesaMais\Source\assets\rocket.json');
