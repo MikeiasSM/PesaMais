@@ -22,7 +22,7 @@ type
   [Entity]
   [Table('CATEGORIA_ANIMAL', '')]
   [PrimaryKey('ID_CATEGORIA', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_CATEGORIA_ANIMAL_ID')]
+  [Sequence('GEN_ID_CATEGORIA_ANIMAL')]
   TCATEGORIA_ANIMAL = class
   private
     { Private declarations } 

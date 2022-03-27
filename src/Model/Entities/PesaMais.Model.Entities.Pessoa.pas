@@ -1,5 +1,4 @@
-unit PesaMais.Model.Entities.Proprietario;
-
+unit PesaMais.Model.Entities.Pessoa;
 interface
 
 uses
@@ -20,16 +19,19 @@ uses
 
 type
   [Entity]
-  [Table('PROPRIETARIO', '')]
-  [PrimaryKey('ID_PROPRIETARIO', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_ID_PROPRIETARIO')]
-  TPROPRIETARIO = class
+  [Table('PESSOA', '')]
+  [PrimaryKey('ID_PESSOA', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_PESSOA')]
+  TPESSOA = class
   private
-    { Private declarations } 
-        { Private declarations }
-    FID_PROPRIETARIO: Integer;
+    { Private declarations }
+    FID_PESSOA: Integer;
     FNOME: String;
     FAPELIDO: Nullable<String>;
+    FTIPO_PESSOA: String;
+    FFLAG_CLIENTE: Boolean;
+    FFLAG_FORNECEDOR: Boolean;
+    FFLAG_COLABORADOR: Boolean;
     FCPJ_CNPJ: Nullable<String>;
     FRG_INSCR: Nullable<String>;
     FFONE1: Nullable<String>;
@@ -39,13 +41,12 @@ type
     FEMAIL: Nullable<String>;
     FOBS: Nullable<String>;
     FATIVO: Boolean;
-    FTIPO_PROPRIETARIO: String;
   public
     { Public declarations }
     [Restrictions([NotNull])]
-    [Column('ID_PROPRIETARIO', ftInteger)]
-    [Dictionary('ID_PROPRIETARIO', 'Mensagem de validação', '', '', '', taCenter)]
-    property id_proprietario: Integer read FID_PROPRIETARIO write FID_PROPRIETARIO;
+    [Column('ID_PESSOA', ftInteger)]
+    [Dictionary('ID_PESSOA', 'Mensagem de validação', '', '', '', taCenter)]
+    property id_pessoa: Integer read FID_PESSOA write FID_PESSOA;
 
     [Restrictions([NotNull])]
     [Column('NOME', ftString, 60)]
@@ -55,6 +56,26 @@ type
     [Column('APELIDO', ftString, 60)]
     [Dictionary('APELIDO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property apelido: Nullable<String> read FAPELIDO write FAPELIDO;
+
+    [Restrictions([NotNull])]
+    [Column('TIPO_PESSOA', ftString, 1)]
+    [Dictionary('TIPO_PESSOA', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property tipo_pessoa: String read FTIPO_PESSOA write FTIPO_PESSOA;
+
+    [Restrictions([NotNull])]
+    [Column('FLAG_CLIENTE', ftBoolean)]
+    [Dictionary('FLAG_CLIENTE', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property flag_cliente: Boolean read FFLAG_CLIENTE write FFLAG_CLIENTE;
+
+    [Restrictions([NotNull])]
+    [Column('FLAG_FORNECEDOR', ftBoolean)]
+    [Dictionary('FLAG_FORNECEDOR', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property flag_fornecedor: Boolean read FFLAG_FORNECEDOR write FFLAG_FORNECEDOR;
+
+    [Restrictions([NotNull])]
+    [Column('FLAG_COLABORADOR', ftBoolean)]
+    [Dictionary('FLAG_COLABORADOR', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property flag_colaborador: Boolean read FFLAG_COLABORADOR write FFLAG_COLABORADOR;
 
     [Column('CPJ_CNPJ', ftString, 15)]
     [Dictionary('CPJ_CNPJ', 'Mensagem de validação', '', '', '', taLeftJustify)]
@@ -92,17 +113,12 @@ type
     [Column('ATIVO', ftBoolean)]
     [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property ativo: Boolean read FATIVO write FATIVO;
-
-    [Restrictions([NotNull])]
-    [Column('TIPO_PROPRIETARIO', ftString, 1)]
-    [Dictionary('TIPO_PROPRIETARIO', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property tipo_proprietario: String read FTIPO_PROPRIETARIO write FTIPO_PROPRIETARIO;
   end;
 
 implementation
 
 initialization
-  TRegisterClass.RegisterEntity(TPROPRIETARIO)
+  TRegisterClass.RegisterEntity(TPESSOA)
 
 end.
 

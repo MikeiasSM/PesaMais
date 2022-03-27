@@ -43,7 +43,6 @@ uses
   Skia.FMX,
 
   { PesaMais }
-  PesaMais.Model.Dao.DaoEstado,
   PesaMais.Model.Entities.Estado,
   PesaMais.View.Pages.Main,
   PesaMais.View.Pages.Usuario,
@@ -92,18 +91,19 @@ type
     btnConfiguracoes: TSpeedButton;
     Image13: TImage;
     procedure btnUsuarioClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnDashboardClick(Sender: TObject);
     procedure expCadastroClick(Sender: TObject);
     procedure expLancamentoClick(Sender: TObject);
     procedure expConsultaClick(Sender: TObject);
     procedure expRelatorioClick(Sender: TObject);
     procedure btnPessoaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure setVisibleDashboard;
   end;
 
 var
@@ -118,20 +118,8 @@ implementation
 { TfrmMain }
 
 procedure TFormPrincipal.btnDashboardClick(Sender: TObject);
-var
-  main : TFormMain;
 begin
-  if Assigned(main) then
-  begin
-    main := TFormMain.Create(Self);
-    Self.LayoutPrincipal.RemoveObject(0);
-    Self.LayoutPrincipal.AddObject(main.Layout1);
-  end
-  else
-  begin
-    Self.LayoutPrincipal.RemoveObject(0);
-    Self.LayoutPrincipal.AddObject(main.Layout1);
-  end;
+  setVisibleDashboard;
 end;
 
 procedure TFormPrincipal.btnPessoaClick(Sender: TObject);
@@ -201,17 +189,26 @@ begin
 end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
-var
-  LAnimatedImage: TSkAnimatedImage;
 begin
+  setVisibleDashboard;
+end;
 
-  {
-  LAnimatedimage := TSkAnimatedImage.Create(Self);
-  LAnimatedimage.LoadFromFile('C:\PesaMais\Source\assets\rocket.json');
-  LAnimatedimage.Parent := Self.LayoutPrincipal;
-  LAnimatedImage.Size.Width := LayoutPrincipal.Size.Width;
-  LAnimatedImage.Size.Height := LayoutPrincipal.Size.Height;
-  }
+procedure TFormPrincipal.setVisibleDashboard;
+var
+  main : TFormMain;
+begin
+  if Assigned(main) then
+  begin
+    main := TFormMain.Create(Self);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(main.Layout1);
+  end
+  else
+  begin
+    main := TFormMain.Create(nil);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(main.Layout1);
+  end;
 end;
 
 end.

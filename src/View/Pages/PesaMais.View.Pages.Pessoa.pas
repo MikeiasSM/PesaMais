@@ -37,7 +37,10 @@ uses
   FMX.ListBox,
 
   { PesaMais }
-  PesaMais.View.Pages.Template;
+  PesaMais.View.Pages.Template, FMX.Ani, PesaMais.Model.Entities.Pessoa,
+  PesaMais.Controller.Interfaces.InterfacesController,
+  PesaMais.Controller.Factory.ControllerFactory,
+  PesaMais.Controller.PessoaController;
 
 type
   TFormPessoa = class(TFormTemplate)
@@ -57,7 +60,7 @@ type
     dtAlteracao: TDateEdit;
     Label3: TLabel;
     Label4: TLabel;
-    RecCadastro: TRectangle;
+    RecStatus: TRectangle;
     chAtivo: TCheckBox;
     txtInscrRg: TEdit;
     lblInscr_Rg: TLabel;
@@ -71,9 +74,8 @@ type
     Label10: TLabel;
     txtEmail: TEdit;
     Label11: TLabel;
-    RecEnderecos: TRectangle;
+    RecLayerEnd: TRectangle;
     txtObservacao: TMemo;
-    Label12: TLabel;
     btnCadastrarEnd: TSpeedButton;
     Image5: TImage;
     btnRemoverEnd: TSpeedButton;
@@ -106,15 +108,36 @@ type
     Rectangle13: TRectangle;
     Rectangle14: TRectangle;
     txtDescricaoEnd: TEdit;
+    RectAnimation1: TRectAnimation;
+    RecLayerObs: TRectangle;
+    Label1: TLabel;
+    RecCadastro: TRectangle;
+    RecDadosBasicos: TRectangle;
+    lblSubTitlePessoal: TLabel;
+    Label2: TLabel;
+    RectAnimation2: TRectAnimation;
+    RecEnderecos: TRectangle;
+    RecObs: TRectangle;
+    ScrollBar1: TScrollBar;
     procedure FormCreate(Sender: TObject);
     procedure btnCadastrarEndClick(Sender: TObject);
     procedure btnSalvaEnderecoClick(Sender: TObject);
     procedure btnCancelaEnderecoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
-    procedure ClearPessoaComponests;
-    procedure ClearEnderecoComponests;
+
+    Controller : TPessoaController;
+
+    procedure limpa_componentes_form_pessoa;
+    procedure limpa_componentes_form_enredeco;
+    procedure popula_combobox_endereco_cidade;
+    procedure muda_aba_selecionada;
+    function preenche_objeto_com_edits : TPESSOA;
+    function validacao_de_campos : Boolean;
+
   public
     { Public declarations }
   end;
@@ -136,19 +159,57 @@ procedure TFormPessoa.btnCancelaEnderecoClick(Sender: TObject);
 begin
   inherited;
   ChangeTabEnderecoList.ExecuteTarget(Self);
-  ClearEnderecoComponests;
+  limpa_componentes_form_pessoa;
 end;
 
 procedure TFormPessoa.btnCancelarClick(Sender: TObject);
 begin
   inherited;
-  ClearPessoaComponests;
+  limpa_componentes_form_pessoa;
+end;
+
+procedure TFormPessoa.btnNovoClick(Sender: TObject);
+begin
+  inherited;
+  muda_aba_selecionada;
 end;
 
 procedure TFormPessoa.btnSalvaEnderecoClick(Sender: TObject);
 begin
   inherited;
+  {**
+    ADICIONA ENDERECO
+   **}
   ChangeTabEnderecoList.ExecuteTarget(Self);
+end;
+
+procedure TFormPessoa.btnSalvarClick(Sender: TObject);
+var
+  pessoa : TPESSOA;
+begin
+  inherited;
+  Controller := TControllerFactory.New.getPessoaController;
+
+  if validacao_de_campos then
+  begin
+   if txtCodigo.Text = '' then
+    begin
+      pessoa := preenche_objeto_com_edits;
+      MessageDlg(Controller.Insert(pessoa), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      limpa_componentes_form_pessoa;
+      changeTabListagem.ExecuteTarget(Self);
+    end
+    else
+    begin
+      pessoa := preenche_objeto_com_edits;
+      pessoa.id_pessoa := StrToInt(txtCodigo.Text.Trim);
+      MessageDlg(Controller.Update(pessoa), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      limpa_componentes_form_pessoa;
+      changeTabListagem.ExecuteTarget(Self);
+    end;
+  end;
+
+  ChangeTabListagem.ExecuteTarget(Self);
 end;
 
 procedure TFormPessoa.FormCreate(Sender: TObject);
@@ -158,7 +219,39 @@ begin
   TabControlEnd.TabPosition := TTabPosition.None;
 end;
 
-procedure TFormPessoa.ClearEnderecoComponests;
+procedure TFormPessoa.popula_combobox_endereco_cidade;
+begin
+  //
+end;
+
+function TFormPessoa.preenche_objeto_com_edits: TPESSOA;
+var
+  pessoa : TPESSOA;
+begin
+  pessoa := TPESSOA.Create;
+  pessoa.nome := txtRazaoNome.Text.Trim;
+  pessoa.apelido := txtFantasiaApelido.Text.Trim;
+  pessoa.cpj_cnpj := txtCnpjCpf.Text.Trim;
+  pessoa.rg_inscr := txtInscrRg.Text.Trim;
+  if chFisica.IsChecked then
+    pessoa.tipo_pessoa := 'F'
+  else
+    pessoa.tipo_pessoa := 'J';
+  pessoa.fone1 := txtTelefone.Text.Trim;
+  pessoa.fone2 := txtCelular.Text.Trim;
+  pessoa.contato1 := txtContato1.Text.Trim;
+  pessoa.contato2 := txtContato2.Text.Trim;
+  pessoa.email := txtEmail.Text.Trim;
+  pessoa.obs := txtObservacao.Text.Trim;
+  pessoa.flag_cliente := chCliente.IsChecked;
+  pessoa.flag_fornecedor := chFornecedor.IsChecked;
+  pessoa.flag_colaborador := chColaborador.IsChecked;
+  pessoa.ativo := chAtivo.IsChecked;
+
+  Result := pessoa;
+end;
+
+procedure TFormPessoa.limpa_componentes_form_enredeco;
 begin
   txtCodigoEnd.Text := '';
   txtLogradouro.Text := '';
@@ -168,7 +261,7 @@ begin
   chAtivoEnd.IsChecked := True;
 end;
 
-procedure TFormPessoa.ClearPessoaComponests;
+procedure TFormPessoa.limpa_componentes_form_pessoa;
 begin
   txtCodigo.Text := '';
   txtRazaoNome.Text := '';
@@ -185,6 +278,33 @@ begin
   chFisica.IsChecked := True;
   chAtivo.IsChecked := True;
   txtRazaoNome.SetFocus;
+end;
+
+procedure TFormPessoa.muda_aba_selecionada;
+begin
+  if TabControl1.ActiveTab = tabCadastro then
+    lblNomeTela.Text := 'Cadastro de Pessoa'
+  else
+    lblNomeTela.Text := 'Pessoas';
+end;
+
+function TFormPessoa.validacao_de_campos: Boolean;
+var status : Integer;
+begin
+  status := 0;
+
+  if txtRazaoNome.Text = '' then
+  begin
+    txtRazaoNome.TextPrompt := 'Campo Obrigatório';
+    status := status + 1;
+  end;
+
+  if status < 1 then
+    Result := True
+  else
+    Result := False;
+
+  status := 0;
 end;
 
 end.

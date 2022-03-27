@@ -216,10 +216,6 @@
             <Form>ConnectionFactory</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas"/>
-        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas"/>
         <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoBase.pas"/>
         <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Usuario.pas"/>
         <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Animal.pas"/>
@@ -238,6 +234,19 @@
         </DCCReference>
         <DCCReference Include="src\Controller\PesaMais.Controller.UsuarioController.pas"/>
         <DCCReference Include="src\Controller\Factory\PesaMais.Controller.Factory.ControllerFactory.pas"/>
+        <DCCReference Include="src\Model\Entities\Interfaces\PesaMais.Model.Entities.Interfaces.InterfacesModel.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoEstado.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoLote.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoRacaAnimal.pas"/>
+        <DCCReference Include="src\Model\Dao\PesaMais.Model.Dao.DaoUsuario.pas"/>
+        <DCCReference Include="src\Model\Dao\Interfaces\PesaMais.Model.Dao.Interfaces.InterfacesDAO.pas"/>
+        <DCCReference Include="src\Controller\PesaMais.Controller.PessoaController.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Pessoa.pas"/>
+        <DCCReference Include="src\Controller\Interfaces\PesaMais.Controller.Interfaces.InterfacesController.pas"/>
+        <DCCReference Include="src\Controller\PesaMais.Controller.EnderecoController.pas"/>
+        <DCCReference Include="src\Controller\PesaMais.Controller.ProprietarioController.pas"/>
+        <DCCReference Include="src\Controller\PesaMais.Controller.PropriedadeController.pas"/>
+        <DCCReference Include="src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -4,6 +4,7 @@ interface
 
 uses
   System.Generics.Collections,
+  System.SysUtils,
 
   ormbr.container.objectset.interfaces,
   ormbr.container.objectset,
@@ -12,17 +13,17 @@ uses
   PesaMais.Model.Connection.DmORM;
 
   type
-  TDAOBase<T: class, constructor> = class
+  TDAOBase<T : class, constructor> = class
     private
       FConnection : IDBConnection;
       FContainer : IContainerObjectSet<T>;
     public
-      procedure Insert(AValue : T);
-      procedure Update(AValue : T; AID : Integer);
-      procedure Delete(AID : Integer);
-      function  FindWhere(AWhere : String) : TObjectList<T>;
-      function  FindById(AID : Integer) : T;
-      function  FindAll : TObjectList<T>;
+      function insert(obj : T) : Boolean;
+      function update(obj : T; id : Integer) : Boolean;
+      function delete(id : Integer) : Boolean;
+      function findWhere(AWhere : String) : TObjectList<T>;
+      function findById(id : Integer) : T;
+      function findAll : TObjectList<T>;
 
       constructor Create;overload;
       constructor Create(AConnection : IDBConnection);overload;
@@ -32,6 +33,7 @@ implementation
 
 { TDAOBase<T> }
 
+{** CONSTRUCTORS **}
 constructor TDAOBase<T>.Create(AConnection: IDBConnection);
 begin
   FConnection := AConnection;
@@ -43,40 +45,74 @@ begin
   Create(TConnectionFactory.GetConnection);
 end;
 
-procedure TDAOBase<T>.Delete(AID: Integer);
+{** INSERT  **}
+function TDAOBase<T>.insert(obj: T) : Boolean;
 begin
-  var LObject := FContainer.Find(AID);
-  if Assigned(LObject) then
-  begin
-    FContainer.Delete(LObject);
+  try
+    FContainer.insert(obj);
+    Result := True;
+  except
+    On E: Exception do
+    begin
+      Result := False;
+      Exit;
+    end;
   end;
 end;
 
-function TDAOBase<T>.FindAll: TObjectList<T>;
+{** UPDATE  **}
+function TDAOBase<T>.update(obj: T; id: Integer) : Boolean;
+
 begin
-  Result := FContainer.FindWhere('');
+  try
+    var LObject := FContainer.Find(id);
+    FContainer.Modify(LObject);
+    FContainer.update(obj);
+    Result := True;
+  except
+    On E: Exception do
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
 end;
 
-function TDAOBase<T>.FindById(AID: Integer): T;
+{** DELETE  **}
+function TDAOBase<T>.delete(id: Integer): Boolean;
 begin
-  Result := FContainer.Find(AID);
+  var LObject := FContainer.Find(id);
+  try
+    if Assigned(LObject) then
+    begin
+      FContainer.delete(LObject);
+    end;
+    Result := True;
+  except
+    On E: Exception do
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
 end;
 
+{** FIND BY ID  **}
+function TDAOBase<T>.findById(id: Integer): T;
+begin
+  Result := FContainer.Find(id);
+end;
+
+{** FIND WHERE  **}
 function TDAOBase<T>.FindWhere(AWhere: String): TObjectList<T>;
 begin
   Result := FContainer.FindWhere(AWhere);
 end;
 
-procedure TDAOBase<T>.Insert(AValue: T);
+{** FIND ALL  **}
+function TDAOBase<T>.FindAll: TObjectList<T>;
 begin
-  FContainer.Insert(AValue);
-end;
-
-procedure TDAOBase<T>.Update(AValue: T; AID: Integer);
-begin
-  var LObject := FContainer.Find(AID);
-  FContainer.Modify(LObject);
-  FContainer.Update(AValue);
+  Result := FContainer.FindWhere('');
 end;
 
 end.

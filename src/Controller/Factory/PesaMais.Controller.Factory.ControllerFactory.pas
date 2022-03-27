@@ -4,16 +4,24 @@ unit PesaMais.Controller.Factory.ControllerFactory;
 interface
 
 uses
-  PesaMais.Controller.UsuarioController;
+  PesaMais.Controller.UsuarioController,
+  PesaMais.Controller.Interfaces.InterfacesController,
+  PesaMais.Controller.PessoaController, PesaMais.Controller.EnderecoController,
+  PesaMais.Controller.ProprietarioController,
+  PesaMais.Controller.PropriedadeController;
 
 type
-  TControllerFactory = class
+  TControllerFactory = class(TInterfacedObject, IControllerFactory)
     private
     public
-      class function New : TControllerFactory;
-      class function getUsuarioController : TUsuarioController;
+      function getUsuarioController      : TUsuarioController;
+      function getPessoaController       : TPessoaController;
+      function getEnderecoController     : TEnderecoController;
+      function getProprietarioController : TProprietarioController;
+      function getPropriedadeController  : TPropriedadeController;
 
       constructor Create;
+      class function New : IControllerFactory;
   end;
 
 implementation
@@ -25,12 +33,32 @@ begin
 
 end;
 
-class function TControllerFactory.getUsuarioController: TUsuarioController;
+function TControllerFactory.getEnderecoController: TEnderecoController;
+begin
+  Result := TEnderecoController.New;
+end;
+
+function TControllerFactory.getPessoaController: TPessoaController;
+begin
+  Result := TPessoaController.New;
+end;
+
+function TControllerFactory.getPropriedadeController: TPropriedadeController;
+begin
+  Result := TPropriedadeController.New;
+end;
+
+function TControllerFactory.getProprietarioController: TProprietarioController;
+begin
+  Result := TProprietarioController.New;
+end;
+
+function TControllerFactory.getUsuarioController: TUsuarioController;
 begin
   Result := TUsuarioController.New;
 end;
 
-class function TControllerFactory.New: TControllerFactory;
+class function TControllerFactory.New: IControllerFactory;
 begin
   Result := Self.Create;
 end;

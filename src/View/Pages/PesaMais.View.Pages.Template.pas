@@ -84,10 +84,10 @@ type
     Rectangle10: TRectangle;
     Edit1: TEdit;
     Rectangle11: TRectangle;
-    procedure btnNovoClick(Sender: TObject);
-    procedure btnBuscaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -104,6 +104,11 @@ uses
 
 {$R *.fmx}
 
+procedure TFormTemplate.btnCancelarClick(Sender: TObject);
+begin
+  changeTabListagem.ExecuteTarget(Self);
+end;
+
 procedure TFormTemplate.btnNovoClick(Sender: TObject);
 begin
   changeTabCadastro.ExecuteTarget(Self);
@@ -115,17 +120,13 @@ var
 begin
   Main := TFormPrincipal(Self.Owner);
   Main.LayoutPrincipal.RemoveObject(Self.Layout1);
+  Main.setVisibleDashboard;
 end;
 
 procedure TFormTemplate.FormCreate(Sender: TObject);
 begin
   TabControl1.TabIndex := 0;
   TabControl1.TabPosition := TTabPosition.None;
-end;
-
-procedure TFormTemplate.btnBuscaClick(Sender: TObject);
-begin
-  changeTabListagem.ExecuteTarget(Self);
 end;
 
 end.

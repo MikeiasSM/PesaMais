@@ -23,6 +23,8 @@ uses
   PesaMais.Model.Dao.DaoBase;
 
 type
+
+
   [Entity]
   [Table('USUARIO', '')]
   [PrimaryKey('ID_USUARIO', AutoInc, NoSort, False, 'Chave primária')]
@@ -55,105 +57,21 @@ type
     [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property ATIVO: Nullable<Boolean> read FATIVO write FATIVO;
 
-    class function FindAll : TObjectList<TUSUARIO>;
-    class function GetById (AID : Integer; var AUsuario : TUSUARIO; ARetorno : String) : TUsuario;
-    class function Insert (AValue : TUSUARIO) : Boolean;
-    class function Update (AValue : TUSUARIO; AID : Integer) : Boolean;
-    class function Delete (AID : Integer) : Boolean;
+    function getId : Integer;
+
   end;
 
 implementation
 
 { TUSUARIO }
 
-class function TUSUARIO.Delete(AID: Integer): Boolean;
+{ TUSUARIO }
+
+function TUSUARIO.getId: Integer;
 begin
-  var
-  Dao := TDAOBase<TUSUARIO>.Create;
-  try
-    try
-      Dao.Delete(AID);
-      Result := True;
-    except
-      On E: Exception do
-      begin
-        Result := False;
-        Exit;
-      end;
-    end;
-  finally
-    Dao.Free;
-  end;
-end;
-
-class function TUSUARIO.FindAll: TObjectList<TUSUARIO>;
-begin
-  var DAO := TDAOBase<TUSUARIO>.Create;
-  try
-    Result := DAO.FindAll;
-  finally
-    DAO.Free;
-  end;
-end;
-
-class function TUSUARIO.GetById(AID: Integer; var AUsuario: TUSUARIO;  ARetorno: String): TUsuario;
-begin
-  var DAO := TDAOBase<TUSUARIO>.Create;
-
-  try
-    AUsuario := DAO.FindById(AID);
-    Result := AUsuario;
-    if AUsuario = nil then
-    begin
-      ARetorno := 'Registro não encontrado!';
-      Exit()
-    end;
-
-  finally
-    DAO.Free
-  end;
-end;
-
-class function TUSUARIO.Insert(AValue : TUSUARIO): Boolean;
-begin
-  var DAO := TDAOBase<TUSUARIO>.Create;
-  try
-    try
-      Dao.Insert(AValue);
-      Result := True;
-    except
-      On E: Exception do
-      begin
-        Result := False;
-        Exit;
-      end;
-    end;
-  finally
-    Dao.Free;
-  end;
-end;
-
-class function TUSUARIO.Update(AValue: TUSUARIO; AID : Integer) : Boolean;
-begin
-  var DAO := TDAOBase<TUSUARIO>.Create;
-  try
-    try
-      Dao.Update(AValue, AID);
-      Result := True;
-    except
-      On E: Exception do
-      begin
-        Result := False;
-        Exit;
-      end;
-    end;
-  finally
-    Dao.Free;
-  end;
+  Result := FID_USUARIO;
 end;
 
 initialization
-
 TRegisterClass.RegisterEntity(TUSUARIO)
-
 end.

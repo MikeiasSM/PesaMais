@@ -26,7 +26,7 @@ type
   [Entity]
   [Table('PASTO', '')]
   [PrimaryKey('ID_PASTO', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_PASTO_ID')]
+  [Sequence('GEN_ID_PASTO')]
   TPASTO = class
   private
     { Private declarations }

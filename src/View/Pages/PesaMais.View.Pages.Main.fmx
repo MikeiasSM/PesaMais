@@ -7,6 +7,7 @@ object FormMain: TFormMain
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object Layout1: TLayout
     Align = Client
@@ -21,19 +22,27 @@ object FormMain: TFormMain
       Size.Height = 611.000000000000000000
       Size.PlatformDefault = False
       Stroke.Thickness = 0.000000000000000000
-    end
-    object Label1: TLabel
-      Align = Center
-      StyledSettings = [FontColor]
-      Size.Width = 345.000000000000000000
-      Size.Height = 169.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.Family = 'Montserrat'
-      TextSettings.Font.Size = 46.000000000000000000
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.HorzAlign = Center
-      Text = 'MAIN'
-      TabOrder = 1
+      object Label1: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Size.Width = 848.000000000000000000
+        Size.Height = 57.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Montserrat'
+        TextSettings.Font.Size = 36.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.HorzAlign = Center
+        Text = 'Dashboard'
+        TabOrder = 1
+      end
+      object LayoutPrincipal: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 848.000000000000000000
+        Size.Height = 554.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
     end
   end
 end

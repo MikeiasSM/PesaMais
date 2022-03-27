@@ -40,7 +40,8 @@ uses
   PesaMais.View.Pages.Template,
   PesaMais.Controller.UsuarioController,
   PesaMais.Controller.Factory.ControllerFactory,
-  PesaMais.Model.Entities.Usuario;
+  PesaMais.Model.Entities.Usuario,
+  PesaMais.Controller.Interfaces.InterfacesController;
 
 
 type
@@ -69,12 +70,12 @@ type
     Linha : Integer;
     Controller : TUsuarioController;
 
-    procedure PopGrid;
-    procedure ClearGrid;
-    procedure TestTab;
-    procedure ClearComponests;
-    function Validation : Boolean;
-    procedure GetGrid;
+    procedure popula_grid_usuarios;
+    procedure limpa_grid_usuarios;
+    procedure muda_aba_selecionada;
+    procedure limpa_componentes;
+    function validacao_de_campos : Boolean;
+    procedure recupera_objeto_grid;
   public
     { Public declarations }
     procedure setUsuarioController;
@@ -90,16 +91,16 @@ implementation
 procedure TFormUsuario.btnBuscaClick(Sender: TObject);
 begin
   inherited;
-  testTab;
+  muda_aba_selecionada;
 end;
 
 procedure TFormUsuario.btnCancelarClick(Sender: TObject);
 begin
   inherited;
-  ClearComponests;
+  limpa_componentes;
   changeTabListagem.ExecuteTarget(Self);
-  PopGrid;
-  TestTab;
+  popula_grid_usuarios;
+  muda_aba_selecionada;
 end;
 
 procedure TFormUsuario.btnExcluirClick(Sender: TObject);
@@ -108,7 +109,7 @@ begin
   if txtCodigo.Text <> '' then
   begin
     MessageDlg(Controller.Delete(StrToInt(txtCodigo.Text)), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
-    ClearComponests;
+    limpa_componentes;
     changeTabListagem.ExecuteTarget(Self);
   end
   else
@@ -120,7 +121,7 @@ end;
 procedure TFormUsuario.btnNovoClick(Sender: TObject);
 begin
   inherited;
-  testTab;
+  muda_aba_selecionada;
   txtNome.SetFocus;
 end;
 
@@ -129,7 +130,7 @@ begin
   inherited;
   var usuario := TUSUARIO.Create;
 
-  if Validation then
+  if validacao_de_campos then
   begin
     if txtCodigo.Text = '' then
     begin
@@ -137,7 +138,7 @@ begin
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
       MessageDlg(Controller.Insert(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
-      ClearComponests;
+      limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
 
     end
@@ -148,13 +149,13 @@ begin
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
       MessageDlg(Controller.Update(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
-      ClearComponests;
+      limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
     end;
   end;
 end;
 
-procedure TFormUsuario.PopGrid;
+procedure TFormUsuario.popula_grid_usuarios;
 var
   i : Integer;
   list : TObjectList<TUSUARIO>;
@@ -179,7 +180,7 @@ begin
     end;
     StrGrid.EndUpdate;
   finally
-    Controller.Free;
+    list.Free;
   end;
 end;
 
@@ -207,7 +208,7 @@ begin
     cbAtivo.IsChecked := usuario.ATIVO;
 end;
 
-procedure TFormUsuario.ClearComponests;
+procedure TFormUsuario.limpa_componentes;
 begin
   txtCodigo.Text := '';
   txtNome.Text := '';
@@ -219,10 +220,10 @@ begin
   cbAtivo.IsChecked := True;
   lblStatus.Text := '';
   txtNome.SetFocus;
-  PopGrid;
+  popula_grid_usuarios;
 end;
 
-procedure TFormUsuario.ClearGrid;
+procedure TFormUsuario.limpa_grid_usuarios;
 var lin, col: integer;
 begin
      for lin := 1 to StrGrid.RowCount - 1 do
@@ -234,19 +235,19 @@ procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
   inherited;
   setUsuarioController;
-  PopGrid;
-  TestTab;
+  popula_grid_usuarios;
+  muda_aba_selecionada;
 end;
 
 
-procedure TFormUsuario.GetGrid;
+procedure TFormUsuario.recupera_objeto_grid;
 var
   cod, nome, ativo : String;
 begin
 
 end;
 
-procedure TFormUsuario.TestTab;
+procedure TFormUsuario.muda_aba_selecionada;
 begin
   if TabControl1.ActiveTab = tabCadastro then
     lblNomeTela.Text := 'Cadastro de Usuários'
@@ -254,7 +255,7 @@ begin
     lblNomeTela.Text := 'Usuários';
 end;
 
-function TFormUsuario.Validation: Boolean;
+function TFormUsuario.validacao_de_campos: Boolean;
 var status : Integer;
 begin
   status := 0;
