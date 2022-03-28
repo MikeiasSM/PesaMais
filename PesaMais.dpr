@@ -36,7 +36,8 @@ uses
   PesaMais.Controller.EnderecoController in 'src\Controller\PesaMais.Controller.EnderecoController.pas',
   PesaMais.Controller.ProprietarioController in 'src\Controller\PesaMais.Controller.ProprietarioController.pas',
   PesaMais.Controller.PropriedadeController in 'src\Controller\PesaMais.Controller.PropriedadeController.pas',
-  PesaMais.Model.Entities.Propriedade in 'src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas';
+  PesaMais.Model.Entities.Propriedade in 'src\Model\Entities\PesaMais.Model.Entities.Propriedade.pas',
+  PesaMais.View.Dialog.Messages in 'src\View\Dialog\PesaMais.View.Dialog.Messages.pas' {FormMessage};
 
 {$R *.res}
 
@@ -45,6 +46,5 @@ begin
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TConnection, Connection);
   Application.CreateForm(TConnectionFactory, ConnectionFactory);
-  Application.CreateForm(TFormPessoa, FormPessoa);
   Application.Run;
 end.

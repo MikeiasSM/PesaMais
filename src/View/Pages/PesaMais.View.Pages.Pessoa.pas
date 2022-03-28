@@ -40,7 +40,7 @@ uses
   PesaMais.View.Pages.Template, FMX.Ani, PesaMais.Model.Entities.Pessoa,
   PesaMais.Controller.Interfaces.InterfacesController,
   PesaMais.Controller.Factory.ControllerFactory,
-  PesaMais.Controller.PessoaController;
+  PesaMais.Controller.PessoaController, PesaMais.View.Dialog.Messages;
 
 type
   TFormPessoa = class(TFormTemplate)
@@ -130,6 +130,7 @@ type
     { Private declarations }
 
     Controller : TPessoaController;
+    Dialog : TFormMessage;
 
     procedure limpa_componentes_form_pessoa;
     procedure limpa_componentes_form_enredeco;
@@ -189,13 +190,14 @@ var
 begin
   inherited;
   Controller := TControllerFactory.New.getPessoaController;
+  Dialog := TFormMessage.Create(nil);
 
   if validacao_de_campos then
   begin
    if txtCodigo.Text = '' then
     begin
       pessoa := preenche_objeto_com_edits;
-      MessageDlg(Controller.Insert(pessoa), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      Dialog.ShowDialog('Sucesso!', Controller.Insert(pessoa), tpInformation);
       limpa_componentes_form_pessoa;
       changeTabListagem.ExecuteTarget(Self);
     end
@@ -203,7 +205,7 @@ begin
     begin
       pessoa := preenche_objeto_com_edits;
       pessoa.id_pessoa := StrToInt(txtCodigo.Text.Trim);
-      MessageDlg(Controller.Update(pessoa), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      Dialog.ShowDialog('Sucesso!', Controller.Update(pessoa), tpInformation);
       limpa_componentes_form_pessoa;
       changeTabListagem.ExecuteTarget(Self);
     end;

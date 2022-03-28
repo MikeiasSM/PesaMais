@@ -1,0 +1,199 @@
+object FormMessage: TFormMessage
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = None
+  ClientHeight = 190
+  ClientWidth = 500
+  Position = ScreenCenter
+  Transparency = True
+  FormFactor.Width = 320
+  FormFactor.Height = 190
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 500.000000000000000000
+    Size.Height = 190.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Rectangle1: TRectangle
+      Align = Client
+      Fill.Color = claWhite
+      Margins.Left = 10.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Size.Width = 480.000000000000000000
+      Size.Height = 170.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFF656565
+      Stroke.Thickness = 0.000000000000000000
+      XRadius = 8.000000000000000000
+      YRadius = 8.000000000000000000
+      object Rectangle2: TRectangle
+        Align = Top
+        Fill.Color = claWhite
+        Size.Width = 480.000000000000000000
+        Size.Height = 150.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        XRadius = 8.000000000000000000
+        YRadius = 8.000000000000000000
+        object Rectangle4: TRectangle
+          Align = Client
+          Fill.Color = claWhite
+          Padding.Left = 10.000000000000000000
+          Padding.Top = 10.000000000000000000
+          Padding.Right = 10.000000000000000000
+          Padding.Bottom = 10.000000000000000000
+          Size.Width = 330.000000000000000000
+          Size.Height = 150.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Thickness = 0.000000000000000000
+          XRadius = 8.000000000000000000
+          YRadius = 8.000000000000000000
+          object lblTitulo: TLabel
+            Align = Top
+            StyledSettings = []
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 310.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Montserrat'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFFA3D55D
+            Text = 'Titulo'
+            TabOrder = 0
+          end
+          object lblSubTitulo: TLabel
+            Align = Client
+            StyledSettings = [Style, FontColor]
+            Margins.Top = 8.000000000000000000
+            Size.Width = 310.000000000000000000
+            Size.Height = 92.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Montserrat'
+            TextSettings.Font.Size = 13.000000000000000000
+            TextSettings.VertAlign = Leading
+            Text = 'Sub-Titulo'
+            TabOrder = 1
+          end
+        end
+        object Rectangle5: TRectangle
+          Align = Right
+          Fill.Color = claWhite
+          Padding.Left = 5.000000000000000000
+          Padding.Top = 5.000000000000000000
+          Padding.Right = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Position.X = 330.000000000000000000
+          Size.Width = 150.000000000000000000
+          Size.Height = 150.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Thickness = 0.000000000000000000
+          XRadius = 8.000000000000000000
+          YRadius = 8.000000000000000000
+          object LayoutAnimacao: TLayout
+            Align = Client
+            Size.Width = 140.000000000000000000
+            Size.Height = 140.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+          end
+        end
+      end
+      object Rectangle3: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Padding.Bottom = 1.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+        XRadius = 8.000000000000000000
+        YRadius = 8.000000000000000000
+        object Line1: TLine
+          Align = Top
+          LineType = Top
+          Size.Width = 480.000000000000000000
+          Size.Height = 1.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = xFFD6D6D6
+        end
+        object btnSalvar: TSpeedButton
+          Align = Right
+          StyledSettings = [Size]
+          Position.X = 320.000000000000000000
+          Position.Y = 1.000000000000000000
+          Size.Width = 160.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          Text = '                Ok!'
+          TextSettings.Font.Family = 'Montserrat'
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = xFFA3D55D
+          TextSettings.HorzAlign = Leading
+          OnClick = btnSalvarClick
+          object Image1: TImage
+            MultiResBitmap = <
+              item
+                Width = 24
+                Height = 24
+                PNG = {
+                  89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                  F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  027849444154484BD595CB6B135114C6CF999964A6950AB514FB50C18A0AA145
+                  412C16EAC23F40D34D8B8554BB74531544C555E9C247972ED58DC48AD26EAC6E
+                  AC2E5CF8681114C58682A21BAD8F55BA4A268F99E3B993C3A4D34CD30471D11F
+                  24F79E6FEE9CEFBE07363D28E5BA8CD3B8D6B5F4EDA846D0CF615B4985DF08F8
+                  F24B6CF7AB099C70450B655D83E9C5C1A88DE61920BC8C081D2207215A26801B
+                  16E46E0F75CFE4450D106AF0E0D3E8CEA2E63CE1EA8192521D2278EF46F0C4E8
+                  FEE4B2483E15065E722CCE0362A74835C123F9E11A7864AD8926A5C7CDCF6366
+                  412B3EAE37B9827BBA432BB8B36A6A45F2081834E7D3E779F10E4A5837887888
+                  D7EDAC841EFE144DD3A09E4B99BFB855AB4835422B44D8C41B41F722803F56CC
+                  EE1CC21947C5FE08B24B567FDDC9099E479BEC0E40BA2A8AEAF1F66CCAEA93B0
+                  6C804487A55A1304F42CBA351BCFA7CD167E3B21B20727ED956A600DDAA5DC10
+                  229AB52877BCB8126D07035F73AFBBE4910721F9E7A63C029E1FA99621B8C08D
+                  8739A32D8AD773678B7E321369687534FD29BFB94B1E85B26A8AA0E29070B2B6
+                  53B1A9872EE140C984E69C463D8E796AD10AF482BBB4579A065995CB377089E6
+                  A5EAC3DBEE62723171E574CFBD39D0E858B1511F30EDDCB6AAC915086FA45636
+                  F8DABD67818FFC4F097DD8E45A3295B83412BBBFA0923B8E5135B93AD123B1A9
+                  B712960DBC5B116952C200BC3E933C92478E6BA82B649FC8A1B0F975FEB14F09
+                  DF40918E34DFE279FF2061001E499CFFAB2E28EFAE77994CC31D093D2A76CE7F
+                  BDEC14C33D77BF1B64A893F8B1A46C8C775D872457541828948949762F4FD7B9
+                  B085F7511F1CA2310BECBEB0E48ACAC3B5867FFD646E7600FE026036F3DEA13B
+                  BE680000000049454E44AE426082}
+              end>
+            Align = Left
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 40.000000000000000000
+            Size.Height = 0.000000000000000000
+            Size.PlatformDefault = False
+          end
+        end
+      end
+      object ShadowEffect1: TShadowEffect
+        Distance = 3.000000000000000000
+        Direction = 360.000000000000000000
+        Softness = 0.300000011920929000
+        Opacity = 0.600000023841857900
+        ShadowColor = claBlack
+      end
+    end
+    object ShadowEffect2: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 180.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+  end
+end
