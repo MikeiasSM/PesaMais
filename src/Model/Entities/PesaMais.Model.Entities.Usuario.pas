@@ -17,10 +17,7 @@ uses
   ormbr.types.nullable,
   dbcbr.mapping.classes,
   dbcbr.mapping.register,
-  dbcbr.mapping.attributes,
-
-  { PesaMais }
-  PesaMais.Model.Dao.DaoBase;
+  dbcbr.mapping.attributes;
 
 type
 
@@ -57,20 +54,11 @@ type
     [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property ATIVO: Nullable<Boolean> read FATIVO write FATIVO;
 
-    function getId : Integer;
-
   end;
 
 implementation
 
 { TUSUARIO }
-
-{ TUSUARIO }
-
-function TUSUARIO.getId: Integer;
-begin
-  Result := FID_USUARIO;
-end;
 
 initialization
 TRegisterClass.RegisterEntity(TUSUARIO)

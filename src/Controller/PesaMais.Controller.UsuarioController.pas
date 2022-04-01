@@ -9,13 +9,14 @@ uses
   { Pesa Mais }
   PesaMais.Model.Entities.Usuario,
   PesaMais.Model.Dao.DaoBase,
-  PesaMais.Model.Dao.DaoUsuario;
+  PesaMais.View.Dialog.Messages;
 
 type
   TUsuarioController = class
 
   private
     DAO : TDAOBase<TUSUARIO>;
+    Dialog : TFormMessage;
   public
     function Insert(Usuario : TUSUARIO) : String;
     function Update(Usuario : TUSUARIO) : String;
@@ -32,7 +33,7 @@ implementation
 
 constructor TUsuarioController.Create;
 begin
-
+  Dialog := TFormMessage.Create(nil);
 end;
 
 class function TUsuarioController.New: TUsuarioController;
@@ -43,28 +44,25 @@ end;
 function TUsuarioController.Insert(Usuario: TUSUARIO) : String;
 begin
   DAO := TDAOBase<TUSUARIO>.Create;
-  if DAO.insert(Usuario) then
-    Result := 'Registro salvo com sucesso!'
+  if Assigned(Usuario) then
+    DAO.insert(Usuario)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro Usuario está nulo.', TMessages.tpError);
 end;
 
 function TUsuarioController.Update(Usuario: TUSUARIO) : String;
 begin
   DAO := TDAOBase<TUSUARIO>.Create;
-  if DAO.update(Usuario, Usuario.ID_USUARIO) then
-    Result := 'Registro alterado com sucesso!'
+  if Assigned(Usuario) then
+    DAO.update(Usuario, Usuario.ID_USUARIO)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro Usuario está nulo.', TMessages.tpError);
 end;
 
 function TUsuarioController.Delete(Id_Usuario: Integer): String;
 begin
   DAO := TDAOBase<TUSUARIO>.Create;
-  if DAO.Delete(Id_Usuario) then
-    Result := 'Registro deletado com sucesso!'
-  else
-    Result := 'Erro ao executar ação!';
+  DAO.Delete(Id_Usuario);
 end;
 
 function TUsuarioController.FindById(Usuario: TUSUARIO): TUSUARIO;
@@ -72,7 +70,10 @@ var
   Retorno : String;
 begin
   DAO := TDAOBase<TUSUARIO>.Create;
-  Result := DAO.findById(Usuario.ID_USUARIO);
+  if Assigned(Usuario) then
+    Result := DAO.findById(Usuario.ID_USUARIO)
+  else
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro Usuario está nulo.', TMessages.tpError);
 end;
 
 function TUsuarioController.FindAll: TObjectList<TUSUARIO>;

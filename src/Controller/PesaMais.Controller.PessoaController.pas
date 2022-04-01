@@ -8,12 +8,13 @@ uses
 
   { Pesa Mais}
   PesaMais.Model.Dao.DaoBase,
-  PesaMais.Model.Entities.Pessoa;
+  PesaMais.Model.Entities.Pessoa, PesaMais.View.Dialog.Messages;
 
 type
 TPessoaController = class
     private
     DAO : TDAOBase<TPESSOA>;
+    Dialog : TFormMessage;
     public
       function Insert(obj : TPESSOA) : String;
       function Update(obj : TPESSOA) : String;
@@ -30,7 +31,7 @@ implementation
 
 constructor TPessoaController.Create;
 begin
-
+  Dialog := TFormMessage.Create(nil);
 end;
 
 class function TPessoaController.New: TPessoaController;
@@ -41,28 +42,25 @@ end;
 function TPessoaController.Insert(obj: TPESSOA) : String;
 begin
   DAO := TDAOBase<TPESSOA>.Create;
-  if DAO.insert(obj) then
-    Result := 'Registro salvo com sucesso!'
+  if Assigned(obj) then
+    DAO.insert(obj)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPessoaController.Update(obj: TPESSOA) : String;
 begin
   DAO := TDAOBase<TPESSOA>.Create;
-  if DAO.update(obj, obj.id_pessoa) then
-    Result := 'Registro alterado com sucesso!'
+  if Assigned(obj) then
+    DAO.update(obj, obj.id_pessoa)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPessoaController.Delete(obj_id: Integer): String;
 begin
   DAO := TDAOBase<TPESSOA>.Create;
-  if DAO.Delete(obj_id) then
-    Result := 'Registro deletado com sucesso!'
-  else
-    Result := 'Erro ao executar ação!';
+  DAO.Delete(obj_id);
 end;
 
 function TPessoaController.FindById(obj: TPESSOA): TPESSOA;
@@ -70,7 +68,10 @@ var
   Retorno : String;
 begin
   DAO := TDAOBase<TPESSOA>.Create;
-  Result := DAO.findById(obj.id_pessoa);
+  if Assigned(obj) then
+    Result := DAO.findById(obj.id_pessoa)
+  else
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPessoaController.FindAll: TObjectList<TPESSOA>;

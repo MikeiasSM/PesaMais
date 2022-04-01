@@ -41,7 +41,8 @@ uses
   PesaMais.Controller.UsuarioController,
   PesaMais.Controller.Factory.ControllerFactory,
   PesaMais.Model.Entities.Usuario,
-  PesaMais.Controller.Interfaces.InterfacesController;
+  PesaMais.Controller.Interfaces.InterfacesController,
+  PesaMais.View.Dialog.Messages;
 
 
 type
@@ -69,6 +70,7 @@ type
     { Private declarations }
     Linha : Integer;
     Controller : TUsuarioController;
+    Dialog : TFormMessage;
 
     procedure popula_grid_usuarios;
     procedure limpa_grid_usuarios;
@@ -99,7 +101,6 @@ begin
   inherited;
   limpa_componentes;
   changeTabListagem.ExecuteTarget(Self);
-  popula_grid_usuarios;
   muda_aba_selecionada;
 end;
 
@@ -108,7 +109,7 @@ begin
   inherited;
   if txtCodigo.Text <> '' then
   begin
-    MessageDlg(Controller.Delete(StrToInt(txtCodigo.Text)), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+    Controller.Delete(StrToInt(txtCodigo.Text));
     limpa_componentes;
     changeTabListagem.ExecuteTarget(Self);
   end
@@ -137,7 +138,7 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      MessageDlg(Controller.Insert(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      Controller.Insert(usuario);
       limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
 
@@ -148,7 +149,7 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      MessageDlg(Controller.Update(usuario), TMsgDlgType.mtInformation, [TMsgDlgBtn.mbOK], 0);
+      Controller.Update(usuario);
       limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
     end;
@@ -176,7 +177,10 @@ begin
       StrGrid.Cells[0,i] := IntToStr(list[i].ID_USUARIO);
       StrGrid.Cells[1,i] := list[i].USUARIO;
       StrGrid.Cells[2,i] := list[i].SENHA;
-      StrGrid.Cells[3,i] := list[i].ATIVO;
+      if list[i].ATIVO = true then
+        StrGrid.Cells[3,i] := 'ATIVO'
+      else
+        StrGrid.Cells[3,i] := 'INATIVO';
     end;
     StrGrid.EndUpdate;
   finally
@@ -226,14 +230,15 @@ end;
 procedure TFormUsuario.limpa_grid_usuarios;
 var lin, col: integer;
 begin
-     for lin := 1 to StrGrid.RowCount - 1 do
-       for col := 0 to StrGrid.ColumnCount - 1 do
-         StrGrid.Cells[col, lin] := '';
+  for lin := 1 to StrGrid.RowCount - 1 do
+    for col := 0 to StrGrid.ColumnCount - 1 do
+      StrGrid.Cells[col, lin] := '';
 end;
 
 procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
   inherited;
+  Dialog := TFormMessage.Create(nil);
   setUsuarioController;
   popula_grid_usuarios;
   muda_aba_selecionada;

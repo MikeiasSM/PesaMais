@@ -4,12 +4,13 @@ interface
 
 uses
   PesaMais.Model.Dao.DaoBase, PesaMais.Model.Entities.Proprietario,
-  System.Generics.Collections;
+  System.Generics.Collections, PesaMais.View.Dialog.Messages;
 type
   TProprietarioController = class
 
   private
     DAO : TDAOBase<TPROPRIETARIO>;
+    Dialog : TFormMessage;
   public
     function Insert(obj : TPROPRIETARIO) : String;
     function Update(obj : TPROPRIETARIO) : String;
@@ -26,7 +27,7 @@ implementation
 
 constructor TProprietarioController.Create;
 begin
-
+  Dialog := TFormMessage.Create(nil);
 end;
 
 class function TProprietarioController.New: TProprietarioController;
@@ -37,28 +38,25 @@ end;
 function TProprietarioController.Insert(obj: TPROPRIETARIO) : String;
 begin
   DAO := TDAOBase<TPROPRIETARIO>.Create;
-  if DAO.insert(obj) then
-    Result := 'Registro salvo com sucesso!'
+  if Assigned(obj) then
+    DAO.insert(obj)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TProprietarioController.Update(obj: TPROPRIETARIO) : String;
 begin
   DAO := TDAOBase<TPROPRIETARIO>.Create;
-  if DAO.update(obj, obj.id_proprietario) then
-    Result := 'Registro alterado com sucesso!'
+  if Assigned(obj) then
+    DAO.update(obj, obj.id_proprietario)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TProprietarioController.Delete(obj_id: Integer): String;
 begin
   DAO := TDAOBase<TPROPRIETARIO>.Create;
-  if DAO.Delete(obj_id) then
-    Result := 'Registro deletado com sucesso!'
-  else
-    Result := 'Erro ao executar ação!';
+  DAO.Delete(obj_id);
 end;
 
 function TProprietarioController.FindById(obj: TPROPRIETARIO): TPROPRIETARIO;
@@ -66,7 +64,10 @@ var
   Retorno : String;
 begin
   DAO := TDAOBase<TPROPRIETARIO>.Create;
-  Result := DAO.findById(obj.id_proprietario);
+  if Assigned(obj) then
+    Result := DAO.findById(obj.id_proprietario)
+  else
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TProprietarioController.FindAll: TObjectList<TPROPRIETARIO>;

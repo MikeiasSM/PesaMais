@@ -6,9 +6,11 @@ interface
 uses
   PesaMais.Controller.UsuarioController,
   PesaMais.Controller.Interfaces.InterfacesController,
-  PesaMais.Controller.PessoaController, PesaMais.Controller.EnderecoController,
+  PesaMais.Controller.PessoaController,
+  PesaMais.Controller.EnderecoController,
   PesaMais.Controller.ProprietarioController,
-  PesaMais.Controller.PropriedadeController;
+  PesaMais.Controller.PropriedadeController,
+  PesaMais.Controller.CidadeController;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -19,6 +21,7 @@ type
       function getEnderecoController     : TEnderecoController;
       function getProprietarioController : TProprietarioController;
       function getPropriedadeController  : TPropriedadeController;
+      function getCidadeController       : TCidadeController;
 
       constructor Create;
       class function New : IControllerFactory;
@@ -31,6 +34,11 @@ implementation
 constructor TControllerFactory.Create;
 begin
 
+end;
+
+function TControllerFactory.getCidadeController: TCidadeController;
+begin
+  Result := TCidadeController.New;
 end;
 
 function TControllerFactory.getEnderecoController: TEnderecoController;

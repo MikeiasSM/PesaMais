@@ -19,14 +19,27 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls,
   FMX.Objects,
-  FMX.Layouts, Skia.FMX;
+  FMX.Layouts, Skia.FMX, FMX.Ani;
 
 type
   TFormMain = class(TForm)
     Layout1: TLayout;
     Rectangle1: TRectangle;
     Label1: TLabel;
+    Rectangle14: TRectangle;
+    RectAnimation1: TRectAnimation;
+    Rectangle2: TRectangle;
+    Rectangle3: TRectangle;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
+    Rectangle6: TRectangle;
+    Rectangle7: TRectangle;
+    Rectangle8: TRectangle;
     LayoutPrincipal: TRectangle;
+    Rectangle9: TRectangle;
+    Rectangle11: TRectangle;
+    Rectangle12: TRectangle;
+    Rectangle13: TRectangle;
     procedure FormCreate(Sender: TObject);
 
   private
@@ -49,11 +62,11 @@ procedure TFormMain.FormCreate(Sender: TObject);
   animation: TSkAnimatedImage;
 begin
   animation := TSkAnimatedImage.Create(Self);
-  animation.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\dash_animated.json');
-  animation.Parent := Self.LayoutPrincipal;
-  animation.Align := TAlignLayout.Center;
-  animation.Size.Width := 800;
-  animation.Size.Height := 800;
+  //animation.LoadFromFile('C:\PesaMais\Source\assets\dash_animated.json');
+  //animation.Parent := Self.LayoutPrincipal;
+  //animation.Align := TAlignLayout.Center;
+  //animation.Size.Width := 200;
+  //animation.Size.Height := 200;
   //animation.Size.Width := LayoutPrincipal.Size.Width;
   //animation.Size.Height := LayoutPrincipal.Size.Height;
 end;

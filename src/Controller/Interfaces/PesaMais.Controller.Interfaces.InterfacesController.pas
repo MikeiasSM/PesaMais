@@ -11,7 +11,8 @@ uses
   PesaMais.Controller.PessoaController,
   PesaMais.Controller.EnderecoController,
   PesaMais.Controller.ProprietarioController,
-  PesaMais.Controller.PropriedadeController;
+  PesaMais.Controller.PropriedadeController,
+  PesaMais.Controller.CidadeController;
 type
 
   IController<T : class> = interface
@@ -30,6 +31,7 @@ type
     function getEnderecoController     : TEnderecoController;
     function getProprietarioController : TProprietarioController;
     function getPropriedadeController  : TPropriedadeController;
+    function getCidadeController       : TCidadeController;
   end;
 
 implementation

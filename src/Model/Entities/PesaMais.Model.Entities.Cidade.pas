@@ -24,48 +24,49 @@ uses
 type
   [Entity]
   [Table('CIDADE', '')]
-  [PrimaryKey('ID_CIDADE', NotInc, NoSort, False, 'Chave primária')]
+  [PrimaryKey('ID_CIDADE', AutoInc, NoSort, False, 'Chave primária')]
+  [Sequence('GEN_ID_CIDADE')]
   TCIDADE = class
   private
-    { Private declarations } 
+    { Private declarations }
     FID_CIDADE: Integer;
     FNOME: String;
     FCEP: Nullable<String>;
     FCODMUN_IBGE: Nullable<String>;
     FID_ESTADO: Integer;
 
-    FESTADO_0:  TESTADO;
-  public 
-    { Public declarations } 
+    FESTADO_0: Lazy< TESTADO > ;
+  public
+    { Public declarations }
     constructor Create;
+    function getESTADO_0 : TESTADO;
     destructor Destroy; override;
     [Restrictions([NotNull])]
     [Column('ID_CIDADE', ftInteger)]
     [Dictionary('ID_CIDADE', 'Mensagem de validação', '', '', '', taCenter)]
-    [Sequence('GEN_ID_CIDADE')]
-    property ID_CIDADE: Integer read FID_CIDADE write FID_CIDADE;
+    property id_cidade: Integer read FID_CIDADE write FID_CIDADE;
 
     [Restrictions([NotNull])]
     [Column('NOME', ftString, 60)]
     [Dictionary('NOME', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property NOME: String read FNOME write FNOME;
+    property nome: String read FNOME write FNOME;
 
     [Column('CEP', ftString, 8)]
     [Dictionary('CEP', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property CEP: Nullable<String> read FCEP write FCEP;
+    property cep: Nullable<String> read FCEP write FCEP;
 
     [Column('CODMUN_IBGE', ftString, 8)]
     [Dictionary('CODMUN_IBGE', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property CODMUN_IBGE: Nullable<String> read FCODMUN_IBGE write FCODMUN_IBGE;
+    property codmun_ibge: Nullable<String> read FCODMUN_IBGE write FCODMUN_IBGE;
 
     [Restrictions([NotNull])]
     [Column('ID_ESTADO', ftInteger)]
     [ForeignKey('FK_CIDADE_1', 'ID_ESTADO', 'ESTADO', 'ID_ESTADO', SetNull, SetNull)]
     [Dictionary('ID_ESTADO', 'Mensagem de validação', '', '', '', taCenter)]
-    property ID_ESTADO: Integer read FID_ESTADO write FID_ESTADO;
+    property id_estado: Integer read FID_ESTADO write FID_ESTADO;
 
-    [Association(OneToOne,'ID_ESTADO','ESTADO','ID_ESTADO')]
-    property ESTADO: TESTADO read FESTADO_0 write FESTADO_0;
+    [Association(OneToOne,'ID_ESTADO','ESTADO','ID_ESTADO', True)]
+    property estado: TESTADO read getESTADO_0;
 
   end;
 
@@ -73,15 +74,19 @@ implementation
 
 constructor TCIDADE.Create;
 begin
-  FESTADO_0 := TESTADO.Create;
 end;
 
 destructor TCIDADE.Destroy;
 begin
-  if Assigned(FESTADO_0) then
-    FESTADO_0.Free;
+  if Assigned(FESTADO_0.Value) then
+    FESTADO_0.Value.Free;
 
   inherited;
+end;
+
+function TCIDADE.getESTADO_0 : TESTADO;
+begin
+  Result := FESTADO_0.Value;
 end;
 
 initialization

@@ -8,13 +8,14 @@ uses
 
   { Pesa Mais }
   PesaMais.Model.Dao.DaoBase,
-  PesaMais.Model.Entities.Endereco;
+  PesaMais.Model.Entities.Endereco, PesaMais.View.Dialog.Messages;
 type
 
   TEnderecoController = class
 
   private
     DAO : TDAOBase<TENDERECO>;
+    Dialog : TFormMessage;
   public
     function Insert(obj : TENDERECO) : String;
     function Update(obj : TENDERECO) : String;
@@ -31,7 +32,7 @@ implementation
 
 constructor TEnderecoController.Create;
 begin
-
+  Dialog := TFormMessage.Create(nil);
 end;
 
 class function TEnderecoController.New: TEnderecoController;
@@ -42,28 +43,25 @@ end;
 function TEnderecoController.Insert(obj: TENDERECO) : String;
 begin
   DAO := TDAOBase<TENDERECO>.Create;
-  if DAO.insert(obj) then
-    Result := 'Registro salvo com sucesso!'
+  if Assigned(obj) then
+    DAO.insert(obj)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TEnderecoController.Update(obj: TENDERECO) : String;
 begin
   DAO := TDAOBase<TENDERECO>.Create;
-  if DAO.update(obj, obj.id_endereco) then
-    Result := 'Registro alterado com sucesso!'
+  if Assigned(obj) then
+    DAO.update(obj, obj.id_endereco)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TEnderecoController.Delete(obj_id: Integer): String;
 begin
   DAO := TDAOBase<TENDERECO>.Create;
-  if DAO.Delete(obj_id) then
-    Result := 'Registro deletado com sucesso!'
-  else
-    Result := 'Erro ao executar ação!';
+  DAO.Delete(obj_id);
 end;
 
 function TEnderecoController.FindById(obj: TENDERECO): TENDERECO;
@@ -71,7 +69,10 @@ var
   Retorno : String;
 begin
   DAO := TDAOBase<TENDERECO>.Create;
-  Result := DAO.findById(obj.id_endereco);
+  if Assigned(obj) then
+    Result := DAO.findById(obj.id_endereco)
+  else
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TEnderecoController.FindAll: TObjectList<TENDERECO>;

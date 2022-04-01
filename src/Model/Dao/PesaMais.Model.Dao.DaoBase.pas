@@ -10,17 +10,18 @@ uses
   ormbr.container.objectset,
   dbebr.factory.interfaces,
 
-  PesaMais.Model.Connection.DmORM;
+  PesaMais.Model.Connection.DmORM, PesaMais.View.Dialog.Messages;
 
   type
   TDAOBase<T : class, constructor> = class
     private
       FConnection : IDBConnection;
       FContainer : IContainerObjectSet<T>;
+      Dialog : TFormMessage;
     public
-      function insert(obj : T) : Boolean;
-      function update(obj : T; id : Integer) : Boolean;
-      function delete(id : Integer) : Boolean;
+      procedure insert(obj : T);
+      procedure update(obj : T; id : Integer);
+      procedure delete(id : Integer);
       function findWhere(AWhere : String) : TObjectList<T>;
       function findById(id : Integer) : T;
       function findAll : TObjectList<T>;
@@ -38,6 +39,7 @@ constructor TDAOBase<T>.Create(AConnection: IDBConnection);
 begin
   FConnection := AConnection;
   FContainer := TContainerObjectSet<T>.Create(FConnection);
+  Dialog := TFormMessage.Create(nil);
 end;
 
 constructor TDAOBase<T>.Create;
@@ -46,40 +48,40 @@ begin
 end;
 
 {** INSERT  **}
-function TDAOBase<T>.insert(obj: T) : Boolean;
+procedure TDAOBase<T>.insert(obj: T);
 begin
   try
     FContainer.insert(obj);
-    Result := True;
+    Dialog.ShowDialog('Sucesso!', 'Registro salvo com sucesso!', TMessages.tpInformation);
   except
     On E: Exception do
     begin
-      Result := False;
+      Dialog.ShowDialog('Algo de errado aconteceu!', E.Message, TMessages.tpError);
       Exit;
     end;
   end;
 end;
 
 {** UPDATE  **}
-function TDAOBase<T>.update(obj: T; id: Integer) : Boolean;
+procedure TDAOBase<T>.update(obj: T; id: Integer);
 
 begin
   try
     var LObject := FContainer.Find(id);
     FContainer.Modify(LObject);
     FContainer.update(obj);
-    Result := True;
+    Dialog.ShowDialog('Sucesso!', 'Registro alterado com sucesso!', TMessages.tpInformation);
   except
     On E: Exception do
     begin
-      Result := False;
+      Dialog.ShowDialog('Algo de errado aconteceu!', E.Message, TMessages.tpError);
       Exit;
     end;
   end;
 end;
 
 {** DELETE  **}
-function TDAOBase<T>.delete(id: Integer): Boolean;
+procedure TDAOBase<T>.delete(id: Integer);
 begin
   var LObject := FContainer.Find(id);
   try
@@ -87,11 +89,11 @@ begin
     begin
       FContainer.delete(LObject);
     end;
-    Result := True;
+    Dialog.ShowDialog('Sucesso!', 'Registro deletado com sucesso!', TMessages.tpInformation);
   except
     On E: Exception do
     begin
-      Result := False;
+      Dialog.ShowDialog('Algo de errado aconteceu!', E.Message, TMessages.tpError);
       Exit;
     end;
   end;

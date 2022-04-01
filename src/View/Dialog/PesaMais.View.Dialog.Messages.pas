@@ -63,13 +63,13 @@ begin
     animation := TSkAnimatedImage.Create(Self);
 
     if FType = tpInformation then begin
-      animation.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\success.json')
+      animation.LoadFromFile('C:\PesaMais\Source\assets\success.json')
     end;
     if FType = tpWarning then begin
-      animation.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\warning.json')
+      animation.LoadFromFile('C:\PesaMais\Source\assets\warning.json')
     end;
     if FType = tpError then begin
-      animation.LoadFromFile('C:\Users\mikei\Documents\Projetos\PesaMais\assets\failed.json')
+      animation.LoadFromFile('C:\PesaMais\Source\assets\failed.json')
     end;
 
     animation.Parent := Self.LayoutAnimacao;

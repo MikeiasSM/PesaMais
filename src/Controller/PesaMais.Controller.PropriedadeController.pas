@@ -4,12 +4,13 @@ interface
 
 uses
   PesaMais.Model.Dao.DaoBase, System.Generics.Collections,
-  PesaMais.Model.Entities.Propriedade;
+  PesaMais.Model.Entities.Propriedade, PesaMais.View.Dialog.Messages;
 type
   TPropriedadeController = class
 
   private
     DAO : TDAOBase<TPROPRIEDADE>;
+    Dialog : TFormMessage;
   public
     function Insert(obj : TPROPRIEDADE) : String;
     function Update(obj : TPROPRIEDADE) : String;
@@ -26,7 +27,7 @@ implementation
 
 constructor TPropriedadeController.Create;
 begin
-
+  Dialog := TFormMessage.Create(nil);
 end;
 
 class function TPropriedadeController.New: TPropriedadeController;
@@ -37,28 +38,25 @@ end;
 function TPropriedadeController.Insert(obj: TPROPRIEDADE) : String;
 begin
   DAO := TDAOBase<TPROPRIEDADE>.Create;
-  if DAO.insert(obj) then
-    Result := 'Registro salvo com sucesso!'
+  if Assigned(obj) then
+    DAO.insert(obj)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPropriedadeController.Update(obj: TPROPRIEDADE) : String;
 begin
   DAO := TDAOBase<TPROPRIEDADE>.Create;
-  if DAO.update(obj, obj.id_propriedade) then
-    Result := 'Registro alterado com sucesso!'
+  if Assigned(obj) then
+    DAO.update(obj, obj.id_propriedade)
   else
-    Result := 'Erro ao executar ação!';
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPropriedadeController.Delete(obj_id: Integer): String;
 begin
   DAO := TDAOBase<TPROPRIEDADE>.Create;
-  if DAO.Delete(obj_id) then
-    Result := 'Registro deletado com sucesso!'
-  else
-    Result := 'Erro ao executar ação!';
+  DAO.Delete(obj_id);
 end;
 
 function TPropriedadeController.FindById(obj: TPROPRIEDADE): TPROPRIEDADE;
@@ -66,7 +64,10 @@ var
   Retorno : String;
 begin
   DAO := TDAOBase<TPROPRIEDADE>.Create;
-  Result := DAO.findById(obj.id_propriedade);
+  if Assigned(obj) then
+    Result := DAO.findById(obj.id_propriedade)
+  else
+    Dialog.ShowDialog('Algo de errado aconteceu!', 'O parâmetro obj está nulo.', TMessages.tpError);
 end;
 
 function TPropriedadeController.FindAll: TObjectList<TPROPRIEDADE>;
