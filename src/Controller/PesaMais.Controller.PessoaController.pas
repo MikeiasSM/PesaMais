@@ -8,7 +8,9 @@ uses
 
   { Pesa Mais}
   PesaMais.Model.Dao.DaoBase,
-  PesaMais.Model.Entities.Pessoa, PesaMais.View.Dialog.Messages;
+  PesaMais.Model.Entities.Pessoa,
+  PesaMais.Model.Entities.Endereco,
+  PesaMais.View.Dialog.Messages;
 
 type
 TPessoaController = class

@@ -26,6 +26,7 @@ type
   [Table('CIDADE', '')]
   [PrimaryKey('ID_CIDADE', AutoInc, NoSort, False, 'Chave primária')]
   [Sequence('GEN_ID_CIDADE')]
+  [OrderBy('NOME ASC')]
   TCIDADE = class
   private
     { Private declarations }

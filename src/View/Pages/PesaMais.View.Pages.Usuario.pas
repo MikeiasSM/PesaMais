@@ -201,8 +201,10 @@ begin
     usuario.ID_USUARIO := strToInt(StrGrid.Cells[0,Row]);
     usuario.USUARIO    := StrGrid.Cells[1,Row];
     usuario.SENHA      := StrGrid.Cells[2,Row];
-    usuario.ATIVO      := StrToBool(StrGrid.Cells[3,Row]);
-
+    if StrGrid.Cells[3,Row] = 'ATIVO' then
+      usuario.ATIVO := true
+    else
+      usuario.ATIVO := false;
     changeTabCadastro.ExecuteTarget(Self);
 
     txtCodigo.Text := IntToStr(usuario.ID_USUARIO);

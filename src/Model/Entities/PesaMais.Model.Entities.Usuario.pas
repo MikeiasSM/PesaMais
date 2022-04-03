@@ -26,6 +26,7 @@ type
   [Table('USUARIO', '')]
   [PrimaryKey('ID_USUARIO', AutoInc, NoSort, False, 'Chave primária')]
   [Sequence('GEN_ID_USUARIO')]
+  [OrderBy('ID_USUARIO ASC')]
   TUSUARIO = class
   private
     { Private declarations }

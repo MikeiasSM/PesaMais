@@ -38,21 +38,16 @@ type
     FNUMERO: Nullable<String>;
     FCOMPLEMENTO: Nullable<String>;
     FID_CIDADE: Integer;
-    FID_ESTADO: Integer;
     FOBS: Nullable<String>;
     FATIVO: Boolean;
     FID_PESSOA: Nullable<Integer>;
     FBAIRRO: Nullable<String>;
 
-    FCIDADE_0: Lazy< TCIDADE > ;
-    FESTADO_1: Lazy< TESTADO > ;
-    FPESSOA_2: Lazy< TPESSOA > ;
+    FCIDADE_0:  TCIDADE  ;
+    FPESSOA_1:  TPESSOA  ;
   public
     { Public declarations }
     constructor Create;
-    function getCIDADE_0 : TCIDADE;
-    function getESTADO_1 : TESTADO;
-    function getPESSOA_2 : TPESSOA;
     destructor Destroy; override;
     [Restrictions([NotNull])]
     [Column('ID_ENDERECO', ftInteger)]
@@ -82,12 +77,6 @@ type
     [Dictionary('ID_CIDADE', 'Mensagem de validação', '', '', '', taCenter)]
     property id_cidade: Integer read FID_CIDADE write FID_CIDADE;
 
-    [Restrictions([NotNull])]
-    [Column('ID_ESTADO', ftInteger)]
-    [ForeignKey('FK_ENDERECO_2', 'ID_ESTADO', 'ESTADO', 'ID_ESTADO', SetNull, SetNull)]
-    [Dictionary('ID_ESTADO', 'Mensagem de validação', '', '', '', taCenter)]
-    property id_estado: Integer read FID_ESTADO write FID_ESTADO;
-
     [Column('OBS', ftString, 255)]
     [Dictionary('OBS', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property obs: Nullable<String> read FOBS write FOBS;
@@ -106,14 +95,11 @@ type
     [Dictionary('BAIRRO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property bairro: Nullable<String> read FBAIRRO write FBAIRRO;
 
-    [Association(OneToOne,'ID_CIDADE','CIDADE','ID_CIDADE', True)]
-    property cidade: TCIDADE read getCIDADE_0;
+    [Association(OneToOne,'ID_CIDADE','CIDADE','ID_CIDADE')]
+    property cidade: TCIDADE read FCIDADE_0 write FCIDADE_0;
 
-    [Association(OneToOne,'ID_ESTADO','ESTADO','ID_ESTADO', True)]
-    property estado: TESTADO read getESTADO_1;
-
-    [Association(OneToOne,'ID_PESSOA','PESSOA','ID_PESSOA', True)]
-    property pessoa: TPESSOA read getPESSOA_2;
+    [Association(OneToOne,'ID_PESSOA','PESSOA','ID_PESSOA')]
+    property pessoa: TPESSOA read FPESSOA_1 write FPESSOA_1;
 
   end;
 
@@ -121,35 +107,19 @@ implementation
 
 constructor TENDERECO.Create;
 begin
+  FCIDADE_0 := TCIDADE.Create;
+  FPESSOA_1 := TPESSOA.Create;
 end;
 
 destructor TENDERECO.Destroy;
 begin
-  if Assigned(FCIDADE_0.Value) then
-    FCIDADE_0.Value.Free;
+  if Assigned(FCIDADE_0) then
+    FCIDADE_0.Free;
 
-  if Assigned(FESTADO_1.Value) then
-    FESTADO_1.Value.Free;
-
-  if Assigned(FPESSOA_2.Value) then
-    FPESSOA_2.Value.Free;
+  if Assigned(FPESSOA_1) then
+    FPESSOA_1.Free;
 
   inherited;
-end;
-
-function TENDERECO.getCIDADE_0 : TCIDADE;
-begin
-  Result := FCIDADE_0.Value;
-end;
-
-function TENDERECO.getESTADO_1 : TESTADO;
-begin
-  Result := FESTADO_1.Value;
-end;
-
-function TENDERECO.getPESSOA_2 : TPESSOA;
-begin
-  Result := FPESSOA_2.Value;
 end;
 
 initialization

@@ -17,11 +17,15 @@ uses
   dbcbr.mapping.register,
   dbcbr.mapping.attributes;
 
+  { PesaMais }
+  //PesaMais.Model.Entities.Endereco;
+
 type
   [Entity]
   [Table('PESSOA', '')]
   [PrimaryKey('ID_PESSOA', AutoInc, NoSort, False, 'Chave primária')]
   [Sequence('GEN_ID_PESSOA')]
+  [OrderBy('ID_PESSOA ASC')]
   TPESSOA = class
   private
     { Private declarations }
@@ -41,6 +45,7 @@ type
     FEMAIL: Nullable<String>;
     FOBS: Nullable<String>;
     FATIVO: Boolean;
+    //FENDERECOS : TObjectList<TENDERECO>;
   public
     { Public declarations }
     [Restrictions([NotNull])]
@@ -113,9 +118,26 @@ type
     [Column('ATIVO', ftBoolean)]
     [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property ativo: Boolean read FATIVO write FATIVO;
+    {
+    [Association(OneToMany, 'id_pessoa', 'endereco', 'id_pessoa')]
+    [CascadeActions([CascadeAutoInc, CascadeInsert, CascadeUpdate, CascadeDelete])]
+    property enderecos : TObjectList<TENDERECO> read FENDERECOS write FENDERECOS;
+    }
   end;
 
 implementation
+{
+constructor TPESSOA.Create;
+begin
+   FENDERECOS := TObjectList<TENDERECO>.Create;
+end;
+
+destructor TPESSOA.Destroy;
+begin
+  FENDERECOS.Free;
+  inherited;
+end;
+}
 
 initialization
   TRegisterClass.RegisterEntity(TPESSOA)

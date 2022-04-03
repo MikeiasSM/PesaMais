@@ -1,5 +1,7 @@
 program PesaMais;
 
+//{$APPTYPE CONSOLE}
+
 uses
   System.StartUpCopy,
   FMX.Forms,
@@ -34,11 +36,13 @@ uses
   PesaMais.Controller.PropriedadeController in 'src\Controller\PesaMais.Controller.PropriedadeController.pas',
   PesaMais.Controller.ProprietarioController in 'src\Controller\PesaMais.Controller.ProprietarioController.pas',
   PesaMais.Controller.UsuarioController in 'src\Controller\PesaMais.Controller.UsuarioController.pas',
-  PesaMais.Controller.Interfaces.InterfacesController in 'src\Controller\Interfaces\PesaMais.Controller.Interfaces.InterfacesController.pas';
+  PesaMais.Controller.Interfaces.InterfacesController in 'src\Controller\Interfaces\PesaMais.Controller.Interfaces.InterfacesController.pas' {$R *.res},
+  PesaMais.Utils.EditFormat in 'src\Utils\PesaMais.Utils.EditFormat.pas';
 
 {$R *.res}
 
 begin
+  ReportMemoryLeaksOnShutdown := False;
   Application.Initialize;
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TConnection, Connection);

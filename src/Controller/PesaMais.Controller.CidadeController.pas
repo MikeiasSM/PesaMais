@@ -74,9 +74,12 @@ begin
 end;
 
 function TCidadeController.FindAll: TObjectList<TCIDADE>;
+var
+  cidade : TCidade;
 begin
+  cidade := TCidade.Create;
   DAO := TDAOBase<TCIDADE>.Create;
-  Result := DAO.FindAll;
+  Result := DAO.findAll;
 end;
 
 end.
