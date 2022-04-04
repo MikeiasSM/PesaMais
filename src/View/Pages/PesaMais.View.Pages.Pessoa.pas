@@ -394,10 +394,7 @@ begin
   pessoa.apelido := txtFantasiaApelido.Text.Trim;
   pessoa.cpj_cnpj := remove_caracteres_especiais(txtCnpjCpf.Text.Trim);
   pessoa.rg_inscr := remove_caracteres_especiais(txtInscrRg.Text.Trim);
-  if chFisica.IsChecked then
-    pessoa.tipo_pessoa := 'F'
-  else
-    pessoa.tipo_pessoa := 'J';
+  pessoa.isFisica(chFisica.IsChecked);
   pessoa.fone1 := remove_caracteres_especiais(txtTelefone.Text.Trim);
   pessoa.fone2 := remove_caracteres_especiais(txtCelular.Text.Trim);
   pessoa.contato1 := txtContato1.Text.Trim;
@@ -428,6 +425,7 @@ end;
 procedure TFormPessoa.limpa_componentes_form_enredeco;
 begin
   txtCodigoEnd.Text := '';
+  txtDescricaoEnd.Text := '';
   txtLogradouro.Text := '';
   txtNumero.Text := '';
   txtBairro.Text := '';
@@ -508,10 +506,7 @@ begin
     pessoa.id_pessoa := StrToInt(StrGrid.Cells[0, Row]);
     pessoa.nome := StrGrid.Cells[1, Row];
     pessoa.apelido := StrGrid.Cells[2, Row];
-    if StrGrid.Cells[3, Row] = 'FISICA' then
-      pessoa.tipo_pessoa := 'F'
-    else
-      pessoa.tipo_pessoa := 'J';
+    pessoa.isFisica(StrGrid.Cells[3, Row]);
     pessoa.cpj_cnpj := StrGrid.Cells[4, Row];
     pessoa.rg_inscr := StrGrid.Cells[5, Row];
     pessoa.fone1 := StrGrid.Cells[6, Row];

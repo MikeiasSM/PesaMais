@@ -123,21 +123,37 @@ type
     [CascadeActions([CascadeAutoInc, CascadeInsert, CascadeUpdate, CascadeDelete])]
     property enderecos : TObjectList<TENDERECO> read FENDERECOS write FENDERECOS;
     }
+
+    procedure IsFisica(tipo : Boolean); overload;
+    procedure IsFisica(tipo : String);  Overload;
+    function ToString : String;
+
   end;
 
 implementation
-{
-constructor TPESSOA.Create;
+
+{ TPESSOA }
+
+procedure TPESSOA.IsFisica(tipo: Boolean);
 begin
-   FENDERECOS := TObjectList<TENDERECO>.Create;
+  if tipo = true then
+    FTIPO_PESSOA := 'F'
+  else
+    FTIPO_PESSOA := 'J';
 end;
 
-destructor TPESSOA.Destroy;
+procedure TPESSOA.IsFisica(tipo: String);
 begin
-  FENDERECOS.Free;
-  inherited;
+  if tipo = 'FISICA' then
+    FTIPO_PESSOA := 'F'
+  else
+    FTIPO_PESSOA := 'J';
 end;
-}
+
+function TPESSOA.ToString: String;
+begin
+  Result := IntToStr(FID_PESSOA) + ' - ' + FNOME;
+end;
 
 initialization
   TRegisterClass.RegisterEntity(TPESSOA)
