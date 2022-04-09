@@ -36,8 +36,16 @@ uses
   PesaMais.Controller.PropriedadeController in 'src\Controller\PesaMais.Controller.PropriedadeController.pas',
   PesaMais.Controller.ProprietarioController in 'src\Controller\PesaMais.Controller.ProprietarioController.pas',
   PesaMais.Controller.UsuarioController in 'src\Controller\PesaMais.Controller.UsuarioController.pas',
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
+  {$R}
   PesaMais.Controller.Interfaces.InterfacesController in 'src\Controller\Interfaces\PesaMais.Controller.Interfaces.InterfacesController.pas' {$R *.res},
-  PesaMais.Utils.EditFormat in 'src\Utils\PesaMais.Utils.EditFormat.pas';
+  PesaMais.Utils.EditFormat in 'src\Utils\PesaMais.Utils.EditFormat.pas',
+  PesaMais.View.Pages.LancBovino in 'src\View\Pages\PesaMais.View.Pages.LancBovino.pas' {Form1};
 
 {$R *.res}
 
@@ -47,5 +55,6 @@ begin
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TConnection, Connection);
   Application.CreateForm(TConnectionFactory, ConnectionFactory);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
