@@ -46,7 +46,8 @@ uses
   PesaMais.Model.Entities.Estado,
   PesaMais.View.Pages.Main,
   PesaMais.View.Pages.Usuario,
-  PesaMais.View.Pages.Pessoa;
+  PesaMais.View.Pages.Pessoa,
+  PesaMais.View.Pages.LancamentoBovino;
 
 type
   TFormPrincipal = class(TForm)
@@ -98,6 +99,7 @@ type
     procedure expRelatorioClick(Sender: TObject);
     procedure btnPessoaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnProcedimentoClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -137,6 +139,25 @@ begin
     Self.LayoutPrincipal.RemoveObject(0);
     Self.LayoutPrincipal.AddObject(pessoa.Layout1);
   end;
+end;
+
+procedure TFormPrincipal.btnProcedimentoClick(Sender: TObject);
+var
+  lancamento : TFormLancamento;
+begin
+
+  if (Assigned(lancamento)) then
+  begin
+    lancamento := TFormLancamento.Create(Self);
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(lancamento.Layout1);
+  end
+  else
+  begin
+    Self.LayoutPrincipal.RemoveObject(0);
+    Self.LayoutPrincipal.AddObject(lancamento.Layout1);
+  end;
+
 end;
 
 procedure TFormPrincipal.btnUsuarioClick(Sender: TObject);
