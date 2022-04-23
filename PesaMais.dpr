@@ -38,7 +38,8 @@ uses
   PesaMais.Controller.UsuarioController in 'src\Controller\PesaMais.Controller.UsuarioController.pas',
   PesaMais.Controller.Interfaces.InterfacesController in 'src\Controller\Interfaces\PesaMais.Controller.Interfaces.InterfacesController.pas' {$R *.res},
   PesaMais.Utils.EditFormat in 'src\Utils\PesaMais.Utils.EditFormat.pas',
-  PesaMais.View.Pages.LancamentoBovino in 'src\View\Pages\PesaMais.View.Pages.LancamentoBovino.pas' {FormLancamento};
+  PesaMais.View.Pages.LancamentoBovino in 'src\View\Pages\PesaMais.View.Pages.LancamentoBovino.pas' {FormLancamento},
+  PesaMais.View.Pages.LancamentoManejo in 'src\View\Pages\PesaMais.View.Pages.LancamentoManejo.pas' {FormLancamentoManejo};
 
 {$R *.res}
 
@@ -49,5 +50,6 @@ begin
   Application.CreateForm(TConnection, Connection);
   Application.CreateForm(TConnectionFactory, ConnectionFactory);
   Application.CreateForm(TFormLancamento, FormLancamento);
+  Application.CreateForm(TFormLancamentoManejo, FormLancamentoManejo);
   Application.Run;
 end.

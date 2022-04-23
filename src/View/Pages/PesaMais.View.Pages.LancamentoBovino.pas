@@ -123,7 +123,7 @@ end;
 
 procedure TFormLancamento.rdComprasChange(Sender: TObject);
 begin
-  if RadioButton3.IsChecked then begin
+  if rdCompras.IsChecked then begin
     rec1.Visible := true;
     rec2.Visible := true;
   end

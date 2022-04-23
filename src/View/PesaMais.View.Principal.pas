@@ -47,7 +47,7 @@ uses
   PesaMais.View.Pages.Main,
   PesaMais.View.Pages.Usuario,
   PesaMais.View.Pages.Pessoa,
-  PesaMais.View.Pages.LancamentoBovino;
+  PesaMais.View.Pages.LancamentoBovino, PesaMais.View.Pages.LancamentoManejo;
 
 type
   TFormPrincipal = class(TForm)
@@ -143,12 +143,12 @@ end;
 
 procedure TFormPrincipal.btnProcedimentoClick(Sender: TObject);
 var
-  lancamento : TFormLancamento;
+  lancamento : TFormLancamentoManejo;
 begin
 
   if (Assigned(lancamento)) then
   begin
-    lancamento := TFormLancamento.Create(Self);
+    lancamento := TFormLancamentoManejo.Create(Self);
     Self.LayoutPrincipal.RemoveObject(0);
     Self.LayoutPrincipal.AddObject(lancamento.Layout1);
   end
