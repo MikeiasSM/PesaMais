@@ -38,8 +38,6 @@ uses
 
   { PesaMais }
   PesaMais.View.Pages.Template,
-  PesaMais.Controller.UsuarioController,
-  PesaMais.Controller.Factory.ControllerFactory,
   PesaMais.Model.Entities.Usuario,
   PesaMais.Controller.Interfaces.InterfacesController,
   PesaMais.View.Dialog.Messages;
@@ -69,7 +67,6 @@ type
   private
     { Private declarations }
     Linha : Integer;
-    Controller : TUsuarioController;
     Dialog : TFormMessage;
 
     procedure popula_grid_usuarios;
@@ -109,7 +106,6 @@ begin
   inherited;
   if txtCodigo.Text <> '' then
   begin
-    Controller.Delete(StrToInt(txtCodigo.Text));
     limpa_componentes;
     changeTabListagem.ExecuteTarget(Self);
   end
@@ -138,7 +134,6 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      Controller.Insert(usuario);
       limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
 
@@ -149,7 +144,6 @@ begin
       usuario.USUARIO := txtNome.Text;
       usuario.SENHA := txtSenha1.Text;
       usuario.ATIVO := cbAtivo.IsChecked;
-      Controller.Update(usuario);
       limpa_componentes;
       changeTabListagem.ExecuteTarget(Self);
     end;
@@ -161,8 +155,6 @@ var
   i : Integer;
   list : TObjectList<TUSUARIO>;
 begin
-  list := Controller.FindAll;
-
   try
     StrGrid.Columns[0].Header := 'Codigo';
     StrGrid.Columns[1].Header := 'Usuário';
@@ -190,7 +182,6 @@ end;
 
 procedure TFormUsuario.setUsuarioController;
 begin
-  Controller := TControllerFactory.New.getUsuarioController;
 end;
 
 procedure TFormUsuario.StrGridCellDblClick(const Column: TColumn; const Row: Integer);

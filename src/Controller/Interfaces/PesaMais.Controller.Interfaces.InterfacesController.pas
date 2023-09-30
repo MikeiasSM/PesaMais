@@ -4,15 +4,7 @@ interface
 
 uses
   { System }
-  System.Generics.Collections,
-
-  { Pesa Mais}
-  PesaMais.Controller.UsuarioController,
-  PesaMais.Controller.PessoaController,
-  PesaMais.Controller.EnderecoController,
-  PesaMais.Controller.ProprietarioController,
-  PesaMais.Controller.PropriedadeController,
-  PesaMais.Controller.CidadeController;
+  System.Generics.Collections;
 type
 
   IController<T : class> = interface
@@ -24,15 +16,6 @@ type
     function FindById(Usuario : T) : IController<T>;
   end;
 
-  IControllerFactory = interface
-    ['{FAFA7982-2919-4284-98CF-C5CB8B33D3A3}']
-    function getUsuarioController      : TUsuarioController;
-    function getPessoaController       : TPessoaController;
-    function getEnderecoController     : TEnderecoController;
-    function getProprietarioController : TProprietarioController;
-    function getPropriedadeController  : TPropriedadeController;
-    function getCidadeController       : TCidadeController;
-  end;
 
 implementation
 

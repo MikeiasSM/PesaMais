@@ -7,102 +7,45 @@ uses
   DB,
   Classes,
   SysUtils,
-  Generics.Collections,
-
-  { ORMBr }
-  ormbr.types.blob,
-  ormbr.types.lazy,
-  dbcbr.types.mapping,
-  ormbr.types.nullable,
-  dbcbr.mapping.classes,
-  dbcbr.mapping.register,
-  dbcbr.mapping.attributes;
+  Generics.Collections;
 
 type
-  [Entity]
-  [Table('PROPRIETARIO', '')]
-  [PrimaryKey('ID_PROPRIETARIO', AutoInc, NoSort, False, 'Chave primária')]
-  [Sequence('GEN_ID_PROPRIETARIO')]
   TPROPRIETARIO = class
   private
-    { Private declarations } 
-        { Private declarations }
+    { Private declarations }
     FID_PROPRIETARIO: Integer;
     FNOME: String;
-    FAPELIDO: Nullable<String>;
-    FCPJ_CNPJ: Nullable<String>;
-    FRG_INSCR: Nullable<String>;
-    FFONE1: Nullable<String>;
-    FFONE2: Nullable<String>;
-    FCONTATO1: Nullable<String>;
-    FCONTATO2: Nullable<String>;
-    FEMAIL: Nullable<String>;
-    FOBS: Nullable<String>;
+    FAPELIDO: String;
+    FCPJ_CNPJ: String;
+    FRG_INSCR: String;
+    FFONE1: String;
+    FFONE2: String;
+    FCONTATO1: String;
+    FCONTATO2: String;
+    FEMAIL: String;
+    FOBS: String;
     FATIVO: Boolean;
     FTIPO_PROPRIETARIO: String;
   public
     { Public declarations }
-    [Restrictions([NotNull])]
-    [Column('ID_PROPRIETARIO', ftInteger)]
-    [Dictionary('ID_PROPRIETARIO', 'Mensagem de validação', '', '', '', taCenter)]
     property id_proprietario: Integer read FID_PROPRIETARIO write FID_PROPRIETARIO;
-
-    [Restrictions([NotNull])]
-    [Column('NOME', ftString, 60)]
-    [Dictionary('NOME', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property nome: String read FNOME write FNOME;
-
-    [Column('APELIDO', ftString, 60)]
-    [Dictionary('APELIDO', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property apelido: Nullable<String> read FAPELIDO write FAPELIDO;
-
-    [Column('CPJ_CNPJ', ftString, 15)]
-    [Dictionary('CPJ_CNPJ', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property cpj_cnpj: Nullable<String> read FCPJ_CNPJ write FCPJ_CNPJ;
-
-    [Column('RG_INSCR', ftString, 15)]
-    [Dictionary('RG_INSCR', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property rg_inscr: Nullable<String> read FRG_INSCR write FRG_INSCR;
-
-    [Column('FONE1', ftString, 15)]
-    [Dictionary('FONE1', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property fone1: Nullable<String> read FFONE1 write FFONE1;
-
-    [Column('FONE2', ftString, 15)]
-    [Dictionary('FONE2', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property fone2: Nullable<String> read FFONE2 write FFONE2;
-
-    [Column('CONTATO1', ftString, 30)]
-    [Dictionary('CONTATO1', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property contato1: Nullable<String> read FCONTATO1 write FCONTATO1;
-
-    [Column('CONTATO2', ftString, 30)]
-    [Dictionary('CONTATO2', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property contato2: Nullable<String> read FCONTATO2 write FCONTATO2;
-
-    [Column('EMAIL', ftString, 60)]
-    [Dictionary('EMAIL', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property email: Nullable<String> read FEMAIL write FEMAIL;
-
-    [Column('OBS', ftString, 255)]
-    [Dictionary('OBS', 'Mensagem de validação', '', '', '', taLeftJustify)]
-    property obs: Nullable<String> read FOBS write FOBS;
-
-    [Restrictions([NotNull])]
-    [Column('ATIVO', ftBoolean)]
-    [Dictionary('ATIVO', 'Mensagem de validação', '', '', '', taLeftJustify)]
+    property apelido: String read FAPELIDO write FAPELIDO;
+    property cpj_cnpj: String read FCPJ_CNPJ write FCPJ_CNPJ;
+    property rg_inscr: String read FRG_INSCR write FRG_INSCR;
+    property fone1: String read FFONE1 write FFONE1;
+    property fone2: String read FFONE2 write FFONE2;
+    property contato1: String read FCONTATO1 write FCONTATO1;
+    property contato2: String read FCONTATO2 write FCONTATO2;
+    property email: String read FEMAIL write FEMAIL;
+    property obs: String read FOBS write FOBS;
     property ativo: Boolean read FATIVO write FATIVO;
-
-    [Restrictions([NotNull])]
-    [Column('TIPO_PROPRIETARIO', ftString, 1)]
-    [Dictionary('TIPO_PROPRIETARIO', 'Mensagem de validação', '', '', '', taLeftJustify)]
     property tipo_proprietario: String read FTIPO_PROPRIETARIO write FTIPO_PROPRIETARIO;
   end;
 
 implementation
 
 initialization
-  TRegisterClass.RegisterEntity(TPROPRIETARIO)
 
 end.
 

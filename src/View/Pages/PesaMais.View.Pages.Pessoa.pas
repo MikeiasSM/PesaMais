@@ -43,12 +43,8 @@ uses
   PesaMais.Model.Entities.Pessoa,
   PesaMais.Model.Entities.Cidade,
   PesaMais.Controller.Interfaces.InterfacesController,
-  PesaMais.Controller.Factory.ControllerFactory,
-  PesaMais.Controller.PessoaController,
   PesaMais.View.Dialog.Messages,
-  PesaMais.Controller.CidadeController,
-  PesaMais.Utils.EditFormat, PesaMais.Model.Entities.Endereco,
-  PesaMais.Controller.EnderecoController;
+  PesaMais.Utils.EditFormat, PesaMais.Model.Entities.Endereco;
 
 type
 
@@ -163,9 +159,6 @@ type
   private
     { Private declarations }
 
-    ControllerPessoa : TPessoaController;
-    ControllerCidade : TCidadeController;
-    ControllerEndereco : TEnderecoController;
     Dialog : TFormMessage;
     enderecos : TObjectList<TEndereco>;
 
@@ -224,7 +217,6 @@ procedure TFormPessoa.btnExcluirClick(Sender: TObject);
 begin
   inherited;
   if txtCodigo.Text <> '' then begin
-    ControllerPessoa.Delete(StrToInt(txtCodigo.Text));
     limpa_componentes_form_pessoa;
     limpa_componentes_form_enredeco;
   end;
@@ -285,14 +277,12 @@ begin
    if txtCodigo.Text = '' then
     begin
       pessoa := preenche_objeto_com_edits;
-      ControllerPessoa.Insert(pessoa);
 
       if enderecos.Count > 0 then begin
 
         for endereco in enderecos do
         begin
           endereco.id_pessoa := pessoa.id_pessoa;
-          ControllerEndereco.Insert(endereco);
         end;
 
       end;
@@ -304,14 +294,12 @@ begin
     begin
       pessoa := preenche_objeto_com_edits;
       pessoa.id_pessoa := StrToInt(txtCodigo.Text.Trim);
-      ControllerPessoa.Update(pessoa);
        if enderecos.Count > 0 then begin
 
         for endereco in enderecos do
         begin
           if endereco.id_endereco = 0 then begin
             endereco.id_pessoa := pessoa.id_pessoa;
-            ControllerEndereco.Insert(endereco);
           end;
         end;
 
@@ -371,7 +359,6 @@ var
 begin
 
   Cidade := TCidade.Create;
-  listCidade := ControllerCidade.FindAll;
 
   cbCidade.Clear;
   cbCidade.BeginUpdate;
@@ -483,17 +470,14 @@ end;
 
 procedure TFormPessoa.setPessoaController;
 begin
-  ControllerPessoa := TControllerFactory.New.getPessoaController;
 end;
 
 procedure TFormPessoa.setCidadeController;
 begin
-  ControllerCidade := TControllerFactory.New.getCidadeController;
 end;
 
 procedure TFormPessoa.setEnderecoController;
 begin
-  ControllerEndereco := TControllerFactory.New.getEnderecoController;
 end;
 
 procedure TFormPessoa.StrGridCellDblClick(const Column: TColumn; const Row: Integer);
@@ -604,7 +588,6 @@ var
   i : Integer;
   list : TObjectList<TPESSOA>;
 begin
-  list := ControllerPessoa.FindAll;
 
   try
     StrGrid.Columns[0].Header := 'Codigo';

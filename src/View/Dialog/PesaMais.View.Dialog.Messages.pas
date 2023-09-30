@@ -53,6 +53,7 @@ procedure TFormMessage.ShowDialog(Titulo, SubTitulo: String; TypeMessage: TMessa
 var
   animation: TSkAnimatedImage;
 begin
+{
   try
     FTitulo := Titulo;
     FSubTitulo := SubTitulo;
@@ -79,7 +80,7 @@ begin
   finally
     animation.Free;
   end;
-
+}
 end;
 
 end.
